@@ -1,13 +1,13 @@
 # GitHub Pages 배포 워크플로.
-# 비공개 저장소(무료 플랜)에서는 Pages를 켤 수 없어 지금은 수동 실행만 열어둔다.
-# 공개 전환 후: Settings → Pages → Source를 "GitHub Actions"로 설정하고,
-# 아래 push 트리거의 주석을 해제하면 main에 push할 때마다 자동 배포된다.
+# 저장소를 공개로 전환하고 Settings → Pages → Source를 "GitHub Actions"로
+# 설정하기 전까지는 deploy 단계가 실패(빨간 X)로 표시될 수 있다 — 설정을
+# 마치면 다음 push부터 정상 배포된다.
 name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
 
 permissions:
   contents: read

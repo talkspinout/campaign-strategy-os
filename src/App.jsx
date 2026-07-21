@@ -1148,12 +1148,31 @@ export default function CampaignStrategyOS() {
   };
 
   const copyMarkdown = async () => {
-    try {
-      await navigator.clipboard.writeText(docMarkdown(view === "brief"));
+    const text = docMarkdown(view === "brief");
+    const markCopied = () => {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
+    };
+    try {
+      await navigator.clipboard.writeText(text);
+      markCopied();
+      return;
     } catch {
-      showNotice("클립보드 복사에 실패했습니다.");
+      /* Clipboard API가 막힌 환경(권한 없는 iframe 등)은 아래 폴백으로 재시도 */
+    }
+    try {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const done = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      if (!done) throw new Error("copy command failed");
+      markCopied();
+    } catch {
+      showNotice("클립보드 복사에 실패했습니다. 인쇄·PDF 저장을 이용해 주세요.");
     }
   };
 
