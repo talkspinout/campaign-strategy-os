@@ -1,0 +1,45 @@
+# GitHub Pages 배포 워크플로.
+# 비공개 저장소(무료 플랜)에서는 Pages를 켤 수 없어 지금은 수동 실행만 열어둔다.
+# 공개 전환 후: Settings → Pages → Source를 "GitHub Actions"로 설정하고,
+# 아래 push 트리거의 주석을 해제하면 main에 push할 때마다 자동 배포된다.
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run verify:data
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
