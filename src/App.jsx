@@ -911,6 +911,7 @@ export default function CampaignStrategyOS() {
   const [autoSavedAt, setAutoSavedAt] = useState(null);
   const [copied, setCopied] = useState(false);
   const noticeTimerRef = useRef(null);
+  const previewCloseButtonRef = useRef(null);
 
   const templatesForType = useMemo(() => Object.values(TEMPLATES).filter((item) => item.typeId === selectedType), [selectedType]);
   const recoverable = project || boot;
@@ -937,7 +938,9 @@ export default function CampaignStrategyOS() {
 
   /* 화면 전환(작업 보드/전략 정리/연결 점검/최종 브리프)을 SPA 가상 페이지뷰로
      기록한다. 연결 점검 화면에 들어온 시점에는 그때의 경고(확인 필요) 개수도
-     함께 보내, 논리 점검 기능이 실제로 쓰이는지·얼마나 자주 경고가 뜨는지 본다. */
+     함께 보내, 논리 점검 기능이 실제로 쓰이는지·얼마나 자주 경고가 뜨는지 본다.
+     의존성은 view·screen만 둔다 — project까지 넣으면 카드를 고칠 때마다
+     화면 전환 이벤트가 다시 발화해 GA 집계가 부풀려진다. */
   useEffect(() => {
     if (!project || screen !== "workspace") return;
     pushOsEvent("os_view_change", { view });
@@ -946,11 +949,21 @@ export default function CampaignStrategyOS() {
       pushOsEvent("os_logic_check", { warning_count: warningCount });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [view, screen, project]);
+  }, [view, screen]);
 
   useEffect(() => () => {
     if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!previewExample) return;
+    previewCloseButtonRef.current?.focus();
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setPreviewExample(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [previewExample]);
 
   const showNotice = (message) => {
     if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
@@ -978,6 +991,7 @@ export default function CampaignStrategyOS() {
        존재를 모른 채 지나치지 않게 한다. 예시 복제로 시작하면 카드가 이미
        채워져 있으므로 꺼진 상태를 유지한다. */
     setShowExampleHints(true);
+    window.scrollTo(0, 0);
     pushOsEvent("os_template_start", { template_id: templateId, work_type: template.typeId });
   };
 
@@ -988,6 +1002,7 @@ export default function CampaignStrategyOS() {
     setDirty(true);
     setPreviewExample(null);
     setShowExampleHints(false);
+    window.scrollTo(0, 0);
     pushOsEvent("os_example_clone", { template_id: example.templateId });
   };
 
@@ -1000,6 +1015,7 @@ export default function CampaignStrategyOS() {
     setView("board");
     setShowExampleHints((recoverable.cards || []).length === 0);
     setDirty(project ? dirty : !recoverable.lastFileSavedAt || recoverable.updatedAt !== recoverable.lastFileSavedAt);
+    window.scrollTo(0, 0);
   };
 
   const clearSavedProject = () => {
@@ -1021,6 +1037,7 @@ export default function CampaignStrategyOS() {
     setScreen("library");
     setEditingCard(null);
     setActivityOpen(false);
+    window.scrollTo(0, 0);
   };
 
   const saveProjectFile = () => {
@@ -1237,9 +1254,9 @@ export default function CampaignStrategyOS() {
               <div className="flex flex-wrap items-center gap-2 mt-4 text-[11px] font-semibold text-teal-900"><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">관찰과 생각 펼치기</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">선택과 근거 정리</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-800 text-white px-3 py-1">실행 지침으로 수렴</span></div>
               <p className="mt-4 text-sm text-neutral-500">처음이라면 템플릿 카드의 <b className="text-neutral-700">채워진 예시 보기</b>로 감을 잡고, 예시를 복제해 내 내용으로 바꿔보는 것이 가장 빠릅니다.</p>
             </div>
-            <label className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-neutral-300 cursor-pointer text-sm hover:border-neutral-500">
+            <label className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-neutral-300 cursor-pointer text-sm hover:border-neutral-500 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal-700 has-[:focus-visible]:ring-offset-2">
               <FolderOpen size={16} /> 프로젝트 불러오기
-              <input type="file" accept="application/json,.json" onChange={importProject} className="hidden" />
+              <input type="file" accept="application/json,.json" onChange={importProject} className="sr-only" />
             </label>
           </div>
 
@@ -1287,7 +1304,7 @@ export default function CampaignStrategyOS() {
                   <article key={template.id} className="h-full min-h-[330px] rounded-2xl bg-white border border-neutral-200 p-5 flex flex-col">
                     <div className="flex items-start gap-2">
                       <div className="flex-1"><h3 className="font-bold">{templateLabel(template, draftAuthor)}</h3><span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-neutral-500">{template.badge}</span></div>
-                      <span className="text-[10px] text-neutral-300">{template.sections.length}개 섹션</span>
+                      <span className="text-[10px] text-neutral-400">{template.sections.length}개 섹션</span>
                     </div>
                     <p className="text-sm text-neutral-600 leading-relaxed mt-3">{template.desc}</p>
                     <p className="text-[10px] text-neutral-400 mt-3">{template.source}</p>
@@ -1309,7 +1326,7 @@ export default function CampaignStrategyOS() {
             <div role="dialog" aria-modal="true" aria-labelledby="example-preview-title" className="w-full max-w-6xl max-h-[92vh] overflow-hidden rounded-3xl bg-stone-100 shadow-2xl" onClick={(event) => event.stopPropagation()}>
               <div className="p-5 sm:p-7 border-b border-neutral-200 flex items-start gap-4">
                 <div className="flex-1"><p className="text-[10px] font-bold tracking-wider text-teal-800">{templateLabel(TEMPLATES[previewExample.templateId], draftAuthor)}의 채워진 예시 · 학습용 가상 사례</p><h2 id="example-preview-title" className="text-2xl font-bold mt-1">{previewExample.title}</h2><p className="text-sm text-neutral-500 mt-2">{previewExample.desc}</p></div>
-                <button onClick={() => setPreviewExample(null)} aria-label="예시 닫기" className="p-2 rounded-full bg-white border border-neutral-200"><X size={18} /></button>
+                <button ref={previewCloseButtonRef} onClick={() => setPreviewExample(null)} aria-label="예시 닫기" className="p-2 rounded-full bg-white border border-neutral-200"><X size={18} /></button>
               </div>
               <div className="overflow-auto p-5 sm:p-7 max-h-[62vh]">
                 <div className="flex gap-3 min-w-max items-start">{(TEMPLATES[previewExample.templateId]?.sections || []).map((exampleSection, sectionIndex) => { const cards = previewExample.cards.filter((card) => card[0] === exampleSection.id); return <section key={exampleSection.id} className="w-80 rounded-2xl bg-stone-200/80 p-3"><div className="mb-3 min-h-12"><span className="text-[9px] font-bold text-teal-800">{String(sectionIndex + 1).padStart(2, "0")}</span><h3 className="font-bold text-sm mt-1">{exampleSection.title}</h3></div><div className="space-y-2">{cards.map((card, cardIndex) => { const meta = card[6] || {}; return <div key={`${exampleSection.id}-${cardIndex}`} className="min-h-[176px] rounded-xl bg-white border border-neutral-200 p-3 flex flex-col"><div className="flex items-center gap-1 min-h-6"><span className="text-[9px] rounded-full bg-stone-100 px-2 py-1 text-neutral-500">{CARD_ROLES[card[1]] || card[1]}</span><span className={`text-[9px] rounded-full border px-2 py-1 ${STATUSES[card[4]]?.badge || STATUSES.idea.badge}`}>{STATUSES[card[4]]?.label || "아이디어"}</span></div><p className="text-sm font-semibold mt-2 min-h-10">{card[2]}</p><p className="text-xs text-neutral-500 mt-1.5 leading-relaxed whitespace-pre-line">{card[3]}</p>{card[1] === "activity" && (meta.nextAction || meta.successSignal) && <div className="mt-auto pt-3"><div className="rounded-lg bg-indigo-50 px-2.5 py-2 text-[10px] text-indigo-800 space-y-1">{meta.nextAction && <p><b>다음 행동</b> · {meta.nextAction}</p>}{meta.successSignal && <p><b>성공 신호</b> · {meta.successSignal}</p>}</div></div>}{card[4] === "rejected" && card[5] && <p className="mt-auto pt-3 text-[10px] font-semibold text-rose-700">제외 이유 · {card[5]}</p>}</div>; })}</div></section>; })}</div>
@@ -1346,7 +1363,7 @@ export default function CampaignStrategyOS() {
           </div>
           <div className="lg:ml-auto flex items-center gap-1 bg-white border border-neutral-200 rounded-lg p-1 overflow-x-auto">
             {[["board", LayoutGrid, "작업 보드"], ["strategy", FileText, "전략 정리"], ["logic", Link2, "연결 점검"], ["brief", BookOpen, "최종 브리프"]].map(([key, Icon, label]) => (
-              <button key={key} onClick={() => setView(key)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm whitespace-nowrap ${view === key ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-800"}`}><Icon size={14} /> {label}</button>
+              <button key={key} onClick={() => { setView(key); window.scrollTo(0, 0); }} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm whitespace-nowrap ${view === key ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-800"}`}><Icon size={14} /> {label}</button>
             ))}
           </div>
           <div className="flex items-center gap-1">
@@ -1356,13 +1373,13 @@ export default function CampaignStrategyOS() {
                 : (autoSavedAt ? "임시저장 중 · 이 기기에만 보관, 아직 파일로 백업 안 함" : "저장 준비 중")}
             </span>
             <button onClick={saveProjectFile} title="프로젝트 파일 저장" aria-label="프로젝트 파일 저장" className="p-2 rounded-md border border-neutral-300 text-neutral-500 hover:text-neutral-900"><Save size={15} /></button>
-            <label title="프로젝트 불러오기" aria-label="프로젝트 불러오기" className="p-2 rounded-md border border-neutral-300 text-neutral-500 hover:text-neutral-900 cursor-pointer"><Upload size={15} /><input type="file" accept="application/json,.json" onChange={importProject} className="hidden" /></label>
+            <label title="프로젝트 불러오기" aria-label="프로젝트 불러오기" className="p-2 rounded-md border border-neutral-300 text-neutral-500 hover:text-neutral-900 cursor-pointer has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal-700 has-[:focus-visible]:ring-offset-2"><Upload size={15} /><input type="file" accept="application/json,.json" onChange={importProject} className="sr-only" /></label>
           </div>
         </div>
       </header>
 
       {storageWarning && <div role="alert" className="max-w-[1600px] mx-auto mt-3 px-4 print-hidden"><div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-xs text-amber-900">{storageWarning}</div></div>}
-      {!storageWarning && !project.lastFileSavedAt && project.cards.length >= BACKUP_NUDGE_CARD_COUNT && (
+      {!storageWarning && !project.lastFileSavedAt && project.updatedAt !== project.createdAt && project.cards.length >= BACKUP_NUDGE_CARD_COUNT && (
         <div role="alert" className="max-w-[1600px] mx-auto mt-3 px-4 print-hidden">
           <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-xs text-amber-900 flex flex-wrap items-center gap-2">
             <span className="flex-1 min-w-[220px]">카드가 {project.cards.length}장 쌓였는데 아직 파일로 백업하지 않았습니다. 임시저장은 이 브라우저에만 남아 있어, 데이터 삭제나 기기 변경 시 사라질 수 있습니다.</span>
@@ -1408,6 +1425,21 @@ export default function CampaignStrategyOS() {
             </section>
           )}
 
+          {project.sections.length > 3 && (
+            <div className="mb-3 flex items-center gap-1.5 overflow-x-auto pb-1">
+              <span className="shrink-0 text-[10px] font-bold text-neutral-400">섹션 이동</span>
+              {project.sections.map((navSection, navIndex) => (
+                <button
+                  key={navSection.id}
+                  onClick={() => document.getElementById(`board-section-${navSection.id}`)?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" })}
+                  className="shrink-0 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[11px] font-semibold text-neutral-600 hover:border-teal-600 hover:text-teal-800"
+                >
+                  {navIndex + 1}. {navSection.title}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className="overflow-x-auto pb-3">
             <div className="flex gap-3 min-w-max items-start">
               {project.sections.map((currentSection, sectionIndex) => {
@@ -1415,7 +1447,7 @@ export default function CampaignStrategyOS() {
                 const recommendedCards = CARD_DECKS[currentSection.defaultRole] || CARD_DECKS.note;
                 const hintCard = exampleForProject?.cards.find((card) => card[0] === currentSection.id);
                 return (
-                  <section key={currentSection.id} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (dragCardId) patchCard(dragCardId, { sectionId: currentSection.id }); setDragCardId(null); }} className="w-80 shrink-0 rounded-2xl bg-stone-200/70 p-3">
+                  <section key={currentSection.id} id={`board-section-${currentSection.id}`} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (dragCardId) patchCard(dragCardId, { sectionId: currentSection.id }); setDragCardId(null); }} className="w-80 shrink-0 rounded-2xl bg-stone-200/70 p-3">
                     {editingSection === currentSection.id ? (
                       <div className="rounded-xl bg-white border border-neutral-200 p-3 mb-3 space-y-2">
                         <input value={currentSection.title} onChange={(event) => patchSection(currentSection.id, { title: event.target.value })} className="w-full font-bold text-sm border-b border-neutral-200 pb-1 outline-none" />
@@ -1486,7 +1518,13 @@ export default function CampaignStrategyOS() {
                               <div className="flex items-center"><button onClick={() => removeCard(card.id)} className="text-[10px] text-rose-600">삭제</button><button onClick={() => { setEditingCard(null); setLinkDraft({ type: "therefore", targetId: "" }); }} className="ml-auto px-3 py-1 rounded bg-neutral-900 text-white text-[10px]">완료</button></div>
                             </div>
                           ) : (
-                            <div onClick={() => setEditingCard(card.id)} className="min-h-[176px] flex flex-col">
+                            <div
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => setEditingCard(card.id)}
+                              onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setEditingCard(card.id); } }}
+                              className="min-h-[176px] flex flex-col cursor-pointer"
+                            >
                               <div className="min-h-12 flex items-start gap-1.5"><p className="flex-1 text-sm font-semibold leading-snug">{card.title || <span className="text-neutral-300">제목 없음</span>}</p><button onClick={(event) => { event.stopPropagation(); patchCard(card.id, { includeInBrief: !isBriefIncluded(card) }); }} aria-label={isBriefIncluded(card) ? "브리프에서 제외" : "브리프에 포함"} aria-pressed={isBriefIncluded(card)} title={isBriefIncluded(card) ? "브리프에 포함됨" : "브리프에 포함"} className={`shrink-0 inline-flex items-center gap-1 rounded-lg border px-2 py-1 text-[10px] font-bold ${isBriefIncluded(card) ? "bg-teal-800 border-teal-800 text-white shadow-sm" : "bg-white/80 border-neutral-300 text-neutral-600 hover:border-teal-700 hover:text-teal-800"}`}><Bookmark size={14} className={isBriefIncluded(card) ? "fill-current" : ""} /> 브리프</button><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span></div>
                               <div className="flex-1">{card.content && <p className="text-xs text-neutral-500 leading-relaxed mt-1.5 line-clamp-5 whitespace-pre-wrap">{card.content}</p>}
                               {card.evidence && <p className="text-[10px] text-teal-800 bg-teal-50 rounded px-2 py-1 mt-1.5 line-clamp-2">근거: {card.evidence}</p>}
