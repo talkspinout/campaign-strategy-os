@@ -74,39 +74,48 @@ try {
     }
   }
 
-  // EXAMPLES는 12개 템플릿 중 blank(자유 보드)만 예시가 구조적으로 불가능하다.
-  // 나머지 11개는 모두 최소 1개 예시가 있어야 "예시 힌트" 버튼이 항상 노출된다.
-  const templateIdsWithExample = new Set(EXAMPLES.map((example) => example.templateId));
+  // 예시는 "이 템플릿을 채우면 이렇게 된다"를 보여주는 템플릿 데모다.
+  // blank(자유 보드)는 섹션을 사용자가 직접 정의하므로 예외이고,
+  // 나머지 11개 템플릿은 정확히 1개씩 예시를 가져야 한다.
+  const exampleCountByTemplate = new Map();
+  EXAMPLES.forEach(({ templateId }) => exampleCountByTemplate.set(templateId, (exampleCountByTemplate.get(templateId) || 0) + 1));
+  assert.ok(!exampleCountByTemplate.has("blank"), "자유 보드에는 예시를 두지 않습니다.");
   Object.keys(TEMPLATES).filter((id) => id !== "blank").forEach((id) => {
-    assert.ok(templateIdsWithExample.has(id), `템플릿 ${id}에 대한 예시가 없어 "예시 힌트" 버튼이 뜨지 않습니다.`);
+    assert.equal(exampleCountByTemplate.get(id), 1, `템플릿 ${id}의 예시는 정확히 1개여야 합니다 (현재 ${exampleCountByTemplate.get(id) || 0}개).`);
   });
 
-  const reconstructedExamples = EXAMPLES.filter(({ basis }) => basis.includes("실제"));
-  assert.ok(reconstructedExamples.length >= 7, "실제 제안 구조를 익명 재구성한 예시가 충분해야 합니다.");
-  reconstructedExamples.forEach((example) => {
-    assert.ok(example.anonymization, `${example.id} 예시에 익명화 기준이 필요합니다.`);
-    assert.ok(example.reconstruction, `${example.id} 예시에 재구성 설명이 필요합니다.`);
-    assert.ok(example.sourceMapId, `${example.id} 예시에 내부 출처 맵 ID가 필요합니다.`);
-  });
   const serializedExamples = JSON.stringify(EXAMPLES);
   assert.equal(
-    /(?:[A-Z]:\\|\.pdf\b|원본\s*파일)/i.test(serializedExamples),
+    /(?:[A-Z]:\\|\.pdf\b|원본\s*파일|원\s*제안서|실제\s*제안서)/i.test(serializedExamples),
     false,
-    "공개 예시에 로컬 경로·PDF명 등 내부 출처 흔적이 남아 있습니다.",
+    "공개 예시에 로컬 경로·PDF명·원본 제안서 언급 등 출처 흔적이 남아 있습니다.",
   );
 
-  const lifestyleExample = EXAMPLES.find(({ id }) => id === "proposal-lifestyle-app-launch");
-  const lifestyleCreativeCards = lifestyleExample.cards.filter(([sectionId]) => sectionId === "creative");
-  assert.ok(lifestyleCreativeCards.length >= 4, "생활형 앱 예시는 대표안·대안·제외안을 충분히 보여줘야 합니다.");
-  assert.ok(lifestyleCreativeCards.some((card) => card[4] === "rejected" && card[5]), "제외안에는 제외 이유가 필요합니다.");
+  // 예시는 대표안만 나열하는 폼이 아니라 선택의 근거를 보존하는 보드여야 한다:
+  // 모든 예시에 제외 이유가 붙은 제외안이 최소 1장 있어야 한다.
+  EXAMPLES.forEach((example) => {
+    assert.ok(
+      example.cards.some((card) => card[4] === "rejected" && card[5]),
+      `${example.id} 예시에 제외 이유가 붙은 제외안이 없습니다.`,
+    );
+  });
+
+  // 내장 예시는 논리 연결 점검에서 경고("확인 필요")가 하나도 나오면 안 된다.
+  // 활동·측정 단계가 없는 템플릿은 해당 항목이 "해당 없음"으로 뜨는 것까지 허용.
+  EXAMPLES.forEach((example) => {
+    const project = createProject(example.templateId, "예시 점검", "", "", example);
+    const review = buildLogicReview(project);
+    const warned = review.checks.filter(({ status }) => status === "needs-review");
+    assert.equal(warned.length, 0, `${example.id} 예시가 논리 점검 경고를 냅니다: ${warned.map(({ label }) => label).join(", ")}`);
+  });
 
   const logicExample = createProject("authorFlow", "논리 점검 예시", "", "", EXAMPLES.find(({ id }) => id === "proposal-character-world"));
   const logicReview = buildLogicReview(logicExample);
-  assert.ok(logicReview.checks.every(({ status }) => status === "connected"), "실제 제안서 기반 전략 예시는 모든 연결 점검을 통과해야 합니다.");
+  assert.ok(logicReview.checks.every(({ status }) => status === "connected"), "전략 전개형 예시는 모든 연결 점검을 통과해야 합니다.");
   assert.equal(logicReview.activityChains[0].card.activityPurpose, "relation");
   assert.ok(logicReview.activityChains[0].strategies.length > 0);
 
-  ["proposal-retail-character-narrator", "proposal-fnb-social-renewal", "proposal-global-retail-social"].forEach((exampleId) => {
+  ["proposal-fnb-social-renewal", "b2b-saas-trial-crm-roadmap", "proposal-office-brand-launch"].forEach((exampleId) => {
     const example = EXAMPLES.find(({ id }) => id === exampleId);
     const project = createProject(example.templateId, "논리 점검 예시", "", "", example);
     const review = buildLogicReview(project);
@@ -151,7 +160,7 @@ try {
   const quickWithRejectedActivity = { ...quickWithActivity, cards: [{ ...activityCard, status: "rejected" }] };
   assert.equal(checkStatus(quickWithRejectedActivity, "execution"), "not-applicable", "활동 카드를 제외하면 활성 카드 기준으로 다시 해당없음이어야 합니다.");
 
-  console.log("데이터 검증 통과: 템플릿, 활동 구조, 예시 익명화·구체성, 논리 연결 3상태, v2 마이그레이션, 미상 섹션 카드 복구");
+  console.log("데이터 검증 통과: 템플릿, 활동 구조, 템플릿당 예시 1개(제외안 포함·점검 경고 없음), 논리 연결 3상태, v2 마이그레이션, 미상 섹션 카드 복구");
 } finally {
   await server.close();
 }

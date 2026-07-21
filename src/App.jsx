@@ -35,7 +35,6 @@ const BACKUP_NUDGE_CARD_COUNT = 6;
 const WORK_TYPES = [
   {
     id: "strategic-brief",
-    number: "01",
     label: "전략 브리프",
     short: "핵심 선택을 한 장으로",
     desc: "타깃, 원하는 변화, 핵심 제안과 근거를 간결하게 정리합니다.",
@@ -43,7 +42,6 @@ const WORK_TYPES = [
   },
   {
     id: "strategy-flow",
-    number: "02",
     label: "전략 전개안",
     short: "관찰에서 전략과 실행까지",
     desc: "시장과 사용자의 관찰을 근거·해석·전략·실행으로 발전시킵니다.",
@@ -51,7 +49,6 @@ const WORK_TYPES = [
   },
   {
     id: "execution-plan",
-    number: "03",
     label: "실행기획안",
     short: "전략을 실제 계획으로",
     desc: "정해진 전략을 활동, 채널, 일정, 예산과 KPI로 구체화합니다.",
@@ -59,7 +56,6 @@ const WORK_TYPES = [
   },
   {
     id: "blank",
-    number: "04",
     label: "빈 보드",
     short: "나만의 방식으로",
     desc: "이미 자신의 방식이 있다면 섹션과 카드를 자유롭게 구성합니다.",
@@ -101,7 +97,7 @@ const TEMPLATES = {
     desc: "타깃의 생각·감정·행동과 브랜드 연결의 변화를 중심으로 봅니다.",
     source: "공개된 Ogilvy 계열 문항을 바탕으로 현대적으로 재구성",
     sections: [
-      section("background", "기획 배경", "기획 배경은 무엇인가요?", "시장과 브랜드의 출발 상황을 적습니다.", "observation"),
+      section("background", "기획 배경", "기획 배경은 무엇인가요?", "시장과 브랜드의 출발 상황을 적습니다. 왜 지금 새 캠페인이 필요한지가 드러나면 충분합니다.", "observation"),
       section("audience", "대화 상대", "우리는 누구에게 말할 것인가요?", "그들의 맥락과 현재 상태를 구체적으로 적습니다.", "observation"),
       section("effect", "원하는 영향", "생각·감정·행동·브랜드 연결에 어떤 영향을 주고자 하나요?", "현재와 원하는 상태를 대비합니다.", "decision"),
       section("thought", "핵심 사상", "반드시 남겨야 할 핵심 사상이나 인상은 무엇인가요?", "표현보다 먼저 남겨야 할 생각을 정합니다.", "decision"),
@@ -181,7 +177,7 @@ const TEMPLATES = {
     desc: "시장과 경쟁의 변화에서 브랜드가 차지할 고유한 위치를 찾습니다.",
     source: "[이름] 전략 전개형 브리프의 브랜드 포지셔닝 변형",
     sections: [
-      section("market", "시장 변화", "고객의 선택 기준과 시장의 언어는 어떻게 변하고 있나요?", "변화의 방향을 관찰합니다.", "observation"),
+      section("market", "시장 변화", "고객의 선택 기준과 시장의 언어는 어떻게 변하고 있나요?", "검색어, 후기, 경쟁사의 광고 문구처럼 변화가 실제로 드러난 신호를 적습니다.", "observation"),
       section("competition", "경쟁 구도", "경쟁자는 어떤 가치와 위치를 차지하고 있나요?", "제품 기능을 넘어 인식의 지도를 봅니다.", "evidence"),
       section("asset", "브랜드 자산", "우리만 말할 수 있는 사실과 자산은 무엇인가요?", "브랜드의 말할 자격을 찾습니다.", "evidence"),
       section("target", "타깃 · 긴장", "누구의 어떤 고민과 욕구를 해결할 수 있나요?", "타깃의 현실적인 긴장을 적습니다.", "interpretation"),
@@ -247,7 +243,7 @@ const TEMPLATES = {
     desc: "목표 행동, 세그먼트, 메시지, 노출 시점과 리텐션 지표를 연결합니다.",
     source: "서비스 활성화와 CRM 운영을 위한 범용 실행 구조",
     sections: [
-      section("behavior", "목표 행동", "사용자가 반복해야 할 핵심 행동은 무엇인가요?", "제품 가치와 연결된 행동을 정합니다.", "decision"),
+      section("behavior", "목표 행동", "사용자가 반복해야 할 핵심 행동은 무엇인가요?", "'가입'처럼 넓은 행동보다 '첫 결과물 만들기'처럼 구체적인 행동으로 정합니다.", "decision"),
       section("barrier", "사용자 장벽", "그 행동을 하지 않는 이유는 무엇인가요?", "행동·이해·신뢰의 장벽을 적습니다.", "observation"),
       section("trigger", "촉발 장치", "어떤 계기와 보상이 행동을 시작하게 하나요?", "메시지와 제품 장치를 함께 봅니다.", "hypothesis"),
       section("segment", "세그먼트 · 시점", "누구에게 언제 노출해야 하나요?", "사용 상태와 타이밍을 구분합니다.", "activity", "execution"),
@@ -273,10 +269,6 @@ const EXAMPLES = [
     templateId: "quick",
     title: "B2B 설계 서비스 런칭 브리프 사례",
     target: "도입 비용과 학습 부담을 낮추려는 설계 실무자와 예비 사용자",
-    basis: "실제 제안 구조 기반 · 익명 재구성",
-    anonymization: "브랜드·제품명·파트너·고유 카피·수치를 재구성했으며 실제 성과는 포함하지 않았습니다.",
-    reconstruction: "런칭 단계, 제품 이해 콘텐츠, 리뷰·검색의 역할만 유지하고 소재명과 표현은 새로 작성했습니다.",
-    sourceMapId: "software-launch",
     desc: "제품 이해에서 사이트 탐색, 이벤트 참여, 가입·사용으로 이어지는 런칭 제안의 핵심 구조",
     cards: [
       ["goal", "decision", "인지에서 가입·사용까지 이어지는 초기 수요 신호 확보", "제품 인지만 따로 보지 않고 브랜드명 검색과 사이트 유입을 선행 신호로, 이벤트 참여와 가입·사용을 결과 신호로 구분한다.", "selected"],
@@ -289,42 +281,16 @@ const EXAMPLES = [
     ],
   },
   {
-    id: "proposal-lifestyle-app-launch",
-    typeId: "strategic-brief",
-    templateId: "quick",
-    title: "생활형 앱 런칭 브리프 사례",
-    target: "필요할 때마다 여러 채널을 오가며 생활 정보를 찾는 모바일 사용자",
-    basis: "복수 실제 제안 구조 기반 · 익명 재구성",
-    anonymization: "앱·기업·크리에이터 이름, 원문 제목, 해시태그와 목표 수치를 모두 일반화했습니다.",
-    reconstruction: "사전–런칭–활성화 단계와 기능·사용 장면·후기의 콘텐츠 역할을 조합하고 크리에이티브는 새로 작성했습니다.",
-    sourceMapId: "lifestyle-app-launch",
-    desc: "기능 소개를 실제 생활 장면과 사용 증명으로 바꿔 설치와 첫 사용까지 연결한 런칭 구조",
-    cards: [
-      ["goal", "decision", "앱을 아는 것에서 첫 저장·첫 사용까지 이동", "도달과 설치만으로 끝내지 않는다. 기능 이해와 상세 페이지 탐색을 선행 신호로, 설치 후 첫 저장 또는 첫 실행을 결과 신호로 본다.", "selected"],
-      ["mechanism", "idea", "생활 문제 발견 → 해결 장면 확인 → 앱 탐색 → 첫 행동", "익숙한 불편을 먼저 보여주고, 실제 화면으로 해결 과정을 증명한 뒤, 저장해 둔 정보를 앱에서 바로 써보게 한다.", "selected"],
-      ["reference", "evidence", "사용 장면이 분명한 후기와 검색형 가이드를 함께 검증", "후기 자체의 화제성보다 어떤 문제를 어떤 기능으로 해결했는지, 검색 이후 앱 탐색과 첫 행동으로 이어졌는지를 확인한다.", "candidate", "", { linksToSections: [{ sectionId: "goal", type: "supports" }] }],
-      ["creative", "idea", "대표안 · 냉장고 속 세 가지에서 시작하는 저장형 가이드", "타깃 상황 · 재료는 있지만 무엇을 할지 결정하기 어려운 저녁\n시각 장치 · 재료 아이콘 세 개가 앱 화면의 선택지로 바뀌는 과정\n화자·톤 · 빠르게 판단 기준을 주는 생활 에디터\n포맷 · 카드 6장 + 실제 화면 짧은 영상\n샘플 제목 · ‘오늘 가진 것으로 고르는 저녁 기준’\nCTA · 가이드 저장 → 앱에서 내 조건으로 다시 찾기", "selected"],
-      ["creative", "idea", "대안 · 검색부터 목록 저장까지 한 번에 보여주는 화면 숏폼", "첫 3초에 검색 피로를 보여주고 실제 화면에서 조건 선택, 결과 비교, 목록 저장까지 끊김 없이 시연한다. 기능 설명 자막은 행동마다 한 문장만 사용한다.", "candidate"],
-      ["creative", "idea", "대안 · 주말 한 끼 기록 챌린지", "사용자가 자신만의 선택 기준과 결과를 짧게 기록하도록 하고, 앱 안의 동일한 기능을 체험 진입점으로 연결한다. 참여 수보다 설치 후 첫 행동을 함께 확인한다.", "candidate"],
-      ["creative", "idea", "제외안 · 혜택만 강조하는 대규모 설치 이벤트", "혜택 종료 후 사용 이유가 남지 않고 기능 이해를 증명하지 못한다. 프로모션은 첫 행동을 보조하는 범위에서만 사용한다.", "rejected", "전략 방향과 불일치"],
-      ["feasible", "constraint", "실제 화면·검색 시나리오·후기 검수 범위를 먼저 확정", "촬영 전에 공개 가능한 기능과 데이터 상태를 확인한다. 크리에이터 수보다 대표 사용 장면의 완성도를 우선하고, 운영 여건에 따라 대안 소재 수를 조정한다.", "selected"],
-    ],
-  },
-  {
     id: "proposal-character-world",
     typeId: "strategy-flow",
     templateId: "authorFlow",
     title: "캐릭터 세계관 강화 전략 사례",
     target: "캐릭터의 설정을 해석하고 현실 경험으로 확장하는 Z·알파세대 팬",
-    basis: "복수 실제 제안 구조 기반 · 익명 재구성",
-    anonymization: "캐릭터·아티스트·공간·캠페인명과 고유 세계관 설정을 제거하고 역할 구조만 남겼습니다.",
-    reconstruction: "세계관 소비 행동과 캐릭터 운영 사례를 합성했으며 콘텐츠 제목과 참여 장치는 새로 작성했습니다.",
-    sourceMapId: "character-world",
     desc: "디지털 세대의 세계관 소비 행동을 세 단계 콘텐츠·경험 구조로 발전시킨 제안",
     cards: [
       ["situation", "observation", "팬은 세계관을 분석하고 몰입하며 현실에 적용한다", "설정과 서사를 해석하는 데서 끝나지 않고 캐릭터의 행동과 공간을 현실 경험으로 옮기며 관계를 강화한다.", "selected"],
       ["meaning", "interpretation", "설명보다 몰입의 다음 행동을 설계해야 한다", "성격과 서사를 이해시키고, 현실에서 만나게 하고, 직접 소통하게 해야 세계관이 지속적인 팬 관계로 확장될 수 있다는 가설이다.", "selected"],
-      ["reference", "evidence", "유사 IP의 현실 확장 사례는 추가 검증이 필요", "원 제안서는 타깃 행동 해석이 중심이며 경쟁 사례와 성과 근거는 제한적이다. 비교 사례를 보강할 때는 화제성보다 참여와 관계 지속 여부를 확인한다.", "candidate", "", { linksToSections: [{ sectionId: "choice", type: "supports" }] }],
+      ["reference", "evidence", "유사 IP의 현실 확장 사례는 추가 검증이 필요", "이 전략은 타깃 행동 해석이 중심이라 경쟁 사례와 성과 근거가 아직 제한적이다. 비교 사례를 보강할 때는 화제성보다 참여와 관계 지속 여부를 확인한다.", "candidate", "", { linksToSections: [{ sectionId: "choice", type: "supports" }] }],
       ["asset", "evidence", "아티스트·음악·공간·일상을 연결할 수 있는 실제 자산", "보유한 문화 자산과 캐릭터의 장소·취향·일상 설정을 콘텐츠와 오프라인 경험으로 확장할 수 있다.", "selected"],
       ["choice", "decision", "서사 이해 · 현실 체험 · 관계 강화의 세 축", "각 축은 캐릭터의 매력 이해, 현실에서의 경험, 소통과 보상이라는 다른 역할을 맡는다. 채널보다 역할 구조를 먼저 정한다.", "selected", "", { linksToSections: [{ sectionId: "action", type: "executes" }] }],
       ["defense", "evidence", "일회성 화제에 그치지 않도록 관계 장치를 남긴다", "현장 경험 이후 질문·기록·보상으로 이어지는 접점을 두고, 조회보다 참여와 재방문 신호를 확인해야 한다.", "candidate"],
@@ -336,35 +302,11 @@ const EXAMPLES = [
     ],
   },
   {
-    id: "proposal-retail-character-narrator",
-    typeId: "strategy-flow",
-    templateId: "authorFlow",
-    title: "유통 브랜드 캐릭터 화자 전략 사례",
-    target: "상품 정보는 빠르게 보고 싶지만 브랜드 채널의 일방적인 홍보에는 반응하지 않는 생활 소비자",
-    basis: "복수 실제 제안 구조 기반 · 익명 재구성",
-    anonymization: "유통사·캐릭터·작가·모델·상품명과 원문 말투를 모두 일반화했습니다.",
-    reconstruction: "브랜드 에디터와 마스코트의 역할 분담, 반복 시리즈와 참여 형식을 조합해 새 사례로 구성했습니다.",
-    sourceMapId: "retail-character-narrator",
-    desc: "정보형 화자와 관계형 마스코트가 서로 다른 일을 맡아 채널의 일관성과 친밀도를 만드는 구조",
-    cards: [
-      ["situation", "observation", "공식 계정의 상품 정보는 필요하지만 말투는 쉽게 광고처럼 보인다", "혜택과 상품 정보만 반복하면 접근성은 높아도 계정을 계속 볼 이유가 약하다. 반대로 캐릭터만 강조하면 구매 판단에 필요한 정보가 사라질 수 있다.", "selected"],
-      ["meaning", "interpretation", "하나의 캐릭터에게 모든 역할을 맡기지 않는다", "전문 정보와 생활 공감은 서로 다른 신뢰를 요구한다. 역할이 다른 두 화자를 두되 같은 세계관 규칙과 시각 체계로 묶는 편이 지속 가능하다는 가설이다.", "selected"],
-      ["reference", "evidence", "캐릭터 운영 방식은 제작 지속성과 참여 깊이로 비교", "유명도나 단기 반응보다 월별 제작 가능성, 소재 확장성, 팬이 선택에 개입할 여지가 있는지를 기준으로 검토한다.", "candidate", "", { linksToSections: [{ sectionId: "choice", type: "supports" }] }],
-      ["asset", "evidence", "상품 지식·매장 공간·직원 경험·시즌 이슈", "브랜드가 이미 가진 정보와 장소를 캐릭터의 관찰 대상과 행동 무대로 바꿀 수 있다. 새 세계관을 만들기 전에 반복 활용 가능한 자산을 확인한다.", "selected"],
-      ["choice", "decision", "정보를 정리하는 에디터와 관계를 만드는 마스코트", "에디터는 선택 기준과 혜택을 간결하게 설명하고, 마스코트는 일상 공감·장소 탐험·질문과 투표를 맡는다. 두 역할이 같은 게시물에서 경쟁하지 않게 한다.", "selected"],
-      ["defense", "evidence", "캐릭터가 상품 정보를 가리는 위험을 운영 원칙으로 제어", "게시 전 ‘이 콘텐츠의 주인공이 정보인지 관계인지’를 하나만 선택한다. 정보 카드에는 판단 기준을, 관계 카드에는 참여 행동을 반드시 남긴다.", "selected"],
-      ["concept", "decision", "필요한 정보는 또렷하게, 다시 찾을 이유는 친근하게", "브랜드를 사람처럼 꾸미는 것이 아니라 소비자가 정보를 이해하고 관계를 이어가는 두 가지 이유를 분리해 설계한다.", "selected"],
-      ["action", "activity", "대표 실행 · 살까 말까를 함께 정리하는 선택 투표", "에디터가 장점·적합한 상황·주의점을 정리하고 마스코트가 마지막 질문을 던진다. 찬반 투표 뒤 결과와 선택 기준을 후속 카드로 공개한다.", "selected", "", { activityPurpose: "understand", activityMethod: "owned-content", nextAction: "투표 후 자신의 선택 기준을 댓글로 남기고 후속 결과를 확인", successSignal: "저장·투표뿐 아니라 선택 이유 댓글과 후속 편 재방문이 발생", linksToSections: [{ sectionId: "choice", type: "executes" }] }],
-      ["action", "activity", "대안 실행 · 캐릭터의 매장 밖 하루 기록", "실물 소품이나 합성 이미지를 활용해 계절·지역·생활 장면을 탐험하고, 팬이 다음 장소를 제안하게 한다.", "candidate", "", { activityPurpose: "relation", activityMethod: "owned-content", nextAction: "장소 제안과 다음 편 확인으로 이동", successSignal: "연속 에피소드 재방문과 자발적 장소 제안이 이어짐", linksToSections: [{ sectionId: "choice", type: "executes" }] }],
-      ["action", "activity", "대안 실행 · 팬이 완성하는 프로필 장식", "색상·표정·소품을 선택해 자신만의 버전을 만들고 결과를 공유한다. 선정안을 실제 공식 프로필 장식으로 한시 적용한다.", "candidate", "", { activityPurpose: "experience", activityMethod: "promotion-offer", nextAction: "조합 만들기 후 결과 공유와 선정안 확인으로 이동", successSignal: "완성본 공유와 결과 발표 재방문이 함께 발생", linksToSections: [{ sectionId: "choice", type: "executes" }] }],
-    ],
-  },
-  {
     id: "anonymous-service-growth",
     typeId: "strategy-flow",
     templateId: "serviceGrowth",
     title: "생활 서비스 성장 · 반복 사용 전략 사례",
-    basis: "학습용 가상 사례",
+    target: "하나의 생활 앱보다 여러 서비스를 조합해 쓰는 20~30대 사용자",
     desc: "제품 기능을 사용자 습관과 리텐션 가설로 연결하는 작성 형식 예시",
     cards: [
       ["opportunity", "observation", "기본 메신저만으로 채워지지 않는 생활 동선", "사용자는 콘텐츠 공유, 자료 보관, 관심사 모임을 위해 여러 서비스를 함께 쓴다는 관찰에서 시작한다.", "selected"],
@@ -374,6 +316,7 @@ const EXAMPLES = [
       ["reference", "evidence", "유사 행동을 만든 서비스의 작동 원리 확인", "혜택의 크기보다 진입 계기와 반복 사용 이유가 어떻게 연결됐는지 공개 자료로 확인한다.", "candidate", "", { linksToSections: [{ sectionId: "priority", type: "supports" }] }],
       ["priority", "decision", "첫 단계에서는 하나의 반복 행동만 검증", "모든 기능을 동시에 알리기보다 알림 이후 핵심 행동 하나를 우선 확인한다.", "selected", "", { linksToSections: [{ sectionId: "growth-action", type: "executes" }] }],
       ["growth-action", "activity", "초기 진입 → 첫 행동 → 반복 사용 촉진", "모집, 제품 내 안내, CRM의 역할을 나누고 다음 행동과 성공 신호를 붙인다.", "candidate", "", { activityPurpose: "relation", activityMethod: "crm-community", nextAction: "첫 행동을 완료한 사용자가 정해진 기간 안에 다시 방문", successSignal: "첫 행동 완료율과 반복 행동률이 함께 개선됨" }],
+      ["growth-action", "idea", "제외 · 전 기능 동시 홍보 캠페인", "모든 기능을 한꺼번에 알리면 검증하려던 반복 행동이 흐려진다. '하나의 행동만 먼저 검증한다'는 우선순위 선택과 충돌한다.", "rejected", "전략 방향과 불일치"],
     ],
   },
   {
@@ -382,17 +325,14 @@ const EXAMPLES = [
     templateId: "campaignPlan",
     title: "오피스 가구 브랜드 런칭 실행 사례",
     target: "업무 공간을 새로 구성하며 브랜드와 제품 정보를 함께 탐색하는 구매자",
-    basis: "실제 제안 구조 기반 · 익명 재구성",
-    anonymization: "브랜드·제품군·매체사·파트너·예산·성과 수치를 재구성했습니다.",
-    reconstruction: "구매 여정과 채널 역할 구조만 유지하고 메시지 및 실행 예시는 새로 작성했습니다.",
-    sourceMapId: "office-brand-launch",
     desc: "인지 도달, 리뷰·검색, 비교·구매 역할을 매체와 콘텐츠로 나눈 런칭 제안",
     cards: [
       ["goal", "decision", "브랜드 인지와 제품 장점 이해를 함께 만든다", "노출만 확보하지 않고 브랜드 검색, 제품 정보 탐색과 구매 검토로 이어지는 선행 행동을 확인한다.", "selected"],
-      ["message", "decision", "제품 장점을 한눈에 이해시키는 런칭 메시지", "인지용 영상과 탐색용 리뷰가 같은 핵심 효익을 서로 다른 깊이로 설명하도록 기준을 맞춘다.", "selected", "", { evidence: "원 제안서의 구매 경로 분석과 경쟁 브랜드 활동 단계 비교", linksToSections: [{ sectionId: "activities", type: "executes" }, { sectionId: "channel", type: "executes" }] }],
+      ["message", "decision", "제품 장점을 한눈에 이해시키는 런칭 메시지", "인지용 영상과 탐색용 리뷰가 같은 핵심 효익을 서로 다른 깊이로 설명하도록 기준을 맞춘다.", "selected", "", { evidence: "구매 여정 분석과 경쟁 브랜드 활동 단계 비교", linksToSections: [{ sectionId: "activities", type: "executes" }, { sectionId: "channel", type: "executes" }] }],
       ["activities", "activity", "인지 도달 → 리뷰·검색 → 비교·구매 검토", "영상 매체는 빠른 발견, 크리에이터와 리뷰는 신뢰·검색, 플랫폼 협업과 비교 정보는 구매 검토 역할을 맡는다.", "selected", "", { activityPurpose: "understand", activityMethod: "search-review", nextAction: "브랜드를 본 사용자가 제품명 검색과 상세 정보 확인으로 이동", successSignal: "브랜드 검색·리뷰 유입·제품 상세페이지 행동이 함께 증가" }],
+      ["activities", "idea", "제외 · 초기부터 대규모 오프라인 팝업", "브랜드 인지가 없는 상태의 팝업은 방문 동인이 약하고 비용 대비 검증 가치가 낮다. 인지·검색 단계가 자리잡은 뒤 재검토한다.", "rejected", "예산 초과"],
       ["channel", "activity", "영상·크리에이터·플랫폼을 고객 질문에 맞춰 배치", "모든 채널에 같은 소재를 복제하지 않고 발견, 이해, 비교 단계의 질문에 맞는 정보를 제공한다.", "candidate", "", { activityPurpose: "discover", activityMethod: "paid-media", nextAction: "인지 영상에서 검색·리뷰·제품 정보로 이동", successSignal: "영상 도달 이후 브랜드 탐색 행동이 확인됨" }],
-      ["schedule", "activity", "소재와 검색 근거를 먼저 준비한 뒤 도달을 확대", "원 제안서에는 세부 운영 일정이 충분하지 않으므로 제작·검수·플랫폼 협의의 선행 관계를 별도로 확정해야 한다.", "candidate"],
+      ["schedule", "constraint", "소재와 검색 근거를 먼저 준비한 뒤 도달을 확대", "세부 운영 일정은 아직 확정 전이므로 제작·검수·플랫폼 협의의 선행 관계를 먼저 정해야 한다.", "candidate"],
       ["budget", "constraint", "도달·리뷰·플랫폼 역할별 예산 구분", "총액만 정하지 않고 각 전략 축이 작동하는 데 필요한 최소 제작비와 매체비를 구분한다.", "selected"],
       ["kpi", "measurement", "인지 지표와 탐색·구매 신호를 함께 본다", "도달과 조회는 진단지표, 브랜드 검색과 제품 정보 행동은 선행지표, 구매·문의는 결과지표로 구분한다.", "selected"],
     ],
@@ -403,14 +343,10 @@ const EXAMPLES = [
     templateId: "contentPlan",
     title: "F&B 브랜드 SNS 재정비 사례",
     target: "익숙한 메뉴를 소비하지만 브랜드 채널을 계속 볼 이유는 아직 약한 모바일 사용자",
-    basis: "복수 실제 제안 구조 기반 · 익명 재구성",
-    anonymization: "브랜드·메뉴·페르소나·캠페인명·해시태그·운영 수치와 원문 소재명을 제거했습니다.",
-    reconstruction: "브랜드 정체성 진단, 시각 장치·화자·포맷, 콘텐츠 축과 채널 변환 원리를 조합했습니다.",
-    sourceMapId: "fnb-social-renewal",
     desc: "콘텐츠 물량보다 브랜드다운 시각·이야기·포맷을 먼저 정하고 저장·참여·구매 검토로 연결한 운영안",
     cards: [
       ["objective", "decision", "많이 발행하는 채널에서 기억할 이유가 있는 채널로 전환", "도달량만 늘리지 않고 브랜드를 떠올리게 하는 시각 신호, 반복해서 기대할 시리즈, 메뉴 탐색 행동을 함께 만든다.", "selected"],
-      ["audience", "observation", "짧은 영상으로 발견하고 저장한 정보로 나중에 선택한다", "재미있는 콘텐츠에 반응해도 브랜드와 연결되지 않으면 기억이 남지 않는다. 발견용 포맷과 선택을 돕는 정보형 포맷의 역할을 분리한다.", "selected", "", { evidence: "실제 제안서의 타깃 미디어 이용 관찰과 콘텐츠 반응 진단을 익명 재구성", linksToSections: [{ sectionId: "objective", type: "supports" }] }],
+      ["audience", "observation", "짧은 영상으로 발견하고 저장한 정보로 나중에 선택한다", "재미있는 콘텐츠에 반응해도 브랜드와 연결되지 않으면 기억이 남지 않는다. 발견용 포맷과 선택을 돕는 정보형 포맷의 역할을 분리한다.", "selected", "", { evidence: "타깃 미디어 이용 관찰과 기존 콘텐츠 반응 진단", linksToSections: [{ sectionId: "objective", type: "supports" }] }],
       ["theme", "decision", "브랜드 장면 · 메뉴 선택 · 생활 공감 · 참여의 네 축", "브랜드 장면은 정체성, 메뉴 선택은 제품 이해, 생활 공감은 공유, 참여는 관계 형성을 맡는다. 모든 축에 같은 비중을 강제하지 않는다.", "selected"],
       ["format", "activity", "대표안 · 한 잔이 완성되는 과정을 따라가는 미니 V-log", "타깃 순간 · 메뉴를 고르기 전 재료와 만드는 과정을 궁금해하는 때\n시각 장치 · 손의 움직임과 재료 색을 반복 모티프로 사용\n화자·톤 · 설명보다 관찰을 돕는 담백한 1인칭\n포맷 · 짧은 세로 영상 + 저장용 메뉴 카드\n샘플 제목 · ‘오늘 고른 한 잔이 만들어지는 순서’", "selected", "", { activityPurpose: "understand", activityMethod: "owned-content", nextAction: "영상 시청 후 메뉴 카드 저장과 상세 정보 확인으로 이동", successSignal: "완주율과 저장이 메뉴 상세 탐색으로 이어짐", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
       ["format", "activity", "대안 · 브랜드 색과 오브젝트를 활용한 월간 메뉴 큐레이션", "같은 촬영 장치 안에서 계절 상황별 선택 기준을 보여준다. 한 채널의 영상을 카드·검색형 글·짧은 모션으로 다시 편집하되 메시지는 유지한다.", "candidate", "", { activityPurpose: "discover", activityMethod: "owned-content", nextAction: "발견 콘텐츠에서 상황별 메뉴 비교로 이동", successSignal: "브랜드 연상 댓글과 저장·검색 행동이 함께 나타남", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
@@ -421,55 +357,16 @@ const EXAMPLES = [
     ],
   },
   {
-    id: "proposal-global-retail-social",
-    typeId: "execution-plan",
-    templateId: "contentPlan",
-    title: "글로벌 리테일 SNS 운영 사례",
-    target: "여행과 쇼핑 정보를 시각적으로 탐색하고 자신의 언어와 상황에 맞는 선택 근거를 원하는 사용자",
-    basis: "복수 실제 제안 구조 기반 · 익명 재구성",
-    anonymization: "기업·매장·지역·모델·상품·캠페인명과 과거 플랫폼 통계 및 운영 수치를 사용하지 않았습니다.",
-    reconstruction: "채널별 Push/Pull 역할, 매거진형 시리즈, 글로벌·로컬 변환과 카테고리 균형만 재구성했습니다.",
-    sourceMapId: "global-retail-social",
-    desc: "채널마다 같은 콘텐츠를 복제하지 않고 발견, 정보 확인, 참여의 일을 나눠 지역별 맥락으로 변환한 운영안",
-    cards: [
-      ["objective", "decision", "정보를 미는 채널과 찾아보게 하는 채널의 역할을 분리", "공지와 혜택은 빠르게 전달하고, 시각 콘텐츠는 사용자가 취향과 상황에 맞는 정보를 탐색하고 저장하도록 설계한다.", "selected"],
-      ["audience", "observation", "글로벌 사용자는 번역보다 자신의 상황에 맞는 맥락을 원한다", "같은 상품도 출발 전, 현지 방문 중, 귀국 전의 질문이 다르다. 문장만 번역하지 않고 사용 순간과 CTA를 지역별로 조정한다.", "selected", "", { evidence: "실제 제안서의 채널 역할 및 글로벌·로컬 운영 구조를 익명 재구성", linksToSections: [{ sectionId: "objective", type: "supports" }] }],
-      ["theme", "decision", "브랜드 장면 · 선택 가이드 · 공간 정보 · 참여 미션", "브랜드 장면은 기대감, 선택 가이드는 저장, 공간 정보는 방문 준비, 참여 미션은 관계 형성을 맡는다.", "selected"],
-      ["format", "activity", "대표안 · 한 달의 선택 기준을 모은 디지털 매거진", "시각 장치 · 한 가지 색과 오브젝트로 월간 표지를 통일\n화자·톤 · 여행을 준비하는 친구처럼 간결하게 안내\n포맷 · 3장 연결 피드 + 저장용 요약 + 짧은 영상\n샘플 제목 · ‘이번 이동에서 놓치지 않을 세 가지 기준’", "selected", "", { activityPurpose: "understand", activityMethod: "owned-content", nextAction: "매거진 저장 후 지역별 상세 가이드와 공간 정보 확인", successSignal: "저장과 프로필 탐색이 지역별 상세 콘텐츠로 이어짐", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
-      ["format", "activity", "대안 · 출발 전과 현지에서 달라지는 짧은 선택 가이드", "하나의 원본 정보에서 출발 전에는 준비 기준, 현지에서는 위치와 즉시 행동, 귀국 전에는 놓친 항목 점검으로 CTA를 바꾼다.", "candidate", "", { activityPurpose: "convert", activityMethod: "owned-content", nextAction: "현재 여행 단계에 맞는 공간·상품 정보 확인으로 이동", successSignal: "지역·단계별 상세 정보 클릭과 저장이 구분되어 나타남", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
-      ["format", "activity", "대안 · 색이나 테마를 따라 완성하는 방문 미션", "사용자가 여러 공간에서 테마에 맞는 장면을 찾고 자신의 기록을 남기게 한다. 참여 자체보다 다음 장소 탐색과 기록 완성을 중심에 둔다.", "candidate", "", { activityPurpose: "experience", activityMethod: "experience-event", nextAction: "첫 장면 발견 후 다음 장소 탐색과 기록 완성으로 이동", successSignal: "단일 참여보다 연속 장소 탐색과 완성 기록이 발생", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
-      ["calendar", "constraint", "글로벌 원본과 지역별 변환 범위를 먼저 합의", "모든 지역에 같은 물량을 강제하지 않는다. 변하지 않는 사실과 현지에서 바꿀 표현·사용 순간·CTA를 구분한 뒤 제작 가능 범위를 정한다.", "selected"],
-      ["metric", "measurement", "채널 역할별 저장·탐색·방문 준비 행동을 구분", "공지형 채널은 정보 확인, 시각 채널은 저장과 탐색, 참여 콘텐츠는 연속 행동을 본다. 과거 제안서의 수치나 플랫폼 일반론은 현재 근거로 사용하지 않는다.", "selected"],
-    ],
-  },
-  {
-    id: "generic-content-operation",
-    typeId: "execution-plan",
-    templateId: "contentPlan",
-    title: "전문 서비스 SNS 운영 예시",
-    basis: "학습용 가상 사례",
-    desc: "전문성을 어렵지 않게 전달하고 상담 행동까지 연결하는 작성 형식 예시",
-    cards: [
-      ["objective", "decision", "정보 소비를 상담 전 신뢰로 전환", "조회수보다 저장, 재방문과 상담 페이지 이동을 주요 행동으로 본다는 가정이다.", "selected"],
-      ["audience", "observation", "문제를 느끼지만 전문가 상담은 아직 부담스러운 사람", "용어보다 자신의 상황을 판단할 수 있는 기준을 원한다는 타깃 가설을 확인한다.", "candidate"],
-      ["theme", "idea", "상황 진단 · 오해 바로잡기 · 실제 해결 과정", "세 가지 콘텐츠 축이 발견에서 신뢰까지 서로 다른 역할을 맡는다.", "selected"],
-      ["format", "activity", "짧은 진단 영상과 저장용 체크리스트", "발견용 숏폼과 검토용 카드 콘텐츠의 역할을 나눈다.", "candidate", "", { activityPurpose: "understand", activityMethod: "owned-content", nextAction: "콘텐츠 저장·재방문 이후 상담 기준 확인으로 이동", successSignal: "저장과 재방문이 상담 페이지 유입으로 이어짐" }],
-      ["calendar", "activity", "지속 가능한 발행 리듬을 먼저 검증", "주당 발행 횟수는 제작 여건과 반응 데이터를 확인한 뒤 확정한다.", "candidate"],
-      ["metric", "measurement", "저장률 · 재방문 · 상담 전환", "콘텐츠 반응과 비즈니스 행동을 단계별로 연결해 본다.", "selected"],
-    ],
-  },
-  {
     id: "lifestyle-super-app-positioning",
     typeId: "strategy-flow",
     templateId: "positioning",
     title: "라이프스타일 슈퍼앱 포지셔닝 전략 사례",
     target: "가족과의 소통과 개인 습관 관리를 하나의 앱으로 원하는 2030 사용자",
-    basis: "학습용 가상 사례",
     desc: "메신저 시장을 지배하는 앱과 정면으로 겨루는 대신, 그 앱이 채우지 못하는 개인 습관·가족 소통 영역에서 슈퍼앱 포지션을 노린 가상 사례",
     cards: [
       ["market", "observation", "1위 메신저는 커뮤니케이션을 장악했지만 슈퍼앱 확장은 아직 제한적이다", "결제·콘텐츠 등으로 사업을 넓혔지만 이는 메신저 자체의 역량이라기보다 자본을 이용한 확장에 가깝다. 사용자는 여전히 평균 2개 이상의 메신저·소통 앱을 병행해서 쓴다.", "selected"],
       ["competition", "evidence", "역할이 분화된 인접 앱들이 각자의 자리를 차지하고 있다", "사진 공유 중심 앱은 콘텐츠·감성 공유에, 관심사 커뮤니티 앱은 정리·보관에 특화되며 1위 메신저가 못 채우는 자리를 하나씩 가져간다.", "selected"],
-      ["asset", "evidence", "가족 단위 소통과 개인 습관을 동시에 담을 수 있는 제품 구조", "가족 앨범, 이벤트 캘린더, 개인 리추얼(습관) 기능을 하나의 리워드 생태계로 묶을 수 있다.", "selected"],
+      ["asset", "evidence", "가족 단위 소통과 개인 습관을 동시에 담을 수 있는 제품 구조", "가족 앨범, 이벤트 캘린더, 개인 리추얼(습관) 기능을 하나의 리워드 생태계로 묶을 수 있다.", "selected", "", { linksToSections: [{ sectionId: "position", type: "supports" }] }],
       ["target", "interpretation", "1인 생활과 가족 소통을 동시에 챙기고 싶은데 메신저는 거기까지 못 따라온다", "개인의 아침 루틴부터 가족과의 이벤트까지 메신저 하나로 해결하고 싶지만, 1위 메신저는 대화 기능 밖으로 잘 확장되지 않는다는 긴장이 있다.", "selected"],
       ["position", "decision", "메신저 카테고리 정면 승부 대신 '개인 습관 케어 + 가족 소통' 포지션을 택한다", "카테고리 자체를 넓히는 슈퍼앱 경쟁(결제·콘텐츠)에는 뛰어들지 않고, 사용자의 하루 생활 동선 안에 자리잡는 방향을 선택한다.", "selected"],
       ["expression", "idea", "대표안 · 리워드로 연결하는 생활 습관 루프", "아침 알림으로 하루를 시작하면 리워드 포인트를 적립하고, 가족 앨범·이벤트 캘린더 사용에도 같은 포인트를 연결해 생활 전반에 사용 이유를 만든다.", "selected"],
@@ -483,12 +380,12 @@ const EXAMPLES = [
     templateId: "crmPlan",
     title: "B2B SaaS 트라이얼 전환 CRM 로드맵 사례",
     target: "무료 체험 이후 결제 여부를 아직 정하지 못한 협업 툴 트라이얼 사용자",
-    basis: "학습용 가상 사례",
     desc: "가입 후 초기 설정 성공 여부로 고객을 나누고, 트라이얼 종료 시점까지 단계별 메시지와 리워드로 유료 전환을 유도한 CRM 로드맵 예시",
     cards: [
       ["behavior", "decision", "무료 체험 고객이 핵심 기능을 설정하고 첫 결과물을 만드는 것", "가입만으로는 부족하다. 데이터 연동이나 팀원 초대 같은 초기 설정을 마치고 첫 결과물을 만들어보는 행동을 목표 행동으로 정한다.", "selected"],
-      ["barrier", "observation", "초기 설정 단계에서 이탈이 몰린다", "가입은 하지만 데이터 연동·팀원 초대 같은 초기 설정 단계에서 이탈하는 고객이 많고, 설정을 마쳐도 트라이얼 종료 시점에 다시 이탈이 몰린다.", "selected"],
+      ["barrier", "observation", "초기 설정 단계에서 이탈이 몰린다", "가입은 하지만 데이터 연동·팀원 초대 같은 초기 설정 단계에서 이탈하는 고객이 많고, 설정을 마쳐도 트라이얼 종료 시점에 다시 이탈이 몰린다.", "selected", "", { evidence: "온보딩 단계별 이탈 데이터와 CS 문의 유형 분류", linksToSections: [{ sectionId: "behavior", type: "supports" }] }],
       ["trigger", "hypothesis", "설정 성공 여부에 따라 다른 유인을 주면 전환이 오를 것", "설정에 성공한 고객에게는 상위 기능 미리보기를, 실패한 고객에게는 온보딩 컨설팅 쿠폰을 주는 방식이 유효할 것이라는 가설이며, 아직 검증 전이다.", "candidate"],
+      ["trigger", "idea", "제외 · 전 고객 일괄 할인 쿠폰", "설정 성공·실패와 무관한 일괄 할인은 어떤 유인이 전환을 만들었는지 검증할 수 없게 하고, 정가에 대한 신뢰도 흔든다.", "rejected", "전략 방향과 불일치"],
       ["segment", "activity", "설정 성공/실패 기준으로 트라이얼 고객을 둘로 나눈다", "초기 설정 성공 고객에게는 상위 기능 미리보기와 사용 데이터 기반 요약을, 실패 고객에게는 온보딩 가이드와 컨설팅 쿠폰을 개별 발송한다.", "selected", "", { activityPurpose: "convert", activityMethod: "crm-community", nextAction: "설정 성공 고객은 상위 기능 미리보기 확인으로, 실패 고객은 온보딩 가이드 확인으로 이동", successSignal: "설정 성공 고객의 상위 기능 클릭률과 실패 고객의 재설정 시도율이 함께 오름", linksToSections: [{ sectionId: "behavior", type: "executes" }] }],
       ["journey", "activity", "D-7·D-day 2단계 메시지로 트라이얼 종료를 준비시킨다", "트라이얼 종료 7일 전에는 사용 요약과 플랜 비교를, 당일에는 결제 안내를 발송한다. 결제하지 않은 고객에게는 종료 직후 컨설팅 쿠폰을 다시 제공한다.", "selected", "", { activityPurpose: "convert", activityMethod: "crm-community", nextAction: "메시지 확인 후 플랜 비교 페이지 또는 결제 페이지로 이동", successSignal: "D-7 메시지 오픈 후 D-day 결제 전환율이 상승", linksToSections: [{ sectionId: "behavior", type: "executes" }] }],
       ["retention", "measurement", "트라이얼→유료 전환율과 미전환 고객의 재유입률을 함께 본다", "설정 성공/실패 세그먼트별로 전환율을 구분해서 보고, 미전환 고객은 곧바로 이탈 처리하지 않고 뉴스레터·제품 업데이트 알림 대상(MQL)으로 전환해 재유입 여지를 남긴다.", "selected"],
@@ -500,15 +397,15 @@ const EXAMPLES = [
     templateId: "ogilvy",
     title: "스킨케어 브랜드 신뢰 회복 브리프 사례",
     target: "성분 과장 광고에 지쳐 스킨케어 구매를 주저하는 20~30대",
-    basis: "학습용 가상 사례",
     desc: "성분 신뢰가 흔들린 카테고리에서, 근거 중심 메시지로 신뢰를 회복하려 한 오길비형 브리프 예시",
     cards: [
-      ["background", "observation", "기획 배경", "경쟁 브랜드들의 성분 과장 광고 논란이 이어지며 카테고리 전체에 대한 소비자 신뢰가 낮아진 시점", "selected"],
-      ["audience", "observation", "대화 상대", "과장 광고에 속아본 경험이 있어 구매 전 성분표를 직접 검색해보는 습관이 생긴 소비자", "selected"],
-      ["effect", "decision", "원하는 영향", "성분표를 확인하는 행동에서 '이 브랜드는 확인해봐도 괜찮다'는 확인 행동으로 옮겨가게 만드는 것", "selected"],
-      ["thought", "decision", "핵심 사상", "이 브랜드는 성분을 숨기지 않고 검증 과정 자체를 보여준다", "selected"],
-      ["belief", "evidence", "믿을 이유", "제3자 성분 검증 인증, 원료 출처 공개, 실제 사용자 테스트 결과 데이터", "selected"],
-      ["other", "constraint", "기타 중요사항", "과장 없이 절제된 톤을 유지하고, 인증 갱신 일정에 맞춰 소재를 업데이트해야 한다", "selected"],
+      ["background", "observation", "성분 과장 논란이 카테고리 전체의 신뢰를 무너뜨렸다", "경쟁 브랜드들의 과장 광고 논란이 이어지며, 어느 브랜드의 주장도 일단 의심받는 상황에서 출발한다.", "selected"],
+      ["audience", "observation", "구매 전에 성분표부터 검색해보는 소비자", "과장 광고에 속아본 경험이 있어, 브랜드의 말보다 자신이 직접 확인한 정보를 믿는 습관이 생겼다.", "selected"],
+      ["effect", "decision", "'확인해봐도 괜찮은 브랜드'라는 확신으로 바꾼다", "성분표를 의심하며 확인하는 행동을, 이 브랜드는 확인할수록 믿게 되는 경험으로 뒤집는 것이 목표다.", "selected"],
+      ["thought", "decision", "성분을 숨기지 않고 검증 과정 자체를 보여준다", "결과(순하다·좋다)를 주장하는 대신 검증의 과정을 보여주는 것이 남겨야 할 단 하나의 생각이다.", "selected"],
+      ["thought", "decision", "제외 · 업계 최초·최고 표현으로 신뢰를 주장한다", "주장형 표현은 지금의 불신 상황에서 역효과가 나고 심의 리스크도 크다. 보여줄 수 있는 것만 말한다.", "rejected", "근거 부족"],
+      ["belief", "evidence", "제3자 검증 인증·원료 출처 공개·사용자 테스트 데이터", "브랜드가 아니라 외부가 말해주는 근거를 앞세운다. 자체 실험 결과는 보조 근거로만 쓴다.", "selected", "", { linksToSections: [{ sectionId: "thought", type: "supports" }] }],
+      ["other", "constraint", "절제된 톤 유지와 인증 갱신 일정 연동", "과장 없는 톤을 일관되게 지키고, 인증 유효 기간이 갱신될 때마다 소재의 근거 표기를 함께 업데이트한다.", "selected"],
     ],
   },
   {
@@ -517,14 +414,14 @@ const EXAMPLES = [
     templateId: "saatchi",
     title: "구독형 밀키트 재구매 유도 브리프 사례",
     target: "구독은 했지만 두세 번 받고 해지를 고민하는 사용자",
-    basis: "학습용 가상 사례",
     desc: "편의성 때문에 가입했지만 반복되는 구성에 지친 구독자에게 단일 제안으로 재구매 이유를 다시 세운 사치&사치형 브리프 예시",
     cards: [
-      ["requirement", "decision", "캠페인 요구", "해지율을 낮추는 것이 비즈니스 요구이고, 커뮤니케이션 과제는 '매주 뭘 요리할지 고민하지 않아도 된다'는 가치를 다시 확인시키는 것", "selected"],
-      ["audience-current", "observation", "타깃의 현재", "처음엔 편의성 때문에 가입했지만, 반복되는 메뉴 구성에 질려 직접 장보기로 돌아갈지 고민 중", "selected"],
-      ["single-proposition", "decision", "단일 제안", "이번 주 뭘 먹을지 고민을 대신 해결해주는 유일한 구독", "selected"],
-      ["substantiation", "evidence", "제안의 근거", "매주 바뀌는 셰프 레시피, 이전 주문 데이터 기반 추천, 재구매 고객 후기", "selected"],
-      ["mandatory", "constraint", "필수 포함사항", "알레르기 표시, 정기 결제 해지 방법 명시, 식품 표시 규정 준수", "selected"],
+      ["requirement", "decision", "해지 방어가 목표, 과제는 '고민 해결' 가치의 재확인", "비즈니스 요구는 해지율을 낮추는 것. 커뮤니케이션 과제는 가입 이유였던 '매주 뭘 먹을지 고민하지 않아도 된다'를 다시 체감시키는 것이다.", "selected"],
+      ["audience-current", "observation", "편의로 가입했지만 반복 구성에 질려 해지를 저울질한다", "두세 번 받아보고 '어차피 비슷한 구성'이라는 인상이 생기면, 직접 장보기와 비교하며 구독의 이유를 다시 따지기 시작한다.", "selected"],
+      ["single-proposition", "decision", "이번 주 뭘 먹을지 고민을 대신 해결해주는 유일한 구독", "절대 잊혀서는 안 되는 단 하나의 제안. 다른 장점은 모두 이 제안을 뒷받침할 때만 쓴다.", "selected"],
+      ["single-proposition", "decision", "제외 · 가장 다양한 메뉴를 주는 구독", "다양성 소구는 '뭘 고를지'라는 결정 피로를 다시 키운다. 고민 해결이라는 단일 제안과 정면으로 충돌해 제외한다.", "rejected", "전략 방향과 불일치"],
+      ["substantiation", "evidence", "매주 바뀌는 셰프 레시피와 주문 데이터 기반 추천", "'고민을 대신한다'는 제안을 실제로 증명하는 두 장치. 재구매 고객 후기는 이 경험의 증언으로 활용한다.", "selected", "", { linksToSections: [{ sectionId: "single-proposition", type: "supports" }] }],
+      ["mandatory", "constraint", "알레르기 표시·해지 안내·식품 표시 규정", "알레르기 유발 성분 표시, 정기 결제 해지 방법 명시, 식품 표시 광고 규정을 모든 소재에서 지킨다.", "selected"],
     ],
   },
   {
@@ -533,14 +430,14 @@ const EXAMPLES = [
     templateId: "jwt",
     title: "중고 거래 플랫폼 신뢰 전환 T-Plan 사례",
     target: "안전 문제가 걱정돼 거래를 망설이는 잠재 사용자",
-    basis: "학습용 가상 사례",
     desc: "거래량은 늘었지만 안전 인식이 따라오지 못해 신규 전환이 정체된 상황을 T-Plan 구조로 점검한 예시",
     cards: [
-      ["where", "observation", "현재 위치", "거래량은 늘었지만 '사기당할까봐 불안하다'는 인식이 여전히 강해 신규 사용자 전환이 정체", "selected"],
-      ["why", "interpretation", "현재의 원인", "직거래 중심 구조에서 반복된 사기 사례가 커뮤니티에 회자되며, 안전결제 등 장치가 생겼음에도 인식이 따라오지 못함", "selected"],
-      ["could", "decision", "가능한 위치", "안전한 개인간 거래를 대표하는 플랫폼으로 인식을 전환한다. 사기 제로를 약속하진 않되 '문제가 생기면 끝까지 책임진다'는 위치를 목표로 한다", "selected"],
-      ["how", "idea", "이동 방법", "실제 분쟁 해결 사례를 콘텐츠로 만들고, 안전결제 이용률 자체를 브랜드 메시지로 노출한다", "selected"],
-      ["arrival", "measurement", "도달 여부", "브랜드 지표로 안전 인식 설문 점수를, 행동 지표로 안전결제 이용률과 재거래율을 함께 본다", "selected"],
+      ["where", "observation", "거래량은 늘었지만 안전 불안이 신규 전환을 막는다", "이용자 수와 거래량은 성장 중인데, '사기당할까봐 불안하다'는 인식 때문에 지켜보기만 하는 잠재 사용자가 쌓여 있다.", "selected"],
+      ["why", "interpretation", "반복된 사기 사례의 기억이 안전장치 인지를 앞선다", "직거래 중심 시절의 사기 사례가 커뮤니티에 계속 회자되면서, 안전결제 같은 장치가 생긴 뒤에도 인식이 과거에 머물러 있다.", "selected", "", { evidence: "미가입 사유 설문과 커뮤니티 언급 분석에서 '안전 불안'이 최상위", linksToSections: [{ sectionId: "could", type: "therefore" }] }],
+      ["could", "decision", "'문제가 생기면 끝까지 책임지는 플랫폼'으로 이동한다", "사기 제로처럼 지킬 수 없는 약속 대신, 문제 발생 시의 해결 경험으로 기억되는 현실적인 목표 위치를 정한다.", "selected"],
+      ["how", "idea", "분쟁 해결 사례와 안전결제 이용률을 전면에 세운다", "말로 하는 안전 약속 대신, 실제 분쟁이 해결된 과정을 콘텐츠로 만들고 안전결제 이용률 수치 자체를 메시지로 노출한다.", "selected"],
+      ["how", "idea", "제외 · '사기 0건'을 내세우는 안전 보증 캠페인", "실현할 수 없는 약속은 단 한 건의 사고로 신뢰를 더 크게 무너뜨린다. 목표 위치(현실적 책임)와도 어긋난다.", "rejected", "근거 부족"],
+      ["arrival", "measurement", "안전 인식 설문과 안전결제 이용률·재거래율로 확인", "브랜드 지표로 안전 인식 점수의 변화를, 행동 지표로 안전결제 이용률과 첫 거래 후 재거래율을 함께 본다.", "selected"],
     ],
   },
   {
@@ -549,14 +446,14 @@ const EXAMPLES = [
     templateId: "leo",
     title: "국산 커피 브랜드 이미지 전환 브리프 사례",
     target: "출근길엔 습관적으로 들르지만 약속 장소로는 다른 브랜드를 고르는 2030 직장인",
-    basis: "학습용 가상 사례",
     desc: "가격 경쟁력은 있지만 특별함이 없다는 인식에 머문 브랜드가 원두 경험으로 다시 찾을 이유를 만들려 한 레오버넷형 브리프 예시",
     cards: [
-      ["why-ad", "observation", "새 캠페인의 이유", "해외 프랜차이즈 대비 '가성비는 있지만 특별함은 없다'는 인식이 굳어져 성장이 정체됨", "selected"],
-      ["target", "observation", "타깃", "출근길엔 습관적으로 들르지만, 약속 장소로는 다른 브랜드를 고르는 2030 직장인", "selected"],
-      ["current", "observation", "현재 생각·행동", "가격 때문에 이용하지만 남에게 추천하거나 사진 찍어 공유할 만한 브랜드로는 생각하지 않음", "selected"],
-      ["desired", "decision", "원하는 생각·행동", "가격 대비 만족을 넘어, 원두 자체의 만족으로 다시 찾고 싶다고 느끼게 만든다", "selected"],
-      ["change-driver", "idea", "변화의 동력", "가격 메시지를 잠시 내리고, 원두 산지·로스팅 과정을 보여주는 경험으로 전환한다", "selected"],
+      ["why-ad", "observation", "'가성비뿐'이라는 인식이 성장을 멈춰 세웠다", "기존 가격 중심 커뮤니케이션으로는 해외 프랜차이즈 대비 '싸지만 특별하진 않다'는 인식을 바꾸지 못하고 있다.", "selected"],
+      ["target", "observation", "출근길엔 들르지만 약속 장소로는 다른 브랜드를 고르는 직장인", "혼자일 때는 습관처럼 이용하면서도, 누군가를 만나는 자리에서는 이 브랜드를 고르지 않는 2030 직장인.", "selected"],
+      ["current", "observation", "이용은 하지만 추천하거나 공유할 브랜드로 여기지 않는다", "가격 때문에 자주 사면서도 남에게 권하거나 사진을 찍어 올릴 이유는 못 느낀다.", "selected", "", { evidence: "구매 빈도 대비 추천 의향·SNS 언급이 현저히 낮은 조사 결과", linksToSections: [{ sectionId: "desired", type: "supports" }] }],
+      ["desired", "decision", "가격이 아니라 원두 만족으로 다시 찾게 만든다", "'싸서 간다'에서 '맛있어서 간다'로. 재방문의 이유가 관찰 가능하게 바뀌는 것이 원하는 변화다.", "selected"],
+      ["change-driver", "idea", "가격 메시지를 내리고 원두 산지·로스팅 경험을 보여준다", "제품이 본래 가진 이야기(산지, 로스팅 과정)를 꺼내 보여주는 것이 변화를 만들 가장 유력한 동력이다.", "selected"],
+      ["change-driver", "idea", "제외 · 가격 인하 프로모션 확대", "단기 방문은 늘겠지만 '가성비 브랜드' 인식을 더 굳혀 이미지 전환 목표와 정면 충돌한다.", "rejected", "전략 방향과 불일치"],
     ],
   },
 ];
@@ -592,7 +489,7 @@ const STATUSES = {
   candidate: { label: "후보", badge: "bg-indigo-50 text-indigo-700 border-indigo-200", card: "bg-indigo-50 border-indigo-200" },
   selected: { label: "대표안", badge: "bg-amber-100 text-amber-800 border-amber-300", card: "bg-amber-100 border-amber-300" },
   hold: { label: "보류", badge: "bg-stone-200 text-stone-600 border-stone-300", card: "bg-stone-100 border-stone-300" },
-  rejected: { label: "탈락", badge: "bg-rose-50 text-rose-700 border-rose-200", card: "bg-rose-50 border-rose-200" },
+  rejected: { label: "제외", badge: "bg-rose-50 text-rose-700 border-rose-200", card: "bg-rose-50 border-rose-200" },
   archived: { label: "보관", badge: "bg-neutral-100 text-neutral-400 border-neutral-200", card: "bg-neutral-100 border-neutral-200 opacity-70" },
 };
 
@@ -996,7 +893,6 @@ export default function CampaignStrategyOS() {
   const noticeTimerRef = useRef(null);
 
   const templatesForType = useMemo(() => Object.values(TEMPLATES).filter((item) => item.typeId === selectedType), [selectedType]);
-  const examplesForType = useMemo(() => EXAMPLES.filter((item) => item.typeId === selectedType), [selectedType]);
   const recoverable = project || boot;
 
   useEffect(() => {
@@ -1035,6 +931,10 @@ export default function CampaignStrategyOS() {
     setView("board");
     setDirty(true);
     setEditingCard(null);
+    /* 빈 보드에서 시작할 때는 예시 힌트를 켠 상태로 시작해, 힌트 기능의
+       존재를 모른 채 지나치지 않게 한다. 예시 복제로 시작하면 카드가 이미
+       채워져 있으므로 꺼진 상태를 유지한다. */
+    setShowExampleHints(true);
   };
 
   const startExample = (example) => {
@@ -1053,6 +953,7 @@ export default function CampaignStrategyOS() {
     setDraftTarget(recoverable.target || "");
     setScreen("workspace");
     setView("board");
+    setShowExampleHints((recoverable.cards || []).length === 0);
     setDirty(project ? dirty : !recoverable.lastFileSavedAt || recoverable.updatedAt !== recoverable.lastFileSavedAt);
   };
 
@@ -1267,6 +1168,7 @@ export default function CampaignStrategyOS() {
               <h1 className="text-3xl sm:text-4xl font-bold leading-tight">생각을 펼치고,<br className="hidden sm:block" /> 팀이 움직일 지침으로 정리하세요.</h1>
               <p className="text-neutral-600 mt-3 max-w-3xl leading-relaxed">브리프는 빈칸을 채우는 문서가 아니라, 작성자와 팀이 이후 과정에서 무엇을 선택하고 어떻게 움직일지 판단하게 하는 지침입니다.</p>
               <div className="flex flex-wrap items-center gap-2 mt-4 text-[11px] font-semibold text-teal-900"><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">관찰과 생각 펼치기</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">선택과 근거 정리</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-800 text-white px-3 py-1">실행 지침으로 수렴</span></div>
+              <p className="mt-4 text-sm text-neutral-500">처음이라면 템플릿 카드의 <b className="text-neutral-700">채워진 예시 보기</b>로 감을 잡고, 예시를 복제해 내 내용으로 바꿔보는 것이 가장 빠릅니다.</p>
             </div>
             <label className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-neutral-300 cursor-pointer text-sm hover:border-neutral-500">
               <FolderOpen size={16} /> 프로젝트 불러오기
@@ -1289,8 +1191,7 @@ export default function CampaignStrategyOS() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {WORK_TYPES.map((item) => (
                 <button key={item.id} onClick={() => setSelectedType(item.id)} className={`h-full text-left rounded-2xl border-2 p-5 transition flex flex-col ${selectedType === item.id ? "bg-white border-teal-700 shadow-sm" : "bg-white/60 border-transparent hover:bg-white"}`}>
-                  <span className="text-[10px] font-bold text-teal-800">{item.number}</span>
-                  <h2 className="font-bold text-lg mt-2">{item.label}</h2>
+                  <h2 className="font-bold text-lg">{item.label}</h2>
                   <p className="text-sm font-semibold text-neutral-700 mt-1">{item.short}</p>
                   <p className="text-xs text-neutral-500 leading-relaxed mt-2">{item.desc}</p>
                   <p className="text-[10px] text-neutral-400 mt-auto pt-4 border-t border-neutral-100">적합: {item.fit}</p>
@@ -1313,43 +1214,33 @@ export default function CampaignStrategyOS() {
             </div>
 
             <div className="grid md:grid-cols-2 xl:grid-cols-3 auto-rows-fr gap-3">
-              {templatesForType.map((template) => (
-                <article key={template.id} className="h-full min-h-[330px] rounded-2xl bg-white border border-neutral-200 p-5 flex flex-col">
-                  <div className="flex items-start gap-2">
-                    <div className="flex-1"><h3 className="font-bold">{templateLabel(template, draftAuthor)}</h3><span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-neutral-500">{template.badge}</span></div>
-                    <span className="text-[10px] text-neutral-300">{template.sections.length}개 섹션</span>
-                  </div>
-                  <p className="text-sm text-neutral-600 leading-relaxed mt-3">{template.desc}</p>
-                  <p className="text-[10px] text-neutral-400 mt-3">{template.source}</p>
-                  <div className="flex flex-wrap gap-1 mt-4">{template.sections.slice(0, 4).map((item) => <span key={item.id} className="text-[9px] bg-stone-100 text-neutral-500 rounded-full px-2 py-1">{item.title}</span>)}</div>
-                  <div className="mt-auto pt-5"><button onClick={() => startTemplate(template.id)} className="w-full rounded-lg bg-neutral-900 text-white py-2.5 text-sm font-semibold hover:bg-teal-900">이 템플릿으로 시작</button></div>
-                </article>
-              ))}
+              {templatesForType.map((template) => {
+                const templateExample = EXAMPLES.find((example) => example.templateId === template.id);
+                return (
+                  <article key={template.id} className="h-full min-h-[330px] rounded-2xl bg-white border border-neutral-200 p-5 flex flex-col">
+                    <div className="flex items-start gap-2">
+                      <div className="flex-1"><h3 className="font-bold">{templateLabel(template, draftAuthor)}</h3><span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-neutral-500">{template.badge}</span></div>
+                      <span className="text-[10px] text-neutral-300">{template.sections.length}개 섹션</span>
+                    </div>
+                    <p className="text-sm text-neutral-600 leading-relaxed mt-3">{template.desc}</p>
+                    <p className="text-[10px] text-neutral-400 mt-3">{template.source}</p>
+                    <div className="flex flex-wrap gap-1 mt-4">{template.sections.slice(0, 4).map((item) => <span key={item.id} className="text-[9px] bg-stone-100 text-neutral-500 rounded-full px-2 py-1">{item.title}</span>)}</div>
+                    <div className="mt-auto pt-5 flex flex-col gap-2">
+                      {templateExample && <button onClick={() => setPreviewExample(templateExample)} className="w-full rounded-lg border border-neutral-300 py-2.5 text-sm font-semibold text-neutral-700 hover:border-teal-700 hover:text-teal-900">채워진 예시 보기</button>}
+                      <button onClick={() => startTemplate(template.id)} className="w-full rounded-lg bg-neutral-900 text-white py-2.5 text-sm font-semibold hover:bg-teal-900">이 템플릿으로 시작</button>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </section>
 
-          {!!examplesForType.length && (
-            <section className="mt-10 pt-8 border-t border-neutral-200">
-              <div className="mb-4"><p className="text-xs font-bold text-neutral-400 tracking-wider">3. 채워진 예시</p><p className="text-sm text-neutral-500 mt-1">실제 제안서 기반 사례와 학습용 가상 사례를 구분했습니다. 전체 보드를 읽거나 복제할 수 있습니다.</p></div>
-              <div className="grid md:grid-cols-2 gap-3">
-                {examplesForType.map((example) => (
-                  <article key={example.id} className="h-full min-h-[390px] rounded-2xl bg-neutral-900 text-white p-6 flex flex-col">
-                    <div className="min-h-12"><p className="text-[10px] text-teal-300 font-bold tracking-wider">{example.basis || "작성 형식 예시"}</p>{example.anonymization && <span className="inline-flex mt-2 rounded-full bg-white/10 px-2 py-1 text-[9px] font-bold text-neutral-300">익명화 기준 적용</span>}</div>
-                    <h3 className="font-bold text-lg mt-2 min-h-14">{example.title}</h3>
-                    <p className="text-sm text-neutral-300 mt-2 leading-relaxed min-h-[60px]">{example.desc}</p>
-                    <div className="mt-4 grid gap-1.5 flex-1 content-start">{example.cards.slice(0, 3).map((card, index) => <div key={`${example.id}-${index}`} className="rounded-lg bg-white/10 border border-white/10 px-3 py-2 text-xs text-neutral-200"><span className="text-teal-300 mr-1.5">{String(index + 1).padStart(2, "0")}</span>{card[2]}</div>)}</div>
-                    <div className="mt-auto pt-5 flex gap-2"><button onClick={() => setPreviewExample(example)} className="flex-1 rounded-lg border border-white/30 px-3 py-2 text-sm font-semibold hover:bg-white/10">전체 예시 보기</button><button onClick={() => startExample(example)} className="flex-1 rounded-lg bg-white text-neutral-900 px-3 py-2 text-sm font-semibold">복제해 시작</button></div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          )}
         </div>
         {previewExample && (
           <div className="fixed inset-0 z-50 bg-neutral-950/60 p-4 sm:p-8 flex items-center justify-center" onClick={() => setPreviewExample(null)}>
             <div role="dialog" aria-modal="true" aria-labelledby="example-preview-title" className="w-full max-w-6xl max-h-[92vh] overflow-hidden rounded-3xl bg-stone-100 shadow-2xl" onClick={(event) => event.stopPropagation()}>
               <div className="p-5 sm:p-7 border-b border-neutral-200 flex items-start gap-4">
-                <div className="flex-1"><p className="text-[10px] font-bold tracking-wider text-teal-800">채워진 보드 미리보기 · {previewExample.basis || "작성 형식 예시"}</p><h2 id="example-preview-title" className="text-2xl font-bold mt-1">{previewExample.title}</h2><p className="text-sm text-neutral-500 mt-2">{previewExample.desc}</p>{(previewExample.anonymization || previewExample.reconstruction) && <div className="mt-3 grid sm:grid-cols-2 gap-2 text-[10px] leading-relaxed"><p className="rounded-lg bg-white border border-neutral-200 px-3 py-2"><b className="text-neutral-700">익명화</b> · {previewExample.anonymization}</p><p className="rounded-lg bg-white border border-neutral-200 px-3 py-2"><b className="text-neutral-700">재구성</b> · {previewExample.reconstruction}</p></div>}</div>
+                <div className="flex-1"><p className="text-[10px] font-bold tracking-wider text-teal-800">{templateLabel(TEMPLATES[previewExample.templateId], draftAuthor)}의 채워진 예시 · 학습용 가상 사례</p><h2 id="example-preview-title" className="text-2xl font-bold mt-1">{previewExample.title}</h2><p className="text-sm text-neutral-500 mt-2">{previewExample.desc}</p></div>
                 <button onClick={() => setPreviewExample(null)} aria-label="예시 닫기" className="p-2 rounded-full bg-white border border-neutral-200"><X size={18} /></button>
               </div>
               <div className="overflow-auto p-5 sm:p-7 max-h-[62vh]">
@@ -1518,7 +1409,7 @@ export default function CampaignStrategyOS() {
                                 <input aria-label="퍼널 태그" value={card.funnel || ""} onChange={(event) => patchCard(card.id, { funnel: event.target.value })} placeholder="퍼널 태그 (선택)" className="text-[10px] rounded border border-neutral-200 bg-white p-1.5 outline-none" />
                               </div>
                               {card.status === "selected" && <input value={card.decisionReason || ""} onChange={(event) => patchCard(card.id, { decisionReason: event.target.value })} placeholder="대표안으로 선택한 이유" className="w-full text-xs rounded border border-amber-200 bg-amber-50 p-2 outline-none" />}
-                              {card.status === "rejected" && <div className="space-y-1"><select value={REJECTION_REASONS.includes(card.rejectionReason) ? card.rejectionReason : "직접 입력"} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} className="w-full text-xs rounded border border-rose-200 bg-rose-50 p-2 outline-none"><option value="">탈락 이유</option>{REJECTION_REASONS.map((item) => <option key={item}>{item}</option>)}</select>{(!REJECTION_REASONS.includes(card.rejectionReason) || card.rejectionReason === "직접 입력") && <input value={card.rejectionReason === "직접 입력" ? "" : card.rejectionReason || ""} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} placeholder="탈락 이유 직접 입력" className="w-full text-xs rounded border border-rose-200 bg-white p-2 outline-none" />}</div>}
+                              {card.status === "rejected" && <div className="space-y-1"><select value={REJECTION_REASONS.includes(card.rejectionReason) ? card.rejectionReason : "직접 입력"} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} className="w-full text-xs rounded border border-rose-200 bg-rose-50 p-2 outline-none"><option value="">제외 이유</option>{REJECTION_REASONS.map((item) => <option key={item}>{item}</option>)}</select>{(!REJECTION_REASONS.includes(card.rejectionReason) || card.rejectionReason === "직접 입력") && <input value={card.rejectionReason === "직접 입력" ? "" : card.rejectionReason || ""} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} placeholder="제외 이유 직접 입력" className="w-full text-xs rounded border border-rose-200 bg-white p-2 outline-none" />}</div>}
                               <div className="rounded-lg bg-white/70 border border-neutral-200 p-2">
                                 <p className="text-[10px] font-bold text-neutral-500 flex items-center gap-1 mb-1.5"><Link2 size={11} /> 논리 관계</p>
                                 <div className="flex gap-1"><select value={linkDraft.type} onChange={(event) => setLinkDraft((prev) => ({ ...prev, type: event.target.value }))} className="w-24 text-[9px] rounded border border-neutral-200 p-1"><option value="">관계</option>{Object.entries(LINK_TYPES).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select><select value={linkDraft.targetId} onChange={(event) => setLinkDraft((prev) => ({ ...prev, targetId: event.target.value }))} className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1"><option value="">연결 카드</option>{project.cards.filter((item) => item.id !== card.id).map((item) => <option key={item.id} value={item.id}>{item.title || "제목 없음"}</option>)}</select><button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-[9px]">추가</button></div>
@@ -1532,7 +1423,7 @@ export default function CampaignStrategyOS() {
                               <div className="flex-1">{card.content && <p className="text-xs text-neutral-500 leading-relaxed mt-1.5 line-clamp-5 whitespace-pre-wrap">{card.content}</p>}
                               {card.evidence && <p className="text-[10px] text-teal-800 bg-teal-50 rounded px-2 py-1 mt-1.5 line-clamp-2">근거: {card.evidence}</p>}
                               {card.role === "activity" && (card.nextAction || card.successSignal) && <div className="mt-1.5 rounded-lg bg-indigo-50 px-2 py-1.5 text-[10px] text-indigo-800 space-y-0.5">{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}
-                              {card.rejectionReason && card.status === "rejected" && <p className="text-[10px] text-rose-700 mt-1.5">탈락: {card.rejectionReason}</p>}</div>
+                              {card.rejectionReason && card.status === "rejected" && <p className="text-[10px] text-rose-700 mt-1.5">제외: {card.rejectionReason}</p>}</div>
                               <div className="flex items-center gap-1 mt-auto pt-2"><span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{CARD_ROLES[card.role] || card.role}</span>{card.role === "activity" && card.activityPurpose && <span className="text-[9px] rounded-full bg-indigo-100 px-1.5 py-0.5 text-indigo-700">{activityPurposeLabel(card.activityPurpose)}</span>}{card.funnel && <span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{card.funnel}</span>}{!!card.links?.length && <span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500 flex items-center gap-0.5"><Link2 size={9} /> {card.links.length}</span>}<span className="ml-auto opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 flex gap-0.5"><button aria-label="카드를 위로 이동" disabled={cardIndex === 0} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, -1); }} className="text-neutral-400 disabled:opacity-20"><ArrowLeft size={12} className="rotate-90" /></button><button aria-label="카드를 아래로 이동" disabled={cardIndex === sectionCards.length - 1} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, 1); }} className="text-neutral-400 disabled:opacity-20"><ArrowRight size={12} className="rotate-90" /></button><button aria-label="카드 보관" onClick={(event) => { event.stopPropagation(); patchCard(card.id, { status: "archived" }); }} title="보관" className="text-neutral-400"><Archive size={12} /></button></span></div>
                             </div>
                           )}
@@ -1599,7 +1490,7 @@ export default function CampaignStrategyOS() {
               {project.sections.map((item, index) => {
                 const cards = cardsForSection(item.id).filter((card) => view === "brief" ? isBriefIncluded(card) : true);
                 if (!cards.length) return null;
-                return <section key={item.id}><div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3"><span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span><h2 className="font-bold">{item.title}</h2></div><div className="space-y-3">{cards.map((card) => <div key={card.id} className={view === "strategy" ? "rounded-lg bg-stone-50 border border-neutral-100 p-3" : ""}><div className="flex items-start gap-2"><p className="font-semibold flex-1">{card.title}</p>{view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}</div>{card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}{card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}{showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}{view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}{view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">탈락 이유: {card.rejectionReason}</p>}{view === "strategy" && !!card.links?.length && <div className="mt-2 text-[10px] text-neutral-400">{card.links.map((link) => { const target = project.cards.find((targetCard) => targetCard.id === link.targetId); return <p key={`${link.type}-${link.targetId}`}>{LINK_TYPES[link.type]} → {target?.title || "삭제된 카드"}</p>; })}</div>}</div>)}</div></section>;
+                return <section key={item.id}><div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3"><span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span><h2 className="font-bold">{item.title}</h2></div><div className="space-y-3">{cards.map((card) => <div key={card.id} className={view === "strategy" ? "rounded-lg bg-stone-50 border border-neutral-100 p-3" : ""}><div className="flex items-start gap-2"><p className="font-semibold flex-1">{card.title}</p>{view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}</div>{card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}{card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}{showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}{view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}{view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}{view === "strategy" && !!card.links?.length && <div className="mt-2 text-[10px] text-neutral-400">{card.links.map((link) => { const target = project.cards.find((targetCard) => targetCard.id === link.targetId); return <p key={`${link.type}-${link.targetId}`}>{LINK_TYPES[link.type]} → {target?.title || "삭제된 카드"}</p>; })}</div>}</div>)}</div></section>;
               })}
             </div>
             {view === "brief" && briefCount === 0 && <div className="mt-10 rounded-xl border border-dashed border-neutral-300 p-8 text-center"><Bookmark size={22} className="mx-auto text-neutral-300" /><p className="font-semibold mt-3">아직 브리프에 포함한 카드가 없습니다.</p><p className="text-xs text-neutral-500 mt-1">작업 보드에서 카드 우측 상단의 브리프 핀을 눌러주세요.</p></div>}
