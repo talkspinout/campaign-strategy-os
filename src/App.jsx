@@ -1250,7 +1250,8 @@ export default function CampaignStrategyOS() {
             <div className="flex-1 min-w-[280px]">
               <p className="text-xs tracking-[0.18em] text-teal-800 font-bold mb-2">CAMPAIGN STRATEGY OS</p>
               <h1 className="text-3xl sm:text-4xl font-bold leading-tight">생각을 펼치고,<br className="hidden sm:block" /> 팀이 움직일 지침으로 정리하세요.</h1>
-              <p className="text-neutral-600 mt-3 max-w-3xl leading-relaxed">브리프는 빈칸을 채우는 문서가 아니라, 작성자와 팀이 이후 과정에서 무엇을 선택하고 어떻게 움직일지 판단하게 하는 지침입니다.</p>
+              <p className="text-neutral-600 mt-3 max-w-3xl leading-relaxed">캠페인부터 CRM·서비스 활성화까지, 전략을 카드로 구조화하고 근거·논리 연결을 점검하는 도구입니다.</p>
+              <p className="text-neutral-600 mt-2 max-w-3xl leading-relaxed">브리프는 빈칸을 채우는 문서가 아니라, 작성자와 팀이 이후 과정에서 무엇을 선택하고 어떻게 움직일지 판단하게 하는 지침입니다.</p>
               <div className="flex flex-wrap items-center gap-2 mt-4 text-[11px] font-semibold text-teal-900"><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">관찰과 생각 펼치기</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">선택과 근거 정리</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-800 text-white px-3 py-1">실행 지침으로 수렴</span></div>
               <p className="mt-4 text-sm text-neutral-500">처음이라면 템플릿 카드의 <b className="text-neutral-700">채워진 예시 보기</b>로 감을 잡고, 예시를 복제해 내 내용으로 바꿔보는 것이 가장 빠릅니다.</p>
             </div>
