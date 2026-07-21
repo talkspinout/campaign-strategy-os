@@ -895,6 +895,15 @@ export default function CampaignStrategyOS() {
   const templatesForType = useMemo(() => Object.values(TEMPLATES).filter((item) => item.typeId === selectedType), [selectedType]);
   const recoverable = project || boot;
 
+  /* GTM 컨테이너(GTM-NPBTB82)의 "CE - os_event" 맞춤 이벤트 트리거(os_.* 정규식)가
+     이 함수가 push하는 모든 이벤트를 잡아 GA4로 전달한다. page_type은 포트폴리오
+     사이트의 이벤트와 이 앱의 이벤트를 GA4 보고서에서 구분하는 공통 키다. */
+  const pushOsEvent = (eventName, params = {}) => {
+    if (typeof window === "undefined") return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: eventName, page_type: "campaign-strategy-os", ...params });
+  };
+
   useEffect(() => {
     if (!project || screen !== "workspace") return;
     try {
@@ -905,6 +914,19 @@ export default function CampaignStrategyOS() {
       setStorageWarning("브라우저 임시저장을 사용할 수 없습니다. 작업 내용을 잃지 않도록 프로젝트 파일을 수시로 저장해 주세요.");
     }
   }, [project, screen]);
+
+  /* 화면 전환(작업 보드/전략 정리/연결 점검/최종 브리프)을 SPA 가상 페이지뷰로
+     기록한다. 연결 점검 화면에 들어온 시점에는 그때의 경고(확인 필요) 개수도
+     함께 보내, 논리 점검 기능이 실제로 쓰이는지·얼마나 자주 경고가 뜨는지 본다. */
+  useEffect(() => {
+    if (!project || screen !== "workspace") return;
+    pushOsEvent("os_view_change", { view });
+    if (view === "logic") {
+      const warningCount = buildLogicReview(project).checks.filter((item) => item.status === "needs-review").length;
+      pushOsEvent("os_logic_check", { warning_count: warningCount });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view, screen, project]);
 
   useEffect(() => () => {
     if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
@@ -926,6 +948,7 @@ export default function CampaignStrategyOS() {
   };
 
   const startTemplate = (templateId) => {
+    const template = TEMPLATES[templateId] || TEMPLATES.blank;
     setProject(createProject(templateId, draftTitle, draftAuthor, draftTarget));
     setScreen("workspace");
     setView("board");
@@ -935,6 +958,7 @@ export default function CampaignStrategyOS() {
        존재를 모른 채 지나치지 않게 한다. 예시 복제로 시작하면 카드가 이미
        채워져 있으므로 꺼진 상태를 유지한다. */
     setShowExampleHints(true);
+    pushOsEvent("os_template_start", { template_id: templateId, work_type: template.typeId });
   };
 
   const startExample = (example) => {
@@ -944,6 +968,7 @@ export default function CampaignStrategyOS() {
     setDirty(true);
     setPreviewExample(null);
     setShowExampleHints(false);
+    pushOsEvent("os_example_clone", { template_id: example.templateId });
   };
 
   const resumeAutosave = () => {
@@ -995,6 +1020,7 @@ export default function CampaignStrategyOS() {
     setProject(snapshot);
     setDirty(false);
     showNotice("편집 가능한 프로젝트 파일을 저장했습니다.");
+    pushOsEvent("os_project_file_save", { card_count: project.cards.length });
   };
 
   const importProject = async (event) => {
@@ -1152,6 +1178,7 @@ export default function CampaignStrategyOS() {
     const markCopied = () => {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
+      pushOsEvent("os_brief_export", { export_method: "markdown" });
     };
     try {
       await navigator.clipboard.writeText(text);
@@ -1245,7 +1272,7 @@ export default function CampaignStrategyOS() {
                     <p className="text-[10px] text-neutral-400 mt-3">{template.source}</p>
                     <div className="flex flex-wrap gap-1 mt-4">{template.sections.slice(0, 4).map((item) => <span key={item.id} className="text-[9px] bg-stone-100 text-neutral-500 rounded-full px-2 py-1">{item.title}</span>)}</div>
                     <div className="mt-auto pt-5 flex flex-col gap-2">
-                      {templateExample && <button onClick={() => setPreviewExample(templateExample)} className="w-full rounded-lg border border-neutral-300 py-2.5 text-sm font-semibold text-neutral-700 hover:border-teal-700 hover:text-teal-900">채워진 예시 보기</button>}
+                      {templateExample && <button onClick={() => { setPreviewExample(templateExample); pushOsEvent("os_example_preview", { template_id: templateExample.templateId }); }} className="w-full rounded-lg border border-neutral-300 py-2.5 text-sm font-semibold text-neutral-700 hover:border-teal-700 hover:text-teal-900">채워진 예시 보기</button>}
                       <button onClick={() => startTemplate(template.id)} className="w-full rounded-lg bg-neutral-900 text-white py-2.5 text-sm font-semibold hover:bg-teal-900">이 템플릿으로 시작</button>
                     </div>
                   </article>
@@ -1495,7 +1522,7 @@ export default function CampaignStrategyOS() {
             <div className="flex-1 min-w-[240px]"><h2 className="font-bold">{view === "strategy" ? "전략 정리" : "최종 브리프"}</h2><p className="text-xs text-neutral-500">{view === "strategy" ? "보드의 모든 카드를 섹션 순서대로 검토합니다." : "보드에서 브리프 핀을 켠 카드만 자동으로 모입니다."}</p></div>
             <button onClick={() => setShowEvidence((value) => !value)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border text-sm ${showEvidence ? "bg-teal-50 border-teal-300 text-teal-800" : "bg-white border-neutral-300 text-neutral-500"}`}>근거 {showEvidence ? "숨기기" : "포함"}</button>
             <button onClick={copyMarkdown} className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-neutral-300 text-sm">{copied ? <Check size={14} /> : <Copy size={14} />}{copied ? "복사됨" : "Markdown"}</button>
-            <button onClick={() => window.print()} className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-900 text-white text-sm"><Printer size={14} /> 인쇄·PDF</button>
+            <button onClick={() => { pushOsEvent("os_brief_export", { export_method: "print" }); window.print(); }} className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-900 text-white text-sm"><Printer size={14} /> 인쇄·PDF</button>
           </div>
 
           <article className="rounded-2xl bg-white border border-neutral-200 p-7 sm:p-10 shadow-sm print:border-0 print:shadow-none">
