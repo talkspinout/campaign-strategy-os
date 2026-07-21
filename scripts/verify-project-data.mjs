@@ -66,11 +66,20 @@ try {
   assert.equal(legacy.cards[0].includeInBrief, true);
 
   for (const example of EXAMPLES) {
-    const sectionIds = new Set(TEMPLATES[example.templateId].sections.map(({ id }) => id));
+    const template = TEMPLATES[example.templateId];
+    assert.equal(example.typeId, template.typeId, `${example.id} 예시의 typeId가 템플릿(${example.templateId})의 실제 typeId(${template.typeId})와 다릅니다 — 라이브러리 화면의 작업 유형 탭에서 예시가 엉뚱한 곳에 표시됩니다.`);
+    const sectionIds = new Set(template.sections.map(({ id }) => id));
     for (const [sectionId] of example.cards) {
       assert.ok(sectionIds.has(sectionId), `${example.id} 예시의 ${sectionId} 섹션이 템플릿에 없습니다.`);
     }
   }
+
+  // EXAMPLES는 12개 템플릿 중 blank(자유 보드)만 예시가 구조적으로 불가능하다.
+  // 나머지 11개는 모두 최소 1개 예시가 있어야 "예시 힌트" 버튼이 항상 노출된다.
+  const templateIdsWithExample = new Set(EXAMPLES.map((example) => example.templateId));
+  Object.keys(TEMPLATES).filter((id) => id !== "blank").forEach((id) => {
+    assert.ok(templateIdsWithExample.has(id), `템플릿 ${id}에 대한 예시가 없어 "예시 힌트" 버튼이 뜨지 않습니다.`);
+  });
 
   const reconstructedExamples = EXAMPLES.filter(({ basis }) => basis.includes("실제"));
   assert.ok(reconstructedExamples.length >= 7, "실제 제안 구조를 익명 재구성한 예시가 충분해야 합니다.");
