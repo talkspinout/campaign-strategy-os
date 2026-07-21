@@ -865,6 +865,26 @@ const buildLogicReview = (project) => {
   };
 };
 
+const PORTFOLIO_URL = "https://talkspinout.github.io/hongseok-portfolio/";
+
+/* 포트폴리오 사이트 상단 바(고홍석 · Marketing Portfolio)와 같은 톤·구조를
+   가져오되, 이 앱은 별도 제품이라 GNB 없이 소속만 알리는 얇은 바로 축소했다. */
+const SiteBrandBar = () => (
+  <header className="border-b border-neutral-200 bg-white/95 backdrop-blur px-4 sm:px-5 py-3 print-hidden">
+    <a href={PORTFOLIO_URL} className="inline-flex items-center gap-2 text-[15px] font-extrabold tracking-tight text-neutral-900 hover:text-[#17918d]">
+      <span className="w-2.5 h-2.5 rounded-full bg-[#2ac1bc]" aria-hidden="true" />
+      고홍석 · Campaign Strategy OS
+    </a>
+  </header>
+);
+
+const SiteFooter = () => (
+  <footer className="border-t border-neutral-200 mt-12 py-6 px-4 sm:px-0 text-xs text-neutral-500 flex flex-col sm:flex-row items-center justify-between gap-2 print-hidden">
+    <span>© 2026 Hongseok Ko. All rights reserved.</span>
+    <a href={PORTFOLIO_URL} className="font-semibold text-neutral-700 hover:text-[#17918d]">고홍석 포트폴리오 →</a>
+  </footer>
+);
+
 export default function CampaignStrategyOS() {
   const [boot, setBoot] = useState(() => loadAutosave());
   const [screen, setScreen] = useState("library");
@@ -1207,6 +1227,7 @@ export default function CampaignStrategyOS() {
     const selectedTypeInfo = WORK_TYPES.find((item) => item.id === selectedType);
     return (
       <div className="min-h-screen bg-stone-100 text-neutral-900">
+        <SiteBrandBar />
         <div className="max-w-6xl mx-auto px-5 py-10 sm:py-14">
           <div className="flex flex-wrap items-start gap-4 mb-10">
             <div className="flex-1 min-w-[280px]">
@@ -1281,6 +1302,7 @@ export default function CampaignStrategyOS() {
             </div>
           </section>
 
+          <SiteFooter />
         </div>
         {previewExample && (
           <div className="fixed inset-0 z-50 bg-neutral-950/60 p-4 sm:p-8 flex items-center justify-center" onClick={() => setPreviewExample(null)}>
@@ -1543,6 +1565,7 @@ export default function CampaignStrategyOS() {
           </article>
         </main>
       )}
+      <SiteFooter />
     </div>
   );
 }
