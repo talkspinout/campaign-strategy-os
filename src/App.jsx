@@ -291,11 +291,11 @@ const EXAMPLES = [
       ["situation", "observation", "팬은 세계관을 분석하고 몰입하며 현실에 적용한다", "설정과 서사를 해석하는 데서 끝나지 않고 캐릭터의 행동과 공간을 현실 경험으로 옮기며 관계를 강화한다.", "selected"],
       ["meaning", "interpretation", "설명보다 몰입의 다음 행동을 설계해야 한다", "성격과 서사를 이해시키고, 현실에서 만나게 하고, 직접 소통하게 해야 세계관이 지속적인 팬 관계로 확장될 수 있다는 가설이다.", "selected"],
       ["reference", "evidence", "유사 IP의 현실 확장 사례는 추가 검증이 필요", "이 전략은 타깃 행동 해석이 중심이라 경쟁 사례와 성과 근거가 아직 제한적이다. 비교 사례를 보강할 때는 화제성보다 참여와 관계 지속 여부를 확인한다.", "candidate", "", { linksToSections: [{ sectionId: "choice", type: "supports" }] }],
-      ["asset", "evidence", "아티스트·음악·공간·일상을 연결할 수 있는 실제 자산", "보유한 문화 자산과 캐릭터의 장소·취향·일상 설정을 콘텐츠와 오프라인 경험으로 확장할 수 있다.", "selected"],
+      ["asset", "evidence", "아티스트·음악·공간·일상을 연결할 수 있는 실제 자산", "보유한 문화 자산과 캐릭터의 장소·취향·일상 설정을 콘텐츠와 오프라인 경험으로 확장할 수 있다.", "selected", "", { linksToSections: [{ sectionId: "concept", type: "supports" }] }],
       ["choice", "decision", "서사 이해 · 현실 체험 · 관계 강화의 세 축", "각 축은 캐릭터의 매력 이해, 현실에서의 경험, 소통과 보상이라는 다른 역할을 맡는다. 채널보다 역할 구조를 먼저 정한다.", "selected", "", { linksToSections: [{ sectionId: "action", type: "executes" }] }],
-      ["defense", "evidence", "일회성 화제에 그치지 않도록 관계 장치를 남긴다", "현장 경험 이후 질문·기록·보상으로 이어지는 접점을 두고, 조회보다 참여와 재방문 신호를 확인해야 한다.", "candidate"],
+      ["defense", "evidence", "일회성 화제에 그치지 않도록 관계 장치를 남긴다", "현장 경험 이후 질문·기록·보상으로 이어지는 접점을 두고, 조회보다 참여와 재방문 신호를 확인해야 한다.", "candidate", "", { linksToSections: [{ sectionId: "choice", type: "supports" }] }],
       ["concept", "decision", "캐릭터의 세계가 현실의 일상으로 들어온다", "서사를 설명하는 데서 끝내지 않고 팬이 직접 발견하고 만나고 대화하는 경험으로 핵심 메시지를 증명한다.", "selected"],
-      ["action", "activity", "대표 실행 · 캐릭터의 선택을 따라가는 월간 에피소드", "상황 · 캐릭터가 매달 하나의 현실 고민을 선택한다.\n표현 · 짧은 서사 영상 뒤 선택 투표와 후속 기록을 연결한다.\n샘플 소재 · ‘이번 달, 이 캐릭터가 먼저 포기할 것은?’", "selected", "", { activityPurpose: "relation", activityMethod: "owned-content", nextAction: "에피소드 시청 후 선택 투표와 후속 이야기 확인으로 이동", successSignal: "후속 편 재방문과 선택 이유 댓글이 이어짐", linksToSections: [{ sectionId: "choice", type: "executes" }] }],
+      ["action", "activity", "대표 실행 · 캐릭터의 선택을 따라가는 월간 에피소드", "상황 · 캐릭터가 매달 하나의 현실 고민을 선택한다.\n표현 · 짧은 서사 영상 뒤 선택 투표와 후속 기록을 연결한다.\n샘플 소재 · ‘이번 달, 이 캐릭터가 먼저 포기할 것은?’", "selected", "", { activityPurpose: "relation", activityMethod: "owned-content", nextAction: "에피소드 시청 후 선택 투표와 후속 이야기 확인으로 이동", successSignal: "후속 편 재방문과 선택 이유 댓글이 이어짐", linksToSections: [{ sectionId: "choice", type: "executes" }, { sectionId: "concept", type: "executes" }] }],
       ["action", "activity", "대안 실행 · 현실 공간에서 발견하는 캐릭터의 흔적", "캐릭터가 좋아할 법한 장소와 물건을 실제 촬영으로 기록하고, 팬이 같은 장소에서 자신의 버전을 남기게 한다. 세계관 설명보다 발견과 재해석을 유도한다.", "candidate", "", { activityPurpose: "experience", activityMethod: "experience-event", nextAction: "콘텐츠에서 장소 정보 확인 후 방문·기록 참여로 이동", successSignal: "현장 기록과 자발적 위치 공유가 후속 콘텐츠로 이어짐", linksToSections: [{ sectionId: "choice", type: "executes" }] }],
       ["action", "activity", "대안 실행 · 팬이 고르는 디지털 소품 오디션", "여러 소품 후보를 보여주고 팬이 캐릭터에게 어울리는 안을 선택한다. 선정 결과는 배경화면이나 프로필 장식처럼 바로 사용할 수 있는 보상으로 돌려준다.", "candidate", "", { activityPurpose: "relation", activityMethod: "crm-community", nextAction: "투표 후 결과 공개와 디지털 보상 수령으로 이동", successSignal: "결과 확인 재방문과 보상 사용·공유가 발생", linksToSections: [{ sectionId: "choice", type: "executes" }] }],
       ["action", "idea", "제외안 · 설정을 한 번에 설명하는 장편 세계관 영상", "초기 이해에는 도움이 될 수 있지만 팬의 선택과 재방문 행동을 만들기 어렵다. 핵심 설정은 에피소드와 참여 과정에서 단계적으로 공개한다.", "rejected", "전략 방향과 불일치"],
@@ -310,7 +310,7 @@ const EXAMPLES = [
     desc: "제품 기능을 사용자 습관과 리텐션 가설로 연결하는 작성 형식 예시",
     cards: [
       ["opportunity", "observation", "기본 메신저만으로 채워지지 않는 생활 동선", "사용자는 콘텐츠 공유, 자료 보관, 관심사 모임을 위해 여러 서비스를 함께 쓴다는 관찰에서 시작한다.", "selected"],
-      ["asset", "evidence", "알림·앨범·일정을 연결할 수 있는 기능", "단일 기능보다 일상 속 반복 접점을 만들 수 있는 제품 자산이 있다는 가정이다.", "selected"],
+      ["asset", "evidence", "알림·앨범·일정을 연결할 수 있는 기능", "단일 기능보다 일상 속 반복 접점을 만들 수 있는 제품 자산이 있다는 가정이다.", "selected", "", { linksToSections: [{ sectionId: "priority", type: "supports" }] }],
       ["cycle", "interpretation", "첫 가입보다 반복 행동의 이유가 중요", "사용자가 처음 들어온 뒤 다시 돌아오는 계기를 행동 단계로 구분한다.", "selected"],
       ["hypothesis", "hypothesis", "작은 보상이 반복 사용을 촉발할 수 있다", "아직 확인되지 않은 가설이며 활성화율과 반복 행동률로 검증해야 한다.", "candidate"],
       ["reference", "evidence", "유사 행동을 만든 서비스의 작동 원리 확인", "혜택의 크기보다 진입 계기와 반복 사용 이유가 어떻게 연결됐는지 공개 자료로 확인한다.", "candidate", "", { linksToSections: [{ sectionId: "priority", type: "supports" }] }],
@@ -329,7 +329,7 @@ const EXAMPLES = [
     cards: [
       ["goal", "decision", "브랜드 인지와 제품 장점 이해를 함께 만든다", "노출만 확보하지 않고 브랜드 검색, 제품 정보 탐색과 구매 검토로 이어지는 선행 행동을 확인한다.", "selected"],
       ["message", "decision", "제품 장점을 한눈에 이해시키는 런칭 메시지", "인지용 영상과 탐색용 리뷰가 같은 핵심 효익을 서로 다른 깊이로 설명하도록 기준을 맞춘다.", "selected", "", { evidence: "구매 여정 분석과 경쟁 브랜드 활동 단계 비교", linksToSections: [{ sectionId: "activities", type: "executes" }, { sectionId: "channel", type: "executes" }] }],
-      ["activities", "activity", "인지 도달 → 리뷰·검색 → 비교·구매 검토", "영상 매체는 빠른 발견, 크리에이터와 리뷰는 신뢰·검색, 플랫폼 협업과 비교 정보는 구매 검토 역할을 맡는다.", "selected", "", { activityPurpose: "understand", activityMethod: "search-review", nextAction: "브랜드를 본 사용자가 제품명 검색과 상세 정보 확인으로 이동", successSignal: "브랜드 검색·리뷰 유입·제품 상세페이지 행동이 함께 증가" }],
+      ["activities", "activity", "인지 도달 → 리뷰·검색 → 비교·구매 검토", "영상 매체는 빠른 발견, 크리에이터와 리뷰는 신뢰·검색, 플랫폼 협업과 비교 정보는 구매 검토 역할을 맡는다.", "selected", "", { activityPurpose: "understand", activityMethod: "search-review", nextAction: "브랜드를 본 사용자가 제품명 검색과 상세 정보 확인으로 이동", successSignal: "브랜드 검색·리뷰 유입·제품 상세페이지 행동이 함께 증가", linksToSections: [{ sectionId: "goal", type: "executes" }] }],
       ["activities", "idea", "제외 · 초기부터 대규모 오프라인 팝업", "브랜드 인지가 없는 상태의 팝업은 방문 동인이 약하고 비용 대비 검증 가치가 낮다. 인지·검색 단계가 자리잡은 뒤 재검토한다.", "rejected", "예산 초과"],
       ["channel", "activity", "영상·크리에이터·플랫폼을 고객 질문에 맞춰 배치", "모든 채널에 같은 소재를 복제하지 않고 발견, 이해, 비교 단계의 질문에 맞는 정보를 제공한다.", "candidate", "", { activityPurpose: "discover", activityMethod: "paid-media", nextAction: "인지 영상에서 검색·리뷰·제품 정보로 이동", successSignal: "영상 도달 이후 브랜드 탐색 행동이 확인됨" }],
       ["schedule", "constraint", "소재와 검색 근거를 먼저 준비한 뒤 도달을 확대", "세부 운영 일정은 아직 확정 전이므로 제작·검수·플랫폼 협의의 선행 관계를 먼저 정해야 한다.", "candidate"],
@@ -348,7 +348,7 @@ const EXAMPLES = [
       ["objective", "decision", "많이 발행하는 채널에서 기억할 이유가 있는 채널로 전환", "도달량만 늘리지 않고 브랜드를 떠올리게 하는 시각 신호, 반복해서 기대할 시리즈, 메뉴 탐색 행동을 함께 만든다.", "selected"],
       ["audience", "observation", "짧은 영상으로 발견하고 저장한 정보로 나중에 선택한다", "재미있는 콘텐츠에 반응해도 브랜드와 연결되지 않으면 기억이 남지 않는다. 발견용 포맷과 선택을 돕는 정보형 포맷의 역할을 분리한다.", "selected", "", { evidence: "타깃 미디어 이용 관찰과 기존 콘텐츠 반응 진단", linksToSections: [{ sectionId: "objective", type: "supports" }] }],
       ["theme", "decision", "브랜드 장면 · 메뉴 선택 · 생활 공감 · 참여의 네 축", "브랜드 장면은 정체성, 메뉴 선택은 제품 이해, 생활 공감은 공유, 참여는 관계 형성을 맡는다. 모든 축에 같은 비중을 강제하지 않는다.", "selected"],
-      ["format", "activity", "대표안 · 한 잔이 완성되는 과정을 따라가는 미니 V-log", "타깃 순간 · 메뉴를 고르기 전 재료와 만드는 과정을 궁금해하는 때\n시각 장치 · 손의 움직임과 재료 색을 반복 모티프로 사용\n화자·톤 · 설명보다 관찰을 돕는 담백한 1인칭\n포맷 · 짧은 세로 영상 + 저장용 메뉴 카드\n샘플 제목 · ‘오늘 고른 한 잔이 만들어지는 순서’", "selected", "", { activityPurpose: "understand", activityMethod: "owned-content", nextAction: "영상 시청 후 메뉴 카드 저장과 상세 정보 확인으로 이동", successSignal: "완주율과 저장이 메뉴 상세 탐색으로 이어짐", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
+      ["format", "activity", "대표안 · 한 잔이 완성되는 과정을 따라가는 미니 V-log", "타깃 순간 · 메뉴를 고르기 전 재료와 만드는 과정을 궁금해하는 때\n시각 장치 · 손의 움직임과 재료 색을 반복 모티프로 사용\n화자·톤 · 설명보다 관찰을 돕는 담백한 1인칭\n포맷 · 짧은 세로 영상 + 저장용 메뉴 카드\n샘플 제목 · ‘오늘 고른 한 잔이 만들어지는 순서’", "selected", "", { activityPurpose: "understand", activityMethod: "owned-content", nextAction: "영상 시청 후 메뉴 카드 저장과 상세 정보 확인으로 이동", successSignal: "완주율과 저장이 메뉴 상세 탐색으로 이어짐", linksToSections: [{ sectionId: "objective", type: "executes" }, { sectionId: "theme", type: "executes" }] }],
       ["format", "activity", "대안 · 브랜드 색과 오브젝트를 활용한 월간 메뉴 큐레이션", "같은 촬영 장치 안에서 계절 상황별 선택 기준을 보여준다. 한 채널의 영상을 카드·검색형 글·짧은 모션으로 다시 편집하되 메시지는 유지한다.", "candidate", "", { activityPurpose: "discover", activityMethod: "owned-content", nextAction: "발견 콘텐츠에서 상황별 메뉴 비교로 이동", successSignal: "브랜드 연상 댓글과 저장·검색 행동이 함께 나타남", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
       ["format", "activity", "대안 · 나의 선택 기준을 보여주는 짧은 참여 포맷", "필터나 템플릿을 이용해 사용자가 맛·시간·기분 중 자신의 기준을 고르고 결과를 공유한다. 보상은 참여의 이유를 보조하는 수준으로 둔다.", "candidate", "", { activityPurpose: "experience", activityMethod: "promotion-offer", nextAction: "선택 결과 공유 후 같은 기준의 메뉴 확인으로 이동", successSignal: "템플릿 사용과 결과 공유가 메뉴 탐색으로 연결됨", linksToSections: [{ sectionId: "objective", type: "executes" }] }],
       ["format", "idea", "제외안 · 유행 밈을 브랜드 연결 없이 반복", "단기 반응은 만들 수 있지만 브랜드 시각과 제품 선택 이유가 남지 않는다. 유행 포맷은 브랜드 장면이나 메뉴 정보 중 하나를 강화할 때만 사용한다.", "rejected", "전략 방향과 불일치"],
@@ -365,7 +365,7 @@ const EXAMPLES = [
     desc: "메신저 시장을 지배하는 앱과 정면으로 겨루는 대신, 그 앱이 채우지 못하는 개인 습관·가족 소통 영역에서 슈퍼앱 포지션을 노린 가상 사례",
     cards: [
       ["market", "observation", "1위 메신저는 커뮤니케이션을 장악했지만 슈퍼앱 확장은 아직 제한적이다", "결제·콘텐츠 등으로 사업을 넓혔지만 이는 메신저 자체의 역량이라기보다 자본을 이용한 확장에 가깝다. 사용자는 여전히 평균 2개 이상의 메신저·소통 앱을 병행해서 쓴다.", "selected"],
-      ["competition", "evidence", "역할이 분화된 인접 앱들이 각자의 자리를 차지하고 있다", "사진 공유 중심 앱은 콘텐츠·감성 공유에, 관심사 커뮤니티 앱은 정리·보관에 특화되며 1위 메신저가 못 채우는 자리를 하나씩 가져간다.", "selected"],
+      ["competition", "evidence", "역할이 분화된 인접 앱들이 각자의 자리를 차지하고 있다", "사진 공유 중심 앱은 콘텐츠·감성 공유에, 관심사 커뮤니티 앱은 정리·보관에 특화되며 1위 메신저가 못 채우는 자리를 하나씩 가져간다.", "selected", "", { linksToSections: [{ sectionId: "position", type: "supports" }] }],
       ["asset", "evidence", "가족 단위 소통과 개인 습관을 동시에 담을 수 있는 제품 구조", "가족 앨범, 이벤트 캘린더, 개인 리추얼(습관) 기능을 하나의 리워드 생태계로 묶을 수 있다.", "selected", "", { linksToSections: [{ sectionId: "position", type: "supports" }] }],
       ["target", "interpretation", "1인 생활과 가족 소통을 동시에 챙기고 싶은데 메신저는 거기까지 못 따라온다", "개인의 아침 루틴부터 가족과의 이벤트까지 메신저 하나로 해결하고 싶지만, 1위 메신저는 대화 기능 밖으로 잘 확장되지 않는다는 긴장이 있다.", "selected"],
       ["position", "decision", "메신저 카테고리 정면 승부 대신 '개인 습관 케어 + 가족 소통' 포지션을 택한다", "카테고리 자체를 넓히는 슈퍼앱 경쟁(결제·콘텐츠)에는 뛰어들지 않고, 사용자의 하루 생활 동선 안에 자리잡는 방향을 선택한다.", "selected"],
@@ -502,14 +502,36 @@ const LOGIC_CHECK_STYLES = {
 };
 
 const LINK_TYPES = {
+  also: "또한",
+  moreover: "추가로",
+  however: "하지만",
+  mild: "다만",
   because: "왜냐하면",
   therefore: "따라서",
-  however: "하지만",
-  example: "예를 들어",
   supports: "뒷받침한다",
   executes: "실행한다",
+  example: "예를 들어",
+  restate: "즉",
+  summary: "정리하면",
+  premise: "전제로는",
   verify: "검증해야 한다",
+  next: "다음으로",
 };
+
+/* 카드 자체의 답이 왜 나왔는지 설명하는 접속어(대상 카드 없이도 쓸 수 있음)와
+   다른 카드를 가리키는 구조적 연결(근거→전략, 활동→전략)을 같은 관계어
+   목록 안에서 국어 접속어 7분류로 묶어 보여준다. 목록을 분리하지 않고
+   카테고리로만 묶는 이유는, 구조적 연결어(뒷받침한다/실행한다 등)도 결국
+   인과·조건 같은 접속 범주 중 하나로 설명되기 때문이다. */
+const LINK_TYPE_GROUPS = [
+  { label: "순접·추가", keys: ["also", "moreover"] },
+  { label: "역접·대조", keys: ["however", "mild"] },
+  { label: "인과·귀결", keys: ["because", "therefore", "supports", "executes"] },
+  { label: "예시·구체화", keys: ["example"] },
+  { label: "환언·요약", keys: ["restate", "summary"] },
+  { label: "조건·가정", keys: ["premise", "verify"] },
+  { label: "순서·전환", keys: ["next"] },
+];
 
 const REJECTION_REASONS = ["근거 부족", "타깃 부적합", "전략 방향과 불일치", "예산 초과", "일정상 불가능", "중복", "법무·심의 문제", "직접 입력"];
 
@@ -595,7 +617,7 @@ const createProject = (templateId, title = "", author = "", target = "", example
       if (!Array.isArray(meta?.linksToSections)) return;
       project.cards[index].links = meta.linksToSections.flatMap((link) => {
         const target = project.cards.find((card) => card.sectionId === link.sectionId && card.id !== project.cards[index].id);
-        return target ? [{ targetId: target.id, type: LINK_TYPES[link.type] ? link.type : "supports" }] : [];
+        return target ? [{ id: uid(), targetId: target.id, type: LINK_TYPES[link.type] ? link.type : "supports", note: "" }] : [];
       });
     });
   }
@@ -649,8 +671,11 @@ const normalizeCurrentProject = (data) => {
       nextAction: asText(card.nextAction),
       successSignal: asText(card.successSignal),
       links: Array.isArray(card.links) ? card.links.flatMap((link) => {
-        if (!link || typeof link !== "object" || !asText(link.targetId).trim()) return [];
-        return [{ targetId: asText(link.targetId), type: LINK_TYPES[link.type] ? link.type : "supports" }];
+        if (!link || typeof link !== "object") return [];
+        const targetId = asText(link.targetId).trim();
+        const note = asText(link.note).trim();
+        if (!targetId && !note) return [];
+        return [{ id: asText(link.id).trim() || uid(), targetId, type: LINK_TYPES[link.type] ? link.type : "supports", note }];
       }) : [],
     }];
   });
@@ -769,15 +794,34 @@ const buildLogicReview = (project) => {
     || (link.sourceId === secondId && link.targetId === firstId)
   ));
   const relatedStrategies = (activity) => decisions.filter((card) => connected(activity.id, card.id));
+  const relatedActivities = (decision) => activityCards.filter((card) => connected(decision.id, card.id));
   const emptySections = (project?.sections || []).filter((item) => item.prompt && !activeCards.some((card) => card.sectionId === item.id && meaningful(card)));
   const activitiesWithoutStrategy = activityCards.filter((card) => relatedStrategies(card).length === 0);
+  /* "대표안"(selected)까지 뽑은 전략인데 실행 활동이 하나도 없는 경우도 잡는다.
+     아직 "후보" 단계인 전략까지 실행을 요구하면 너무 이른 경고가 되므로
+     selected 상태만 대상으로 한다. */
+  const selectedDecisions = decisions.filter((card) => card.status === "selected");
+  const decisionsWithoutActivity = selectedDecisions.filter((card) => relatedActivities(card).length === 0);
   const incompleteActivities = activityCards.filter((card) => (
     !asText(card.activityPurpose).trim()
     || !asText(card.nextAction).trim()
     || !asText(card.successSignal).trim()
   ));
-  const evidenceConnected = evidenceCards.some((evidence) => decisions.some((decision) => evidence.id === decision.id || connected(evidence.id, decision.id)));
+  /* 근거 카드 중 하나라도 연결되면 통과가 아니라, 근거 카드 전부가 어떤
+     전략과 연결되어 있어야 통과로 본다 — 존재 여부만 기계적으로 세는
+     것이므로 "이 연결이 타당한가"까지는 여전히 평가하지 않는다. */
+  const evidenceCardsConnected = evidenceCards.filter((evidence) => decisions.some((decision) => evidence.id === decision.id || connected(evidence.id, decision.id)));
+  const evidenceConnected = evidenceCards.length > 0 && evidenceCardsConnected.length === evidenceCards.length;
   const everyActivityMeasured = activityCards.length > 0 && activityCards.every((card) => asText(card.successSignal).trim());
+
+  /* 체크 로직(역할·존재 기반 판정)은 템플릿마다 동일하게 두되, 라벨에 쓰는
+     "전략"/"근거"/"활동" 같은 고정 단어를 그 프로젝트가 실제로 쓰는 섹션
+     제목으로 바꿔, 템플릿마다 다른 언어를 쓰는 보드에서도 체크가 자기
+     얘기처럼 읽히게 한다. */
+  const sectionTitleForRole = (role, fallback) => (project?.sections || []).find((section) => section.defaultRole === role)?.title || fallback;
+  const decisionLabel = sectionTitleForRole("decision", "전략");
+  const evidenceLabel = sectionTitleForRole("evidence", "근거");
+  const activityLabel = sectionTitleForRole("activity", "활동");
 
   /* 템플릿이 활동·측정 단계를 애초에 정의하지 않았다면(예: 전략 브리프 계열은
      defaultRole "activity" 섹션이 없음) 활동 카드가 없다고 해서 "확인 필요"로
@@ -813,29 +857,31 @@ const buildLogicReview = (project) => {
       },
       {
         id: "evidence",
-        label: "근거와 전략의 연결",
+        label: `${evidenceLabel}와 ${decisionLabel}의 연결`,
         status: checkStatus(true, decisions.length > 0 && evidenceCards.length > 0 && evidenceConnected),
         detail: evidenceCards.length === 0
           ? "전략을 지지하거나 반박할 근거 카드·출처가 없습니다."
           : !evidenceConnected
-            ? "근거는 있지만 어떤 전략을 뒷받침하는지 논리 관계가 연결되지 않았습니다."
-            : "별도 근거 카드 또는 카드 내부 근거가 전략 선택과 연결되어 있습니다.",
+            ? `근거 ${evidenceCards.length}개 중 ${evidenceCardsConnected.length}개만 전략과 연결되어 있습니다.`
+            : "모든 근거가 전략 선택과 연결되어 있습니다.",
       },
       {
         id: "execution",
-        label: "전략과 활동의 연결",
-        status: checkStatus(activityRelevant, activityCards.length > 0 && activitiesWithoutStrategy.length === 0),
+        label: `${decisionLabel}와 ${activityLabel}의 연결`,
+        status: checkStatus(activityRelevant, activityCards.length > 0 && activitiesWithoutStrategy.length === 0 && decisionsWithoutActivity.length === 0),
         detail: !activityRelevant
           ? "이 템플릿은 별도의 실행 활동 단계를 포함하지 않습니다. 활동 카드를 추가하면 이 점검이 활성화됩니다."
           : activityCards.length === 0
             ? "실행 역할을 가진 활동 카드가 아직 없습니다."
             : activitiesWithoutStrategy.length
               ? `전략과 연결되지 않은 활동: ${activitiesWithoutStrategy.map((card) => card.title || "제목 없음").join(", ")}`
-              : "모든 활동이 전략 선택과 연결되어 있습니다.",
+              : decisionsWithoutActivity.length
+                ? `실행 활동이 없는 대표안: ${decisionsWithoutActivity.map((card) => card.title || "제목 없음").join(", ")}`
+                : "모든 활동이 전략 선택과 연결되어 있고, 대표안마다 실행 계획이 있습니다.",
       },
       {
         id: "journey",
-        label: "활동의 역할과 다음 행동",
+        label: `${activityLabel}의 역할과 다음 행동`,
         status: checkStatus(activityRelevant, activityCards.length > 0 && incompleteActivities.length === 0),
         detail: !activityRelevant
           ? "이 템플릿은 별도의 실행 활동 단계를 포함하지 않습니다."
@@ -905,7 +951,7 @@ export default function CampaignStrategyOS() {
   const [activityTargetSectionId, setActivityTargetSectionId] = useState("");
   const [dragCardId, setDragCardId] = useState(null);
   const [dragOverCard, setDragOverCard] = useState(null);
-  const [linkDraft, setLinkDraft] = useState({ type: "therefore", targetId: "" });
+  const [linkDraft, setLinkDraft] = useState({ type: "therefore", targetId: "", note: "" });
   const [notice, setNotice] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
   const [dirty, setDirty] = useState(false);
@@ -1167,21 +1213,29 @@ export default function CampaignStrategyOS() {
   const removeSection = (id) => {
     const count = project.cards.filter((card) => card.sectionId === id).length;
     if (count && !window.confirm(`이 섹션의 카드 ${count}장도 함께 삭제됩니다. 계속할까요?`)) return;
-    updateProject((prev) => ({ ...prev, sections: prev.sections.filter((item) => item.id !== id), cards: prev.cards.filter((card) => card.sectionId !== id) }));
+    updateProject((prev) => {
+      const removedIds = new Set(prev.cards.filter((card) => card.sectionId === id).map((card) => card.id));
+      return {
+        ...prev,
+        sections: prev.sections.filter((item) => item.id !== id),
+        cards: prev.cards.filter((card) => card.sectionId !== id).map((card) => ({ ...card, links: (card.links || []).filter((link) => !removedIds.has(link.targetId)) })),
+      };
+    });
   };
 
   const addRelation = (sourceId) => {
-    if (!linkDraft.targetId || linkDraft.targetId === sourceId) return;
+    const note = linkDraft.note.trim();
+    if (!linkDraft.type || (!linkDraft.targetId && !note) || linkDraft.targetId === sourceId) return;
     updateProject((prev) => ({
       ...prev,
       cards: prev.cards.map((card) => {
         if (card.id !== sourceId) return card;
         const links = card.links || [];
-        const exists = links.some((link) => link.targetId === linkDraft.targetId && link.type === linkDraft.type);
-        return exists ? card : { ...card, links: [...links, { targetId: linkDraft.targetId, type: linkDraft.type }] };
+        const exists = links.some((link) => link.targetId === linkDraft.targetId && link.type === linkDraft.type && (link.note || "") === note);
+        return exists ? card : { ...card, links: [...links, { id: uid(), targetId: linkDraft.targetId, type: linkDraft.type, note }] };
       }),
     }));
-    setLinkDraft({ type: "therefore", targetId: "" });
+    setLinkDraft({ type: "therefore", targetId: "", note: "" });
   };
 
   const addActivity = (method) => {
@@ -1558,9 +1612,21 @@ export default function CampaignStrategyOS() {
                               {card.status === "selected" && <input value={card.decisionReason || ""} onChange={(event) => patchCard(card.id, { decisionReason: event.target.value })} placeholder="대표안으로 선택한 이유" className="w-full text-xs rounded border border-amber-200 bg-amber-50 p-2 outline-none" />}
                               {card.status === "rejected" && <div className="space-y-1"><select value={REJECTION_REASONS.includes(card.rejectionReason) ? card.rejectionReason : "직접 입력"} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} className="w-full text-xs rounded border border-rose-200 bg-rose-50 p-2 outline-none"><option value="">제외 이유</option>{REJECTION_REASONS.map((item) => <option key={item}>{item}</option>)}</select>{(!REJECTION_REASONS.includes(card.rejectionReason) || card.rejectionReason === "직접 입력") && <input value={card.rejectionReason === "직접 입력" ? "" : card.rejectionReason || ""} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} placeholder="제외 이유 직접 입력" className="w-full text-xs rounded border border-rose-200 bg-white p-2 outline-none" />}</div>}
                               <div className="rounded-lg bg-white/70 border border-neutral-200 p-2">
-                                <p className="text-[10px] font-bold text-neutral-500 flex items-center gap-1 mb-1.5"><Link2 size={11} /> 논리 관계</p>
-                                <div className="flex gap-1"><select value={linkDraft.type} onChange={(event) => setLinkDraft((prev) => ({ ...prev, type: event.target.value }))} className="w-24 text-[9px] rounded border border-neutral-200 p-1"><option value="">관계</option>{Object.entries(LINK_TYPES).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select><select value={linkDraft.targetId} onChange={(event) => setLinkDraft((prev) => ({ ...prev, targetId: event.target.value }))} className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1"><option value="">연결 카드</option>{project.cards.filter((item) => item.id !== card.id).map((item) => <option key={item.id} value={item.id}>{item.title || "제목 없음"}</option>)}</select><button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-[9px]">추가</button></div>
-                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => { const target = project.cards.find((item) => item.id === link.targetId); return <div key={`${link.type}-${link.targetId}`} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">→ {target?.title || "삭제된 카드"}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item) => !(item.type === link.type && item.targetId === link.targetId)) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>; })}</div>}
+                                <p className="text-[10px] font-bold text-neutral-500 flex items-center gap-1 mb-1.5"><Link2 size={11} /> 논리 관계 · 이 답이 왜 나왔는지, 다른 카드와 어떻게 이어지는지</p>
+                                <div className="flex gap-1">
+                                  <select value={linkDraft.type} onChange={(event) => setLinkDraft((prev) => ({ ...prev, type: event.target.value }))} className="w-24 text-[9px] rounded border border-neutral-200 p-1">
+                                    {LINK_TYPE_GROUPS.map((group) => <optgroup key={group.label} label={group.label}>{group.keys.map((key) => <option key={key} value={key}>{LINK_TYPES[key]}</option>)}</optgroup>)}
+                                  </select>
+                                  <input value={linkDraft.note} onChange={(event) => setLinkDraft((prev) => ({ ...prev, note: event.target.value }))} placeholder="설명 (선택)" className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1" />
+                                </div>
+                                <div className="flex gap-1 mt-1">
+                                  <select value={linkDraft.targetId} onChange={(event) => setLinkDraft((prev) => ({ ...prev, targetId: event.target.value }))} className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1">
+                                    <option value="">연결 카드 (선택)</option>
+                                    {project.cards.filter((item) => item.id !== card.id).map((item) => <option key={item.id} value={item.id}>{item.title || "제목 없음"}</option>)}
+                                  </select>
+                                  <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-[9px]">추가</button>
+                                </div>
+                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => { const target = link.targetId ? project.cards.find((item) => item.id === link.targetId) : null; return <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b>{link.note && <span className="truncate">{link.note}</span>}{link.targetId && <span className="truncate">→ {target?.title || "삭제된 카드"}</span>}<button onClick={() => patchCard(card.id, { links: card.links.filter((item) => item.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>; })}</div>}
                               </div>
                               <div className="flex items-center"><button onClick={() => removeCard(card.id)} className="text-[10px] text-rose-600">삭제</button><button onClick={() => { setEditingCard(null); setLinkDraft({ type: "therefore", targetId: "" }); }} className="ml-auto px-3 py-1 rounded bg-neutral-900 text-white text-[10px]">완료</button></div>
                             </div>
@@ -1573,11 +1639,12 @@ export default function CampaignStrategyOS() {
                               className="min-h-[176px] flex flex-col cursor-pointer"
                             >
                               <div className="min-h-12 flex items-start gap-1.5"><p className="flex-1 text-sm font-semibold leading-snug">{card.title || <span className="text-neutral-300">제목 없음</span>}</p><button onClick={(event) => { event.stopPropagation(); patchCard(card.id, { includeInBrief: !isBriefIncluded(card) }); }} aria-label={isBriefIncluded(card) ? "브리프에서 제외" : "브리프에 포함"} aria-pressed={isBriefIncluded(card)} title={isBriefIncluded(card) ? "브리프에 포함됨" : "브리프에 포함"} className={`shrink-0 inline-flex items-center gap-1 rounded-lg border px-2 py-1 text-[10px] font-bold ${isBriefIncluded(card) ? "bg-teal-800 border-teal-800 text-white shadow-sm" : "bg-white/80 border-neutral-300 text-neutral-600 hover:border-teal-700 hover:text-teal-800"}`}><Bookmark size={14} className={isBriefIncluded(card) ? "fill-current" : ""} /> 브리프</button><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span></div>
+                              {!!card.links?.length && <div className="mt-1 space-y-0.5">{card.links.map((link) => { const target = link.targetId ? project.cards.find((item) => item.id === link.targetId) : null; return <p key={link.id} className="text-xs text-teal-800 leading-snug"><b>{LINK_TYPES[link.type]}</b>{link.note ? ` ${link.note}` : ""}{link.targetId ? ` → ${target?.title || "삭제된 카드"}` : ""}</p>; })}</div>}
                               <div className="flex-1">{card.content && <p className="text-sm text-neutral-500 leading-relaxed mt-1.5 line-clamp-5 whitespace-pre-wrap">{card.content}</p>}
                               {card.evidence && <p className="text-xs text-teal-800 bg-teal-50 rounded px-2 py-1 mt-1.5 line-clamp-2">근거: {card.evidence}</p>}
                               {card.role === "activity" && (card.nextAction || card.successSignal) && <div className="mt-1.5 rounded-lg bg-indigo-50 px-2 py-1.5 text-xs text-indigo-800 space-y-0.5">{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}
                               {card.rejectionReason && card.status === "rejected" && <p className="text-xs text-rose-700 mt-1.5">제외: {card.rejectionReason}</p>}</div>
-                              <div className="flex items-center gap-1 mt-auto pt-2"><span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{CARD_ROLES[card.role] || card.role}</span>{card.role === "activity" && card.activityPurpose && <span className="text-[9px] rounded-full bg-indigo-100 px-1.5 py-0.5 text-indigo-700">{activityPurposeLabel(card.activityPurpose)}</span>}{card.funnel && <span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{card.funnel}</span>}{!!card.links?.length && <span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500 flex items-center gap-0.5"><Link2 size={9} /> {card.links.length}</span>}<span className="ml-auto opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 flex gap-0.5"><button aria-label="카드를 위로 이동" disabled={cardIndex === 0} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, -1); }} className="text-neutral-400 disabled:opacity-20"><ArrowLeft size={12} className="rotate-90" /></button><button aria-label="카드를 아래로 이동" disabled={cardIndex === sectionCards.length - 1} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, 1); }} className="text-neutral-400 disabled:opacity-20"><ArrowRight size={12} className="rotate-90" /></button><button aria-label="카드 보관" onClick={(event) => { event.stopPropagation(); patchCard(card.id, { status: "archived" }); }} title="보관" className="text-neutral-400"><Archive size={12} /></button></span></div>
+                              <div className="flex items-center gap-1 mt-auto pt-2"><span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{CARD_ROLES[card.role] || card.role}</span>{card.role === "activity" && card.activityPurpose && <span className="text-[9px] rounded-full bg-indigo-100 px-1.5 py-0.5 text-indigo-700">{activityPurposeLabel(card.activityPurpose)}</span>}{card.funnel && <span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{card.funnel}</span>}<span className="ml-auto opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 flex gap-0.5"><button aria-label="카드를 위로 이동" disabled={cardIndex === 0} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, -1); }} className="text-neutral-400 disabled:opacity-20"><ArrowLeft size={12} className="rotate-90" /></button><button aria-label="카드를 아래로 이동" disabled={cardIndex === sectionCards.length - 1} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, 1); }} className="text-neutral-400 disabled:opacity-20"><ArrowRight size={12} className="rotate-90" /></button><button aria-label="카드 보관" onClick={(event) => { event.stopPropagation(); patchCard(card.id, { status: "archived" }); }} title="보관" className="text-neutral-400"><Archive size={12} /></button></span></div>
                             </div>
                           )}
                         </article>
@@ -1643,7 +1710,7 @@ export default function CampaignStrategyOS() {
               {project.sections.map((item, index) => {
                 const cards = cardsForSection(item.id).filter((card) => view === "brief" ? isBriefIncluded(card) : true);
                 if (!cards.length) return null;
-                return <section key={item.id}><div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3"><span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span><h2 className="font-bold">{item.title}</h2></div><div className="space-y-3">{cards.map((card) => <div key={card.id} className={view === "strategy" ? "rounded-lg bg-stone-50 border border-neutral-100 p-3" : ""}><div className="flex items-start gap-2"><p className="font-semibold flex-1">{card.title}</p>{view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}</div>{card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}{card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}{showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}{view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}{view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}{view === "strategy" && !!card.links?.length && <div className="mt-2 text-xs text-neutral-500">{card.links.map((link) => { const target = project.cards.find((targetCard) => targetCard.id === link.targetId); return <p key={`${link.type}-${link.targetId}`}>{LINK_TYPES[link.type]} → {target?.title || "삭제된 카드"}</p>; })}</div>}</div>)}</div></section>;
+                return <section key={item.id}><div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3"><span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span><h2 className="font-bold">{item.title}</h2></div><div className="space-y-3">{cards.map((card) => <div key={card.id} className={view === "strategy" ? "rounded-lg bg-stone-50 border border-neutral-100 p-3" : ""}><div className="flex items-start gap-2"><p className="font-semibold flex-1">{card.title}</p>{view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}</div>{card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}{card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}{showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}{view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}{view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}{!!card.links?.length && <div className="mt-2 text-xs text-neutral-500 space-y-0.5">{card.links.map((link) => { const target = link.targetId ? project.cards.find((targetCard) => targetCard.id === link.targetId) : null; return <p key={link.id}><b>{LINK_TYPES[link.type]}</b>{link.note ? ` ${link.note}` : ""}{link.targetId ? ` → ${target?.title || "삭제된 카드"}` : ""}</p>; })}</div>}</div>)}</div></section>;
               })}
             </div>
             {view === "brief" && briefCount === 0 && <div className="mt-10 rounded-xl border border-dashed border-neutral-300 p-8 text-center"><Bookmark size={22} className="mx-auto text-neutral-300" /><p className="font-semibold mt-3">아직 브리프에 포함한 카드가 없습니다.</p><p className="text-xs text-neutral-500 mt-1">작업 보드에서 카드 우측 상단의 브리프 핀을 눌러주세요.</p></div>}
