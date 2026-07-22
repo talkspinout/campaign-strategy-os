@@ -1147,10 +1147,14 @@ export default function CampaignStrategyOS() {
     updateProject((prev) => ({ ...prev, cards: [...prev.cards, card], drafts: { ...prev.drafts, [currentSection.id]: "" } }));
   };
 
-  const removeCard = (id) => updateProject((prev) => ({
-    ...prev,
-    cards: prev.cards.filter((card) => card.id !== id),
-  }));
+  const removeCard = (id) => {
+    const card = project.cards.find((item) => item.id === id);
+    if (card?.links?.length && !window.confirm("이 카드를 삭제할까요? 카드에 남긴 논리 관계도 함께 사라집니다.")) return;
+    updateProject((prev) => ({
+      ...prev,
+      cards: prev.cards.filter((item) => item.id !== id),
+    }));
+  };
 
   const moveCardWithin = (id, direction) => updateProject((prev) => {
     const cards = [...prev.cards];
@@ -1580,6 +1584,17 @@ export default function CampaignStrategyOS() {
                               <input aria-label="카드 제목" autoFocus value={card.title} onChange={(event) => patchCard(card.id, { title: event.target.value })} placeholder="카드 제목" className="w-full font-semibold text-sm bg-transparent border-b border-neutral-300 pb-1 outline-none" />
                               <textarea aria-label="카드 내용" value={card.content || ""} onChange={(event) => patchCard(card.id, { content: event.target.value })} placeholder="내용 · 긴 문단도 작성할 수 있습니다." rows={4} className="w-full text-xs rounded-lg bg-white/70 p-2 outline-none resize-y" />
                               <textarea aria-label="카드 근거와 출처" value={card.evidence || ""} onChange={(event) => patchCard(card.id, { evidence: event.target.value })} placeholder="근거 · 출처 · 데이터" rows={2} className="w-full text-xs rounded-lg bg-teal-50 p-2 outline-none resize-y" />
+                              <div className="rounded-lg bg-white/70 border border-neutral-200 p-2">
+                                <p className="text-xs font-bold text-neutral-500 flex items-center gap-1 mb-1.5"><Link2 size={11} /> 논리 관계 · 이 답이 왜 나왔는지</p>
+                                <div className="flex gap-1">
+                                  <select value={linkDraft.type} onChange={(event) => setLinkDraft((prev) => ({ ...prev, type: event.target.value }))} className="w-24 text-xs rounded border border-neutral-200 p-1">
+                                    {LINK_TYPE_GROUPS.map((group) => <optgroup key={group.label} label={group.label}>{group.keys.map((key) => <option key={key} value={key}>{LINK_TYPES[key]}</option>)}</optgroup>)}
+                                  </select>
+                                  <input value={linkDraft.note} onChange={(event) => setLinkDraft((prev) => ({ ...prev, note: event.target.value }))} placeholder="설명" className="min-w-0 flex-1 text-xs rounded border border-neutral-200 p-1" />
+                                  <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-xs shrink-0">추가</button>
+                                </div>
+                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">{link.note}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item) => item.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>)}</div>}
+                              </div>
                               {card.role === "activity" && <div className="rounded-xl border border-indigo-200 bg-indigo-50/70 p-3 space-y-2">
                                 <div><p className="text-[10px] font-bold text-indigo-800">활동 연결 정보</p><p className="text-[9px] text-indigo-600 mt-0.5">담당자와 일정이 아니라, 이 활동이 왜 필요한지와 다음 행동을 적습니다.</p></div>
                                 <div className="grid grid-cols-2 gap-2">
@@ -1598,17 +1613,6 @@ export default function CampaignStrategyOS() {
                               </div>
                               {card.status === "selected" && <input value={card.decisionReason || ""} onChange={(event) => patchCard(card.id, { decisionReason: event.target.value })} placeholder="대표안으로 선택한 이유" className="w-full text-xs rounded border border-amber-200 bg-amber-50 p-2 outline-none" />}
                               {card.status === "rejected" && <div className="space-y-1"><select value={REJECTION_REASONS.includes(card.rejectionReason) ? card.rejectionReason : "직접 입력"} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} className="w-full text-xs rounded border border-rose-200 bg-rose-50 p-2 outline-none"><option value="">제외 이유</option>{REJECTION_REASONS.map((item) => <option key={item}>{item}</option>)}</select>{(!REJECTION_REASONS.includes(card.rejectionReason) || card.rejectionReason === "직접 입력") && <input value={card.rejectionReason === "직접 입력" ? "" : card.rejectionReason || ""} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} placeholder="제외 이유 직접 입력" className="w-full text-xs rounded border border-rose-200 bg-white p-2 outline-none" />}</div>}
-                              <div className="rounded-lg bg-white/70 border border-neutral-200 p-2">
-                                <p className="text-[10px] font-bold text-neutral-500 flex items-center gap-1 mb-1.5"><Link2 size={11} /> 논리 관계 · 이 답이 왜 나왔는지</p>
-                                <div className="flex gap-1">
-                                  <select value={linkDraft.type} onChange={(event) => setLinkDraft((prev) => ({ ...prev, type: event.target.value }))} className="w-24 text-[9px] rounded border border-neutral-200 p-1">
-                                    {LINK_TYPE_GROUPS.map((group) => <optgroup key={group.label} label={group.label}>{group.keys.map((key) => <option key={key} value={key}>{LINK_TYPES[key]}</option>)}</optgroup>)}
-                                  </select>
-                                  <input value={linkDraft.note} onChange={(event) => setLinkDraft((prev) => ({ ...prev, note: event.target.value }))} placeholder="설명" className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1" />
-                                  <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-[9px] shrink-0">추가</button>
-                                </div>
-                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">{link.note}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item) => item.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>)}</div>}
-                              </div>
                               <div className="flex items-center"><button onClick={() => removeCard(card.id)} className="text-[10px] text-rose-600">삭제</button><button onClick={() => { setEditingCard(null); setLinkDraft({ type: "therefore", note: "" }); }} className="ml-auto px-3 py-1 rounded bg-neutral-900 text-white text-[10px]">완료</button></div>
                             </div>
                           ) : (
