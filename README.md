@@ -39,6 +39,13 @@ npm run verify:data # 저장 데이터와 템플릿 회귀 검증
 5. ~~`https://talkspinout.github.io/campaign-strategy-os/` 접속 확인 (OG 태그·GTM 동작 포함)~~
 6. ~~포트폴리오 저장소에서 GNB 개편 및 `LAB_ITEMS` 카드 추가~~
 
+## 라이선스
+
+이 저장소의 코드와 기획 콘텐츠(질문 문항, 템플릿 구조, 예시 포함)는 All
+rights reserved다. 포트폴리오 열람·개인적 참고는 자유지만, 상업적 이용·재배포·
+동일 기획 구조를 이용한 파생 상품 제작은 금지된다. 자세한 내용은
+[`LICENSE`](./LICENSE) 참고.
+
 ## 관리 메모 (Claude / Codex 협업용)
 
 - 템플릿 추가·수정: `src/App.jsx`의 `TEMPLATES` 객체. `section(id, 제목, 질문, 도움말, 역할, kind)` 형식.
