@@ -904,6 +904,7 @@ export default function CampaignStrategyOS() {
   const [activityPurpose, setActivityPurpose] = useState("discover");
   const [activityTargetSectionId, setActivityTargetSectionId] = useState("");
   const [dragCardId, setDragCardId] = useState(null);
+  const [dragOverCard, setDragOverCard] = useState(null);
   const [linkDraft, setLinkDraft] = useState({ type: "therefore", targetId: "" });
   const [notice, setNotice] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
@@ -1125,6 +1126,24 @@ export default function CampaignStrategyOS() {
     const target = sameSection[localIndex + direction];
     if (!target) return prev;
     [cards[index], cards[target.idx]] = [cards[target.idx], cards[index]];
+    return { ...prev, cards };
+  });
+
+  /* 드래그로 카드를 다른 카드 위/아래에 정확히 끼워 넣는다. 같은 섹션 안에서
+     쓰면 순서 재정렬이 되고, 다른 섹션의 카드 위에 놓으면 그 섹션의 그
+     위치로 옮겨진다. */
+  const reorderCard = (draggedId, targetId, position, sectionId) => updateProject((prev) => {
+    const cards = [...prev.cards];
+    const fromIndex = cards.findIndex((card) => card.id === draggedId);
+    if (fromIndex === -1) return prev;
+    const [dragged] = cards.splice(fromIndex, 1);
+    const movedCard = { ...dragged, sectionId };
+    const targetIndex = cards.findIndex((card) => card.id === targetId);
+    if (targetIndex === -1) {
+      cards.push(movedCard);
+      return { ...prev, cards };
+    }
+    cards.splice(position === "after" ? targetIndex + 1 : targetIndex, 0, movedCard);
     return { ...prev, cards };
   });
 
@@ -1448,7 +1467,7 @@ export default function CampaignStrategyOS() {
                 const recommendedCards = CARD_DECKS[currentSection.defaultRole] || CARD_DECKS.note;
                 const hintCard = exampleForProject?.cards.find((card) => card[0] === currentSection.id);
                 return (
-                  <section key={currentSection.id} id={`board-section-${currentSection.id}`} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (dragCardId) patchCard(dragCardId, { sectionId: currentSection.id }); setDragCardId(null); }} className="w-80 shrink-0 rounded-2xl bg-stone-200/70 p-3">
+                  <section key={currentSection.id} id={`board-section-${currentSection.id}`} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (dragCardId) patchCard(dragCardId, { sectionId: currentSection.id }); setDragCardId(null); setDragOverCard(null); }} className="w-80 shrink-0 rounded-2xl bg-stone-200/70 p-3">
                     {editingSection === currentSection.id ? (
                       <div className="rounded-xl bg-white border border-neutral-200 p-3 mb-3 space-y-2">
                         <input value={currentSection.title} onChange={(event) => patchSection(currentSection.id, { title: event.target.value })} className="w-full font-bold text-sm border-b border-neutral-200 pb-1 outline-none" />
@@ -1487,7 +1506,34 @@ export default function CampaignStrategyOS() {
 
                     <div className="space-y-2">
                       {sectionCards.map((card, cardIndex) => (
-                        <article key={card.id} draggable={editingCard !== card.id} onDragStart={() => setDragCardId(card.id)} onDragEnd={() => setDragCardId(null)} className={`group rounded-xl border p-3 shadow-sm ${STATUSES[card.status]?.card || STATUSES.idea.card}`}>
+                        <article
+                          key={card.id}
+                          draggable={editingCard !== card.id}
+                          onDragStart={() => setDragCardId(card.id)}
+                          onDragEnd={() => { setDragCardId(null); setDragOverCard(null); }}
+                          onDragOver={(event) => {
+                            if (!dragCardId || dragCardId === card.id) return;
+                            event.preventDefault();
+                            event.stopPropagation();
+                            const rect = event.currentTarget.getBoundingClientRect();
+                            const position = event.clientY - rect.top < rect.height / 2 ? "before" : "after";
+                            setDragOverCard((prev) => (prev?.id === card.id && prev.position === position ? prev : { id: card.id, position }));
+                          }}
+                          onDragLeave={() => setDragOverCard((prev) => (prev?.id === card.id ? null : prev))}
+                          onDrop={(event) => {
+                            event.stopPropagation();
+                            if (dragCardId && dragCardId !== card.id) reorderCard(dragCardId, card.id, dragOverCard?.position || "before", currentSection.id);
+                            setDragCardId(null);
+                            setDragOverCard(null);
+                          }}
+                          style={{
+                            borderTopColor: dragOverCard?.id === card.id && dragOverCard.position === "before" ? "#0d9488" : undefined,
+                            borderTopWidth: dragOverCard?.id === card.id && dragOverCard.position === "before" ? "3px" : undefined,
+                            borderBottomColor: dragOverCard?.id === card.id && dragOverCard.position === "after" ? "#0d9488" : undefined,
+                            borderBottomWidth: dragOverCard?.id === card.id && dragOverCard.position === "after" ? "3px" : undefined,
+                          }}
+                          className={`group rounded-xl border p-3 shadow-sm ${STATUSES[card.status]?.card || STATUSES.idea.card}`}
+                        >
                           {editingCard === card.id ? (
                             <div className="space-y-2">
                               <input aria-label="카드 제목" autoFocus value={card.title} onChange={(event) => patchCard(card.id, { title: event.target.value })} placeholder="카드 제목" className="w-full font-semibold text-sm bg-transparent border-b border-neutral-300 pb-1 outline-none" />
@@ -1514,7 +1560,7 @@ export default function CampaignStrategyOS() {
                               <div className="rounded-lg bg-white/70 border border-neutral-200 p-2">
                                 <p className="text-[10px] font-bold text-neutral-500 flex items-center gap-1 mb-1.5"><Link2 size={11} /> 논리 관계</p>
                                 <div className="flex gap-1"><select value={linkDraft.type} onChange={(event) => setLinkDraft((prev) => ({ ...prev, type: event.target.value }))} className="w-24 text-[9px] rounded border border-neutral-200 p-1"><option value="">관계</option>{Object.entries(LINK_TYPES).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select><select value={linkDraft.targetId} onChange={(event) => setLinkDraft((prev) => ({ ...prev, targetId: event.target.value }))} className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1"><option value="">연결 카드</option>{project.cards.filter((item) => item.id !== card.id).map((item) => <option key={item.id} value={item.id}>{item.title || "제목 없음"}</option>)}</select><button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-[9px]">추가</button></div>
-                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => { const target = project.cards.find((item) => item.id === link.targetId); return <div key={`${link.type}-${link.targetId}`} className="flex items-center gap-1 text-[9px] text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">→ {target?.title || "삭제된 카드"}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item) => !(item.type === link.type && item.targetId === link.targetId)) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>; })}</div>}
+                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => { const target = project.cards.find((item) => item.id === link.targetId); return <div key={`${link.type}-${link.targetId}`} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">→ {target?.title || "삭제된 카드"}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item) => !(item.type === link.type && item.targetId === link.targetId)) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>; })}</div>}
                               </div>
                               <div className="flex items-center"><button onClick={() => removeCard(card.id)} className="text-[10px] text-rose-600">삭제</button><button onClick={() => { setEditingCard(null); setLinkDraft({ type: "therefore", targetId: "" }); }} className="ml-auto px-3 py-1 rounded bg-neutral-900 text-white text-[10px]">완료</button></div>
                             </div>
@@ -1527,10 +1573,10 @@ export default function CampaignStrategyOS() {
                               className="min-h-[176px] flex flex-col cursor-pointer"
                             >
                               <div className="min-h-12 flex items-start gap-1.5"><p className="flex-1 text-sm font-semibold leading-snug">{card.title || <span className="text-neutral-300">제목 없음</span>}</p><button onClick={(event) => { event.stopPropagation(); patchCard(card.id, { includeInBrief: !isBriefIncluded(card) }); }} aria-label={isBriefIncluded(card) ? "브리프에서 제외" : "브리프에 포함"} aria-pressed={isBriefIncluded(card)} title={isBriefIncluded(card) ? "브리프에 포함됨" : "브리프에 포함"} className={`shrink-0 inline-flex items-center gap-1 rounded-lg border px-2 py-1 text-[10px] font-bold ${isBriefIncluded(card) ? "bg-teal-800 border-teal-800 text-white shadow-sm" : "bg-white/80 border-neutral-300 text-neutral-600 hover:border-teal-700 hover:text-teal-800"}`}><Bookmark size={14} className={isBriefIncluded(card) ? "fill-current" : ""} /> 브리프</button><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span></div>
-                              <div className="flex-1">{card.content && <p className="text-xs text-neutral-500 leading-relaxed mt-1.5 line-clamp-5 whitespace-pre-wrap">{card.content}</p>}
-                              {card.evidence && <p className="text-[10px] text-teal-800 bg-teal-50 rounded px-2 py-1 mt-1.5 line-clamp-2">근거: {card.evidence}</p>}
-                              {card.role === "activity" && (card.nextAction || card.successSignal) && <div className="mt-1.5 rounded-lg bg-indigo-50 px-2 py-1.5 text-[10px] text-indigo-800 space-y-0.5">{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}
-                              {card.rejectionReason && card.status === "rejected" && <p className="text-[10px] text-rose-700 mt-1.5">제외: {card.rejectionReason}</p>}</div>
+                              <div className="flex-1">{card.content && <p className="text-sm text-neutral-500 leading-relaxed mt-1.5 line-clamp-5 whitespace-pre-wrap">{card.content}</p>}
+                              {card.evidence && <p className="text-xs text-teal-800 bg-teal-50 rounded px-2 py-1 mt-1.5 line-clamp-2">근거: {card.evidence}</p>}
+                              {card.role === "activity" && (card.nextAction || card.successSignal) && <div className="mt-1.5 rounded-lg bg-indigo-50 px-2 py-1.5 text-xs text-indigo-800 space-y-0.5">{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}
+                              {card.rejectionReason && card.status === "rejected" && <p className="text-xs text-rose-700 mt-1.5">제외: {card.rejectionReason}</p>}</div>
                               <div className="flex items-center gap-1 mt-auto pt-2"><span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{CARD_ROLES[card.role] || card.role}</span>{card.role === "activity" && card.activityPurpose && <span className="text-[9px] rounded-full bg-indigo-100 px-1.5 py-0.5 text-indigo-700">{activityPurposeLabel(card.activityPurpose)}</span>}{card.funnel && <span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500">{card.funnel}</span>}{!!card.links?.length && <span className="text-[9px] rounded-full bg-white/70 px-1.5 py-0.5 text-neutral-500 flex items-center gap-0.5"><Link2 size={9} /> {card.links.length}</span>}<span className="ml-auto opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 flex gap-0.5"><button aria-label="카드를 위로 이동" disabled={cardIndex === 0} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, -1); }} className="text-neutral-400 disabled:opacity-20"><ArrowLeft size={12} className="rotate-90" /></button><button aria-label="카드를 아래로 이동" disabled={cardIndex === sectionCards.length - 1} onClick={(event) => { event.stopPropagation(); moveCardWithin(card.id, 1); }} className="text-neutral-400 disabled:opacity-20"><ArrowRight size={12} className="rotate-90" /></button><button aria-label="카드 보관" onClick={(event) => { event.stopPropagation(); patchCard(card.id, { status: "archived" }); }} title="보관" className="text-neutral-400"><Archive size={12} /></button></span></div>
                             </div>
                           )}
@@ -1597,7 +1643,7 @@ export default function CampaignStrategyOS() {
               {project.sections.map((item, index) => {
                 const cards = cardsForSection(item.id).filter((card) => view === "brief" ? isBriefIncluded(card) : true);
                 if (!cards.length) return null;
-                return <section key={item.id}><div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3"><span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span><h2 className="font-bold">{item.title}</h2></div><div className="space-y-3">{cards.map((card) => <div key={card.id} className={view === "strategy" ? "rounded-lg bg-stone-50 border border-neutral-100 p-3" : ""}><div className="flex items-start gap-2"><p className="font-semibold flex-1">{card.title}</p>{view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}</div>{card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}{card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}{showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}{view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}{view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}{view === "strategy" && !!card.links?.length && <div className="mt-2 text-[10px] text-neutral-400">{card.links.map((link) => { const target = project.cards.find((targetCard) => targetCard.id === link.targetId); return <p key={`${link.type}-${link.targetId}`}>{LINK_TYPES[link.type]} → {target?.title || "삭제된 카드"}</p>; })}</div>}</div>)}</div></section>;
+                return <section key={item.id}><div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3"><span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span><h2 className="font-bold">{item.title}</h2></div><div className="space-y-3">{cards.map((card) => <div key={card.id} className={view === "strategy" ? "rounded-lg bg-stone-50 border border-neutral-100 p-3" : ""}><div className="flex items-start gap-2"><p className="font-semibold flex-1">{card.title}</p>{view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}</div>{card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}{card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}{showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}{view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}{view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}{view === "strategy" && !!card.links?.length && <div className="mt-2 text-xs text-neutral-500">{card.links.map((link) => { const target = project.cards.find((targetCard) => targetCard.id === link.targetId); return <p key={`${link.type}-${link.targetId}`}>{LINK_TYPES[link.type]} → {target?.title || "삭제된 카드"}</p>; })}</div>}</div>)}</div></section>;
               })}
             </div>
             {view === "brief" && briefCount === 0 && <div className="mt-10 rounded-xl border border-dashed border-neutral-300 p-8 text-center"><Bookmark size={22} className="mx-auto text-neutral-300" /><p className="font-semibold mt-3">아직 브리프에 포함한 카드가 없습니다.</p><p className="text-xs text-neutral-500 mt-1">작업 보드에서 카드 우측 상단의 브리프 핀을 눌러주세요.</p></div>}
