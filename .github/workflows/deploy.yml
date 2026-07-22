@@ -1,7 +1,4 @@
-# GitHub Pages 배포 워크플로.
-# 저장소를 공개로 전환하고 Settings → Pages → Source를 "GitHub Actions"로
-# 설정하기 전까지는 deploy 단계가 실패(빨간 X)로 표시될 수 있다 — 설정을
-# 마치면 다음 push부터 정상 배포된다.
+# GitHub Pages 배포 워크플로. main push 시 자동 배포된다.
 name: Deploy to GitHub Pages
 
 on:

@@ -27,18 +27,17 @@ npm run verify:data # 저장 데이터와 템플릿 회귀 검증
 `https://talkspinout.github.io/campaign-strategy-os/` 이며, `vite.config.js`의
 `base: "./"` 덕분에 경로가 달라져도 빌드가 깨지지 않는다.
 
-**현재 상태: 비공개 테스트 단계.** 무료 플랜에서는 비공개 저장소에 Pages를 켤 수
-없으므로 테스트는 로컬(`npm run dev`)에서 진행한다.
+**현재 상태: 공개됨.** 저장소는 Public이며 `main` push 시 GitHub Actions로 자동
+배포된다. 포트폴리오(`hongseok-portfolio`)의 GNB·`LAB_ITEMS`에도 연동 완료.
 
-### 공개 전환 체크리스트
+### 공개 전환 체크리스트 (완료)
 
-1. 실제 기획 작업 1건을 이 도구로 끝까지 통과시켜 보고 빈틈 보완
-2. 저장소 Settings → General → **Change visibility → Public**
-3. Settings → Pages → Source를 **GitHub Actions**로 설정
-4. `.github/workflows/deploy.yml`의 `push` 트리거 주석 해제 (또는 Actions 탭에서 수동 실행)
-5. `https://talkspinout.github.io/campaign-strategy-os/` 접속 확인 (OG 태그·GTM 동작 포함)
-6. 포트폴리오 저장소에서 GNB 개편: "개인 프로젝트" → "마케팅 랩", 하위 메뉴에
-   "캠페인 전략 설계 OS" 추가, `LAB_ITEMS`에 카드 추가, lab.html 문구 정리
+1. ~~실제 기획 작업 1건을 이 도구로 끝까지 통과시켜 보고 빈틈 보완~~ — 완료. 이후 추가 수정은 있을 수 있음.
+2. ~~저장소 Settings → General → Change visibility → Public~~
+3. ~~Settings → Pages → Source를 GitHub Actions로 설정~~
+4. ~~`.github/workflows/deploy.yml`의 `push` 트리거 주석 해제~~
+5. ~~`https://talkspinout.github.io/campaign-strategy-os/` 접속 확인 (OG 태그·GTM 동작 포함)~~
+6. ~~포트폴리오 저장소에서 GNB 개편 및 `LAB_ITEMS` 카드 추가~~
 
 ## 관리 메모 (Claude / Codex 협업용)
 
