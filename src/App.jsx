@@ -795,13 +795,18 @@ const buildLogicReview = (project) => {
   ));
   const relatedStrategies = (activity) => decisions.filter((card) => connected(activity.id, card.id));
   const relatedActivities = (decision) => activityCards.filter((card) => connected(decision.id, card.id));
+  /* 연결 카드(대상)를 고르지 않고 접속어+설명만 남긴 논리 관계도 "이 카드가
+     왜 그런지 스스로 밝혔다"는 사실은 동일하다. 연결 카드 선택은 UI에서도
+     선택 사항으로 바꿨으므로, 점검도 다른 카드를 구조적으로 가리켰는지와
+     무관하게 논리 관계가 하나라도 있으면 존재로 인정한다. */
+  const hasStatedRelation = (card) => (card.links || []).length > 0;
   const emptySections = (project?.sections || []).filter((item) => item.prompt && !activeCards.some((card) => card.sectionId === item.id && meaningful(card)));
-  const activitiesWithoutStrategy = activityCards.filter((card) => relatedStrategies(card).length === 0);
+  const activitiesWithoutStrategy = activityCards.filter((card) => !hasStatedRelation(card) && relatedStrategies(card).length === 0);
   /* "대표안"(selected)까지 뽑은 전략인데 실행 활동이 하나도 없는 경우도 잡는다.
      아직 "후보" 단계인 전략까지 실행을 요구하면 너무 이른 경고가 되므로
      selected 상태만 대상으로 한다. */
   const selectedDecisions = decisions.filter((card) => card.status === "selected");
-  const decisionsWithoutActivity = selectedDecisions.filter((card) => relatedActivities(card).length === 0);
+  const decisionsWithoutActivity = selectedDecisions.filter((card) => !hasStatedRelation(card) && relatedActivities(card).length === 0);
   const incompleteActivities = activityCards.filter((card) => (
     !asText(card.activityPurpose).trim()
     || !asText(card.nextAction).trim()
@@ -810,7 +815,7 @@ const buildLogicReview = (project) => {
   /* 근거 카드 중 하나라도 연결되면 통과가 아니라, 근거 카드 전부가 어떤
      전략과 연결되어 있어야 통과로 본다 — 존재 여부만 기계적으로 세는
      것이므로 "이 연결이 타당한가"까지는 여전히 평가하지 않는다. */
-  const evidenceCardsConnected = evidenceCards.filter((evidence) => decisions.some((decision) => evidence.id === decision.id || connected(evidence.id, decision.id)));
+  const evidenceCardsConnected = evidenceCards.filter((evidence) => hasStatedRelation(evidence) || decisions.some((decision) => evidence.id === decision.id || connected(evidence.id, decision.id)));
   const evidenceConnected = evidenceCards.length > 0 && evidenceCardsConnected.length === evidenceCards.length;
   const everyActivityMeasured = activityCards.length > 0 && activityCards.every((card) => asText(card.successSignal).trim());
 
@@ -1012,10 +1017,10 @@ export default function CampaignStrategyOS() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [previewExample]);
 
-  const showNotice = (message) => {
+  const showNotice = (message, duration = 2400) => {
     if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
     setNotice(message);
-    noticeTimerRef.current = window.setTimeout(() => setNotice(""), 2400);
+    noticeTimerRef.current = window.setTimeout(() => setNotice(""), duration);
   };
 
   const updateProject = (updater) => {
@@ -1051,6 +1056,10 @@ export default function CampaignStrategyOS() {
     setShowExampleHints(false);
     window.scrollTo(0, 0);
     pushOsEvent("os_example_clone", { template_id: example.templateId });
+    /* 예시를 복제한 결과는 저장된 파일을 불러온 것과 동일하게, 이미 완성된
+       내 프로젝트입니다 — 카드·상태·연결 어느 것도 고정되어 있지 않고
+       전부 자유롭게 지우거나 바꿔 쓸 수 있다는 걸 처음에 한 번 알려준다. */
+    showNotice("예시를 복제했습니다. 불러온 파일처럼 무엇이든 자유롭게 고치고 지워도 됩니다.", 4500);
   };
 
   const resumeAutosave = () => {
@@ -1326,7 +1335,7 @@ export default function CampaignStrategyOS() {
               <p className="text-neutral-600 mt-3 max-w-3xl leading-relaxed">캠페인부터 CRM·서비스 활성화까지, 전략을 카드로 구조화하고 근거·논리 연결을 점검하는 도구입니다.</p>
               <p className="text-neutral-600 mt-2 max-w-3xl leading-relaxed">브리프는 빈칸을 채우는 문서가 아니라, 작성자와 팀이 이후 과정에서 무엇을 선택하고 어떻게 움직일지 판단하게 하는 지침입니다.</p>
               <div className="flex flex-wrap items-center gap-2 mt-4 text-[11px] font-semibold text-teal-900"><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">관찰과 생각 펼치기</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1">선택과 근거 정리</span><span className="text-neutral-300">→</span><span className="rounded-full bg-teal-800 text-white px-3 py-1">실행 지침으로 수렴</span></div>
-              <p className="mt-4 text-sm text-neutral-500">처음이라면 템플릿 카드의 <b className="text-neutral-700">채워진 예시 보기</b>로 감을 잡고, 예시를 복제해 내 내용으로 바꿔보는 것이 가장 빠릅니다.</p>
+              <p className="mt-4 text-sm text-neutral-500">처음이라면 템플릿 카드의 <b className="text-neutral-700">채워진 예시 보기</b>로 감을 잡고, 예시를 복제해 이미 완성된 파일을 불러온 것처럼 자유롭게 고쳐 쓰는 것이 가장 빠릅니다.</p>
             </div>
             <label className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-neutral-300 cursor-pointer text-sm hover:border-neutral-500 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal-700 has-[:focus-visible]:ring-offset-2">
               <FolderOpen size={16} /> 프로젝트 불러오기
@@ -1681,7 +1690,7 @@ export default function CampaignStrategyOS() {
             <div className="p-5 border-b border-neutral-200"><h3 className="font-bold">전략에서 실행까지</h3><p className="text-xs text-neutral-500 mt-1">활동 카드를 기준으로 연결된 전략, 맡은 역할, 다음 행동, 성공 신호를 한 줄로 확인합니다.</p></div>
             {logicReview.activityChains.length ? <div className="divide-y divide-neutral-100">{logicReview.activityChains.map(({ card, strategies }) => <button key={card.id} onClick={() => { setView("board"); setEditingCard(card.id); }} className="w-full text-left p-5 hover:bg-stone-50">
               <div className="grid md:grid-cols-[1.2fr_1fr_1.2fr_1.2fr] gap-3 items-stretch">
-                <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">연결된 전략</p>{strategies.length ? <div className="mt-auto pt-2 space-y-1">{strategies.map((strategy) => <p key={strategy.id} className="text-xs font-semibold text-teal-800">{strategy.title || "제목 없음"}</p>)}</div> : <p className="text-xs text-amber-700 mt-auto pt-2">논리 관계를 연결해 주세요.</p>}</div>
+                <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">연결된 전략</p>{strategies.length ? <div className="mt-auto pt-2 space-y-1">{strategies.map((strategy) => <p key={strategy.id} className="text-xs font-semibold text-teal-800">{strategy.title || "제목 없음"}</p>)}</div> : card.links?.length ? <div className="mt-auto pt-2 space-y-1">{card.links.map((link) => <p key={link.id} className="text-xs text-teal-800"><b>{LINK_TYPES[link.type]}</b>{link.note ? ` ${link.note}` : ""}</p>)}</div> : <p className="text-xs text-amber-700 mt-auto pt-2">논리 관계를 연결해 주세요.</p>}</div>
                 <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">활동</p><div className="mt-auto pt-2"><p className="text-sm font-semibold">{card.title || "제목 없음"}</p><p className="text-[10px] text-indigo-700 mt-1">{activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p></div></div>
                 <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">다음 행동</p><p className={`text-xs mt-auto pt-2 leading-relaxed ${card.nextAction ? "text-neutral-700" : "text-amber-700"}`}>{card.nextAction || "다음 행동을 적어주세요."}</p></div>
                 <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">성공 신호</p><p className={`text-xs mt-auto pt-2 leading-relaxed ${card.successSignal ? "text-neutral-700" : "text-amber-700"}`}>{card.successSignal || "판단할 신호를 적어주세요."}</p></div>
