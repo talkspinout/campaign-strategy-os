@@ -113,14 +113,14 @@ try {
   const logicReview = buildLogicReview(logicExample);
   assert.ok(logicReview.checks.every(({ status }) => status === "connected"), "전략 전개형 예시는 모든 연결 점검을 통과해야 합니다.");
   assert.equal(logicReview.activityChains[0].card.activityPurpose, "relation");
-  assert.ok(logicReview.activityChains[0].strategies.length > 0);
+  assert.ok(logicReview.activityChains[0].card.links.length > 0);
 
   ["proposal-fnb-social-renewal", "b2b-saas-trial-crm-roadmap", "proposal-office-brand-launch"].forEach((exampleId) => {
     const example = EXAMPLES.find(({ id }) => id === exampleId);
     const project = createProject(example.templateId, "논리 점검 예시", "", "", example);
     const review = buildLogicReview(project);
     assert.ok(review.checks.every(({ status }) => status === "connected"), `${exampleId} 예시는 모든 연결 점검을 통과해야 합니다.`);
-    assert.ok(review.activityChains.every(({ card, strategies }) => card.nextAction && card.successSignal && strategies.length), `${exampleId}의 모든 활동은 전략·다음 행동·성공 신호와 연결되어야 합니다.`);
+    assert.ok(review.activityChains.every(({ card }) => card.nextAction && card.successSignal && card.links.length), `${exampleId}의 모든 활동은 논리 관계·다음 행동·성공 신호를 남겨야 합니다.`);
   });
 
   // 논리 연결 점검 3상태(연결됨/확인 필요/해당없음) — 템플릿이 활동·측정 단계를
