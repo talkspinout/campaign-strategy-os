@@ -1357,7 +1357,7 @@ export default function CampaignStrategyOS() {
               </div>
               <div className="grid sm:grid-cols-3 gap-2 w-full md:w-auto">
                 <input aria-label="프로젝트 제목" value={draftTitle} onChange={(event) => setDraftTitle(event.target.value)} placeholder="프로젝트 제목 (선택)" className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-teal-700" />
-                <input aria-label="캠페인 타깃" value={draftTarget} onChange={(event) => setDraftTarget(event.target.value)} placeholder="캠페인 타깃 (선택)" className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-teal-700" />
+                <input aria-label="핵심 타깃" value={draftTarget} onChange={(event) => setDraftTarget(event.target.value)} placeholder="핵심 타깃 (선택)" className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-teal-700" />
                 <input aria-label="작성자 이름" value={draftAuthor} onChange={(event) => setDraftAuthor(event.target.value)} placeholder="작성자 이름 (선택)" className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-teal-700" />
               </div>
             </div>
@@ -1424,7 +1424,7 @@ export default function CampaignStrategyOS() {
           <div className="flex-1 min-w-[160px] max-w-[420px]">
             <input aria-label="프로젝트 제목" value={project.title} onChange={(event) => updateProject({ title: event.target.value })} className="w-full font-bold bg-transparent outline-none" />
             <p className="text-[10px] text-neutral-500 truncate">{project.templateName}{project.author ? ` · ${project.author}` : ""}</p>
-            <input aria-label="캠페인 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="block w-full bg-transparent text-[10px] text-neutral-500 placeholder:text-neutral-300 outline-none" />
+            <input aria-label="핵심 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="block w-full bg-transparent text-[10px] text-neutral-500 placeholder:text-neutral-300 outline-none" />
           </div>
           <div className="lg:ml-auto flex items-center gap-1 bg-white border border-neutral-200 rounded-lg p-1 overflow-x-auto">
             {[["board", LayoutGrid, "작업 보드"], ["strategy", FileText, "전략 정리"], ["logic", Link2, "연결 점검"], ["brief", BookOpen, "최종 브리프"]].map(([key, Icon, label]) => (
