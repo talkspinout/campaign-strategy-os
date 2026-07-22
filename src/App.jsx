@@ -1627,17 +1627,20 @@ export default function CampaignStrategyOS() {
                                     {LINK_TYPE_GROUPS.map((group) => <optgroup key={group.label} label={group.label}>{group.keys.map((key) => <option key={key} value={key}>{LINK_TYPES[key]}</option>)}</optgroup>)}
                                   </select>
                                   <input value={linkDraft.note} onChange={(event) => setLinkDraft((prev) => ({ ...prev, note: event.target.value }))} placeholder="설명 (선택)" className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1" />
+                                  <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-[9px] shrink-0">추가</button>
                                 </div>
-                                <div className="flex gap-1 mt-1">
-                                  <select value={linkDraft.targetId} onChange={(event) => setLinkDraft((prev) => ({ ...prev, targetId: event.target.value }))} className="min-w-0 flex-1 text-[9px] rounded border border-neutral-200 p-1">
-                                    <option value="">연결 카드 (선택 · 이 보드에 이미 있는 카드만 지정 가능)</option>
+                                {/* 대부분은 관계어+설명만으로 충분하다. 특정 카드를 정확히 짚고
+                                    싶을 때만 펼쳐서 쓰도록 기본은 접어둔다. */}
+                                <details className="mt-1">
+                                  <summary className="text-[9px] text-neutral-400 cursor-pointer select-none">특정 카드에 연결하기 (선택)</summary>
+                                  <select value={linkDraft.targetId} onChange={(event) => setLinkDraft((prev) => ({ ...prev, targetId: event.target.value }))} className="mt-1 w-full text-[9px] rounded border border-neutral-200 p-1">
+                                    <option value="">연결 카드 선택 안 함</option>
                                     {project.sections.map((sourceSection) => {
                                       const options = project.cards.filter((item) => item.id !== card.id && item.sectionId === sourceSection.id);
                                       return options.length ? <optgroup key={sourceSection.id} label={sourceSection.title}>{options.map((item) => <option key={item.id} value={item.id}>{item.title || "제목 없음"}</option>)}</optgroup> : null;
                                     })}
                                   </select>
-                                  <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-[9px]">추가</button>
-                                </div>
+                                </details>
                                 {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => { const target = link.targetId ? project.cards.find((item) => item.id === link.targetId) : null; return <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b>{link.note && <span className="truncate">{link.note}</span>}{link.targetId && <span className="truncate">→ {target?.title || "삭제된 카드"}</span>}<button onClick={() => patchCard(card.id, { links: card.links.filter((item) => item.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>; })}</div>}
                               </div>
                               <div className="flex items-center"><button onClick={() => removeCard(card.id)} className="text-[10px] text-rose-600">삭제</button><button onClick={() => { setEditingCard(null); setLinkDraft({ type: "therefore", targetId: "" }); }} className="ml-auto px-3 py-1 rounded bg-neutral-900 text-white text-[10px]">완료</button></div>
