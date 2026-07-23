@@ -921,9 +921,6 @@ export default function CampaignStrategyOS() {
   const [boot, setBoot] = useState(() => loadAutosave());
   const [screen, setScreen] = useState("library");
   const [selectedType, setSelectedType] = useState("strategic-brief");
-  const [draftTitle, setDraftTitle] = useState("");
-  const [draftAuthor, setDraftAuthor] = useState("");
-  const [draftTarget, setDraftTarget] = useState("");
   const [project, setProject] = useState(null);
   const [view, setView] = useState("board");
   const [editingCard, setEditingCard] = useState(null);
@@ -1015,7 +1012,7 @@ export default function CampaignStrategyOS() {
 
   const startTemplate = (templateId) => {
     const template = TEMPLATES[templateId] || TEMPLATES.blank;
-    setProject(createProject(templateId, draftTitle, draftAuthor, draftTarget));
+    setProject(createProject(templateId));
     setScreen("workspace");
     setView("board");
     setDirty(true);
@@ -1029,7 +1026,7 @@ export default function CampaignStrategyOS() {
   };
 
   const startExample = (example) => {
-    setProject(createProject(example.templateId, example.title, draftAuthor, draftTarget, example));
+    setProject(createProject(example.templateId, "", "", "", example));
     setScreen("workspace");
     setView("board");
     setDirty(true);
@@ -1046,8 +1043,6 @@ export default function CampaignStrategyOS() {
   const resumeAutosave = () => {
     if (!recoverable) return;
     setProject(recoverable);
-    setDraftAuthor(recoverable.author || "");
-    setDraftTarget(recoverable.target || "");
     setScreen("workspace");
     setView("board");
     setShowExampleHints((recoverable.cards || []).length === 0);
@@ -1104,8 +1099,6 @@ export default function CampaignStrategyOS() {
       if (file.size > MAX_IMPORT_BYTES) throw new Error("프로젝트 파일은 5MB 이하만 불러올 수 있습니다.");
       const imported = normalizeImported(JSON.parse(await file.text()));
       setProject({ ...imported, updatedAt: new Date().toISOString() });
-      setDraftAuthor(imported.author || "");
-      setDraftTarget(imported.target || "");
       setScreen("workspace");
       setView("board");
       setDirty(false);
@@ -1355,11 +1348,6 @@ export default function CampaignStrategyOS() {
                 <p className="text-xs font-bold text-neutral-400 tracking-wider">2. {selectedTypeInfo?.label} 템플릿</p>
                 <p className="text-sm text-neutral-500 mt-1">{selectedTypeInfo?.fit}</p>
               </div>
-              <div className="grid sm:grid-cols-3 gap-2 w-full md:w-auto">
-                <input aria-label="프로젝트 제목" value={draftTitle} onChange={(event) => setDraftTitle(event.target.value)} placeholder="프로젝트 제목 (선택)" className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-teal-700" />
-                <input aria-label="핵심 타깃" value={draftTarget} onChange={(event) => setDraftTarget(event.target.value)} placeholder="핵심 타깃 (선택)" className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-teal-700" />
-                <input aria-label="작성자 이름" value={draftAuthor} onChange={(event) => setDraftAuthor(event.target.value)} placeholder="작성자 이름 (선택)" className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-teal-700" />
-              </div>
             </div>
 
             <div className="grid md:grid-cols-2 xl:grid-cols-3 auto-rows-fr gap-3">
@@ -1368,7 +1356,7 @@ export default function CampaignStrategyOS() {
                 return (
                   <article key={template.id} className="h-full min-h-[330px] rounded-2xl bg-white border border-neutral-200 p-5 flex flex-col">
                     <div className="flex items-start gap-2">
-                      <div className="flex-1"><h3 className="font-bold">{templateLabel(template, draftAuthor)}</h3><span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-neutral-500">{template.badge}</span></div>
+                      <div className="flex-1"><h3 className="font-bold">{templateLabel(template)}</h3><span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-neutral-500">{template.badge}</span></div>
                       <span className="text-[10px] text-neutral-400">{template.sections.length}개 섹션</span>
                     </div>
                     <p className="text-sm text-neutral-600 leading-relaxed mt-3">{template.desc}</p>
@@ -1390,7 +1378,7 @@ export default function CampaignStrategyOS() {
           <div className="fixed inset-0 z-50 bg-neutral-950/60 p-4 sm:p-8 flex items-center justify-center" onClick={() => setPreviewExample(null)}>
             <div role="dialog" aria-modal="true" aria-labelledby="example-preview-title" className="w-full max-w-6xl max-h-[92vh] overflow-hidden rounded-3xl bg-stone-100 shadow-2xl" onClick={(event) => event.stopPropagation()}>
               <div className="p-5 sm:p-7 border-b border-neutral-200 flex items-start gap-4">
-                <div className="flex-1"><p className="text-[10px] font-bold tracking-wider text-teal-800">{templateLabel(TEMPLATES[previewExample.templateId], draftAuthor)}의 채워진 예시 · 학습용 가상 사례</p><h2 id="example-preview-title" className="text-2xl font-bold mt-1">{previewExample.title}</h2><p className="text-sm text-neutral-500 mt-2">{previewExample.desc}</p></div>
+                <div className="flex-1"><p className="text-[10px] font-bold tracking-wider text-teal-800">{templateLabel(TEMPLATES[previewExample.templateId])}의 채워진 예시 · 학습용 가상 사례</p><h2 id="example-preview-title" className="text-2xl font-bold mt-1">{previewExample.title}</h2><p className="text-sm text-neutral-500 mt-2">{previewExample.desc}</p></div>
                 <button ref={previewCloseButtonRef} onClick={() => setPreviewExample(null)} aria-label="예시 닫기" className="p-2 rounded-full bg-white border border-neutral-200"><X size={18} /></button>
               </div>
               <div className="overflow-auto p-5 sm:p-7 max-h-[62vh]">
@@ -1423,11 +1411,15 @@ export default function CampaignStrategyOS() {
           <button onClick={goLibrary} className="text-xs text-neutral-400 hover:text-neutral-700">← 유형·템플릿</button>
           <div className="flex-1 min-w-[160px] max-w-[420px]">
             <input aria-label="프로젝트 제목" value={project.title} onChange={(event) => updateProject({ title: event.target.value })} className="w-full font-bold bg-transparent outline-none" />
-            <p className="text-[10px] text-neutral-500 truncate">{project.templateName}{project.author ? ` · ${project.author}` : ""}</p>
+            <div className="flex items-center gap-1 text-[10px] text-neutral-500">
+              <span className="truncate shrink-0">{project.templateName}</span>
+              <span className="shrink-0">·</span>
+              <input aria-label="작성자 이름" value={project.author || ""} onChange={(event) => updateProject({ author: event.target.value })} placeholder="작성자 미입력" className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-neutral-300" />
+            </div>
             <input aria-label="핵심 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="block w-full bg-transparent text-[10px] text-neutral-500 placeholder:text-neutral-300 outline-none" />
           </div>
           <div className="lg:ml-auto flex items-center gap-1 bg-white border border-neutral-200 rounded-lg p-1 overflow-x-auto">
-            {[["board", LayoutGrid, "작업 보드"], ["strategy", FileText, "전략 정리"], ["logic", Link2, "연결 점검"], ["brief", BookOpen, "최종 브리프"]].map(([key, Icon, label]) => (
+            {[["board", LayoutGrid, "작업 보드"], ["logic", Link2, "연결 점검"], ["strategy", FileText, "전략 정리"], ["brief", BookOpen, "최종 브리프"]].map(([key, Icon, label]) => (
               <button key={key} onClick={() => { setView(key); window.scrollTo(0, 0); }} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm whitespace-nowrap ${view === key ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-800"}`}><Icon size={14} /> {label}</button>
             ))}
           </div>
@@ -1695,7 +1687,77 @@ export default function CampaignStrategyOS() {
               {project.sections.map((item, index) => {
                 const cards = cardsForSection(item.id).filter((card) => view === "brief" ? isBriefIncluded(card) : true);
                 if (!cards.length) return null;
-                return <section key={item.id}><div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3"><span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span><h2 className="font-bold">{item.title}</h2></div><div className="space-y-3">{cards.map((card) => <div key={card.id} className={view === "strategy" ? "rounded-lg bg-stone-50 border border-neutral-100 p-3" : ""}><div className="flex items-start gap-2"><p className="font-semibold flex-1">{card.title}</p>{view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}</div>{card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}{card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}{showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}{view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}{view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}{!!card.links?.length && <div className="mt-2 text-sm text-neutral-600 space-y-0.5">{card.links.map((link) => <p key={link.id}><b>{LINK_TYPES[link.type]}</b> {link.note}</p>)}</div>}</div>)}</div></section>;
+                return (
+                  <section key={item.id}>
+                    <div className="flex items-baseline gap-2 border-b border-neutral-200 pb-2 mb-3">
+                      <span className="text-xs font-bold text-neutral-300">{String(index + 1).padStart(2, "0")}</span>
+                      <h2 className="font-bold">{item.title}</h2>
+                    </div>
+                    <div className="space-y-3">
+                      {cards.map((card) => {
+                        const isEditing = editingCard === card.id;
+                        const boxed = view === "strategy";
+                        const cardClass = isEditing
+                          ? "rounded-lg border border-neutral-200 bg-stone-50 p-3 print-hidden"
+                          : boxed
+                            ? "rounded-lg bg-stone-50 border border-neutral-100 p-3 cursor-pointer hover:border-teal-300 transition-colors"
+                            : "rounded-lg p-2 -mx-2 cursor-pointer hover:bg-stone-50 transition-colors";
+                        return (
+                          <div key={card.id} className={cardClass}>
+                            {isEditing ? (
+                              <div className="space-y-2">
+                                <input aria-label="카드 제목" autoFocus value={card.title} onChange={(event) => patchCard(card.id, { title: event.target.value })} placeholder="카드 제목" className="w-full font-semibold bg-white border-b border-neutral-300 pb-1 outline-none" />
+                                <textarea aria-label="카드 내용" value={card.content || ""} onChange={(event) => patchCard(card.id, { content: event.target.value })} placeholder="내용" rows={3} className="w-full text-sm rounded-lg bg-white border border-neutral-200 p-2 outline-none resize-y" />
+                                {card.role === "activity" && (
+                                  <div className="rounded-lg border border-indigo-200 bg-indigo-50/70 p-2 space-y-2">
+                                    <div className="grid grid-cols-2 gap-2">
+                                      <select aria-label="활동의 역할" value={card.activityPurpose || ""} onChange={(event) => patchCard(card.id, { activityPurpose: event.target.value })} className="text-xs rounded border border-indigo-200 bg-white p-1.5"><option value="">역할 선택</option>{ACTIVITY_PURPOSES.map((purpose) => <option key={purpose.id} value={purpose.id}>{purpose.label}</option>)}</select>
+                                      <select aria-label="활동의 실행 수단" value={card.activityMethod || ""} onChange={(event) => patchCard(card.id, { activityMethod: event.target.value })} className="text-xs rounded border border-indigo-200 bg-white p-1.5"><option value="">수단 선택</option>{ACTIVITY_METHODS.map((method) => <option key={method.id} value={method.id}>{method.label}</option>)}</select>
+                                    </div>
+                                    <input aria-label="다음 행동" value={card.nextAction || ""} onChange={(event) => patchCard(card.id, { nextAction: event.target.value })} placeholder="다음 행동" className="w-full text-xs rounded border border-indigo-200 bg-white p-2 outline-none" />
+                                    <input aria-label="성공 신호" value={card.successSignal || ""} onChange={(event) => patchCard(card.id, { successSignal: event.target.value })} placeholder="성공 신호" className="w-full text-xs rounded border border-indigo-200 bg-white p-2 outline-none" />
+                                  </div>
+                                )}
+                                <textarea aria-label="카드 근거와 출처" value={card.evidence || ""} onChange={(event) => patchCard(card.id, { evidence: event.target.value })} placeholder="근거 · 출처 · 데이터" rows={2} className="w-full text-xs rounded-lg bg-teal-50 p-2 outline-none resize-y" />
+                                {card.status === "selected" && <input value={card.decisionReason || ""} onChange={(event) => patchCard(card.id, { decisionReason: event.target.value })} placeholder="대표안으로 선택한 이유" className="w-full text-xs rounded border border-amber-200 bg-amber-50 p-2 outline-none" />}
+                                {card.status === "rejected" && <input value={card.rejectionReason || ""} onChange={(event) => patchCard(card.id, { rejectionReason: event.target.value })} placeholder="제외 이유" className="w-full text-xs rounded border border-rose-200 bg-rose-50 p-2 outline-none" />}
+                                <div className="rounded-lg bg-white border border-neutral-200 p-2">
+                                  <p className="text-[10px] font-bold text-neutral-500 flex items-center gap-1 mb-1.5"><Link2 size={11} /> 논리 관계 · 이 답이 왜 나왔는지</p>
+                                  <div className="flex gap-1">
+                                    <select value={linkDraft.type} onChange={(event) => setLinkDraft((prev) => ({ ...prev, type: event.target.value }))} className="w-24 text-xs rounded border border-neutral-200 p-1">
+                                      {LINK_TYPE_GROUPS.map((group) => <optgroup key={group.label} label={group.label}>{group.keys.map((key) => <option key={key} value={key}>{LINK_TYPES[key]}</option>)}</optgroup>)}
+                                    </select>
+                                    <input value={linkDraft.note} onChange={(event) => setLinkDraft((prev) => ({ ...prev, note: event.target.value }))} placeholder="설명" className="min-w-0 flex-1 text-xs rounded border border-neutral-200 p-1" />
+                                    <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-xs shrink-0">추가</button>
+                                  </div>
+                                  {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">{link.note}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item2) => item2.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>)}</div>}
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                  <select aria-label="카드 상태" value={card.status} onChange={(event) => patchCard(card.id, { status: event.target.value, rejectionReason: event.target.value === "rejected" ? card.rejectionReason : "" })} className="text-xs rounded border border-neutral-200 bg-white p-1.5 outline-none">{Object.entries(STATUSES).map(([key, statusItem]) => <option key={key} value={key}>{statusItem.label}</option>)}</select>
+                                  <button onClick={() => patchCard(card.id, { includeInBrief: !isBriefIncluded(card) })} aria-pressed={isBriefIncluded(card)} className={`flex items-center gap-1 rounded-lg border px-2.5 py-1.5 text-xs font-bold ${isBriefIncluded(card) ? "bg-teal-800 border-teal-800 text-white" : "bg-white border-neutral-300 text-neutral-700"}`}><Bookmark size={12} className={isBriefIncluded(card) ? "fill-current" : ""} /> 브리프</button>
+                                  <button onClick={() => { setEditingCard(null); setLinkDraft({ type: "therefore", note: "" }); }} className="ml-auto px-3 py-1.5 rounded bg-neutral-900 text-white text-xs">완료</button>
+                                </div>
+                              </div>
+                            ) : (
+                              <div role="button" tabIndex={0} onClick={() => setEditingCard(card.id)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setEditingCard(card.id); } }}>
+                                <div className="flex items-start gap-2">
+                                  <p className="font-semibold flex-1">{card.title || <span className="text-neutral-300">제목 없음</span>}</p>
+                                  {view === "strategy" && <><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span>{isBriefIncluded(card) && <span className="text-[9px] rounded-full bg-teal-800 text-white px-1.5 py-0.5 flex items-center gap-0.5"><Bookmark size={9} className="fill-current" /> 브리프</span>}</>}
+                                </div>
+                                {card.content && <p className="text-sm text-neutral-600 mt-1 whitespace-pre-wrap">{card.content}</p>}
+                                {card.role === "activity" && (card.activityPurpose || card.nextAction || card.successSignal) && <div className="mt-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-800 space-y-1">{card.activityPurpose && <p><b>역할</b> · {activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p>}{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}
+                                {showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}
+                                {view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}
+                                {view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}
+                                {!!card.links?.length && <div className="mt-2 text-sm text-neutral-600 space-y-0.5">{card.links.map((link) => <p key={link.id}><b>{LINK_TYPES[link.type]}</b> {link.note}</p>)}</div>}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </section>
+                );
               })}
             </div>
             {view === "brief" && briefCount === 0 && <div className="mt-10 rounded-xl border border-dashed border-neutral-300 p-8 text-center"><Bookmark size={22} className="mx-auto text-neutral-300" /><p className="font-semibold mt-3">아직 브리프에 포함한 카드가 없습니다.</p><p className="text-xs text-neutral-500 mt-1">작업 보드에서 카드 우측 상단의 브리프 핀을 눌러주세요.</p></div>}
