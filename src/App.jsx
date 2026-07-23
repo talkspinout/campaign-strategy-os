@@ -175,7 +175,7 @@ const TEMPLATES = {
     label: "브랜드 포지셔닝 전략 전개안",
     badge: "브랜드 전략",
     desc: "시장과 경쟁의 변화에서 브랜드가 차지할 고유한 위치를 찾습니다.",
-    source: "[이름] 전략 전개형 브리프의 브랜드 포지셔닝 변형",
+    source: `${AUTHOR_NAME} 전략 전개형 브리프의 브랜드 포지셔닝 변형`,
     sections: [
       section("market", "시장 변화", "고객의 선택 기준과 시장의 언어는 어떻게 변하고 있나요?", "검색어, 후기, 경쟁사의 광고 문구처럼 변화가 실제로 드러난 신호를 적습니다.", "observation"),
       section("competition", "경쟁 구도", "경쟁자는 어떤 가치와 위치를 차지하고 있나요?", "제품 기능을 넘어 인식의 지도를 봅니다.", "evidence"),
@@ -191,7 +191,7 @@ const TEMPLATES = {
     label: "서비스 성장 전략 전개안",
     badge: "사용자 성장",
     desc: "사용자 행동과 제품 기능을 연결해 활성화·리텐션 전략을 설계합니다.",
-    source: "[이름] 전략 전개형 브리프의 서비스 성장 변형",
+    source: `${AUTHOR_NAME} 전략 전개형 브리프의 서비스 성장 변형`,
     sections: [
       section("opportunity", "시장 · 행동 기회", "기존 서비스가 채우지 못하는 사용자 행동은 무엇인가요?", "대체 행동과 빈틈을 관찰합니다.", "observation"),
       section("asset", "제품의 특화점", "사용자의 생활에 들어갈 수 있는 기능과 자산은 무엇인가요?", "기능을 사용 상황과 연결합니다.", "evidence"),
@@ -1679,9 +1679,8 @@ export default function CampaignStrategyOS() {
           <article className="rounded-2xl bg-white border border-neutral-200 p-7 sm:p-10 shadow-sm print:border-0 print:shadow-none">
             <p className="text-[10px] tracking-[0.18em] text-teal-800 font-bold">{view === "strategy" ? "STRATEGY REVIEW" : "FINAL BRIEF"}</p>
             <h1 className="text-3xl font-bold mt-2">{project.title}</h1>
-            <p className="text-sm text-neutral-500 mt-2">{project.templateName}{project.author ? ` · ${project.author}` : ""}</p>
+            {project.author && <p className="text-sm text-neutral-500 mt-2">{project.author}</p>}
             <p className="text-sm text-neutral-500 mt-1">타깃: {project.target || "-"}</p>
-            <p className="text-[10px] text-neutral-400 mt-2">{project.templateSource}</p>
 
             <div className="mt-10 space-y-8">
               {project.sections.map((item, index) => {
