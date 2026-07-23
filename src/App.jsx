@@ -508,20 +508,20 @@ const LINK_TYPES = {
   mild: "다만",
   because: "왜냐하면",
   therefore: "따라서",
-  supports: "뒷받침한다",
-  executes: "실행한다",
+  supports: "뒷받침은",
+  executes: "실행은",
   example: "예를 들어",
   restate: "즉",
   summary: "정리하면",
   premise: "전제로는",
-  verify: "검증해야 한다",
+  verify: "검증은",
   next: "다음으로",
 };
 
 /* 카드 자체의 답이 왜 나왔는지 설명하는 접속어(대상 카드 없이도 쓸 수 있음)와
    다른 카드를 가리키는 구조적 연결(근거→전략, 활동→전략)을 같은 관계어
    목록 안에서 국어 접속어 7분류로 묶어 보여준다. 목록을 분리하지 않고
-   카테고리로만 묶는 이유는, 구조적 연결어(뒷받침한다/실행한다 등)도 결국
+   카테고리로만 묶는 이유는, 구조적 연결어(뒷받침은/실행은 등)도 결국
    인과·조건 같은 접속 범주 중 하나로 설명되기 때문이다. */
 const LINK_TYPE_GROUPS = [
   { label: "순접·추가", keys: ["also", "moreover"] },
@@ -532,11 +532,6 @@ const LINK_TYPE_GROUPS = [
   { label: "조건·가정", keys: ["premise", "verify"] },
   { label: "순서·전환", keys: ["next"] },
 ];
-
-/* supports/executes/verify는 "따라서"류와 달리 그 자체가 서술어라, 접속어처럼
-   앞에 붙이면 "뒷받침한다 X"처럼 말이 거꾸로 이어진다. 이 세 개만 메모를
-   먼저 두고 서술어를 뒤에 붙여 "X 뒷받침한다"로 자연스럽게 읽히게 한다. */
-const TRAILING_LINK_TYPES = new Set(["supports", "executes", "verify"]);
 
 const REJECTION_REASONS = ["근거 부족", "타깃 부적합", "전략 방향과 불일치", "예산 초과", "일정상 불가능", "중복", "법무·심의 문제", "직접 입력"];
 
@@ -1590,7 +1585,7 @@ export default function CampaignStrategyOS() {
                                   <input value={linkDraft.note} onChange={(event) => setLinkDraft((prev) => ({ ...prev, note: event.target.value }))} placeholder="설명" className="min-w-0 flex-1 text-xs rounded border border-neutral-200 p-1" />
                                   <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-xs shrink-0">추가</button>
                                 </div>
-                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500">{TRAILING_LINK_TYPES.has(link.type) ? <><span className="truncate">{link.note}</span><b className="shrink-0">{LINK_TYPES[link.type]}</b></> : <><b className="shrink-0">{LINK_TYPES[link.type]}</b><span className="truncate">{link.note}</span></>}<button onClick={() => patchCard(card.id, { links: card.links.filter((item) => item.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>)}</div>}
+                                {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">{link.note}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item) => item.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>)}</div>}
                               </div>
                               {card.role === "activity" && <div className="rounded-xl border border-indigo-200 bg-indigo-50/70 p-3 space-y-2">
                                 <div><p className="text-[10px] font-bold text-indigo-800">활동 연결 정보</p><p className="text-[9px] text-indigo-600 mt-0.5">담당자와 일정이 아니라, 이 활동이 왜 필요한지와 다음 행동을 적습니다.</p></div>
@@ -1621,7 +1616,7 @@ export default function CampaignStrategyOS() {
                               className="min-h-[176px] flex flex-col cursor-pointer"
                             >
                               <div className="min-h-12 flex items-start gap-1.5"><p className="flex-1 text-sm font-semibold leading-snug">{card.title || <span className="text-neutral-300">제목 없음</span>}</p><button onClick={(event) => { event.stopPropagation(); patchCard(card.id, { includeInBrief: !isBriefIncluded(card) }); }} aria-label={isBriefIncluded(card) ? "브리프에서 제외" : "브리프에 포함"} aria-pressed={isBriefIncluded(card)} title={isBriefIncluded(card) ? "브리프에 포함됨" : "브리프에 포함"} className={`shrink-0 inline-flex items-center gap-1 rounded-lg border px-2 py-1 text-[10px] font-bold ${isBriefIncluded(card) ? "bg-teal-800 border-teal-800 text-white shadow-sm" : "bg-white/80 border-neutral-300 text-neutral-600 hover:border-teal-700 hover:text-teal-800"}`}><Bookmark size={14} className={isBriefIncluded(card) ? "fill-current" : ""} /> 브리프</button><span className={`text-[9px] rounded-full border px-1.5 py-0.5 ${STATUSES[card.status]?.badge}`}>{STATUSES[card.status]?.label}</span></div>
-                              {!!card.links?.length && <div className="mt-1 space-y-0.5">{card.links.map((link) => <p key={link.id} className="text-sm text-teal-800 leading-snug">{TRAILING_LINK_TYPES.has(link.type) ? <>{link.note} <b>{LINK_TYPES[link.type]}</b></> : <><b>{LINK_TYPES[link.type]}</b> {link.note}</>}</p>)}</div>}
+                              {!!card.links?.length && <div className="mt-1 space-y-0.5">{card.links.map((link) => <p key={link.id} className="text-sm text-teal-800 leading-snug"><b>{LINK_TYPES[link.type]}</b> {link.note}</p>)}</div>}
                               <div className="flex-1">{card.content && <p className="text-sm text-neutral-500 leading-relaxed mt-1.5 line-clamp-5 whitespace-pre-wrap">{card.content}</p>}
                               {card.evidence && <p className="text-xs text-teal-800 bg-teal-50 rounded px-2 py-1 mt-1.5 line-clamp-2">근거: {card.evidence}</p>}
                               {card.role === "activity" && (card.nextAction || card.successSignal) && <div className="mt-1.5 rounded-lg bg-indigo-50 px-2 py-1.5 text-xs text-indigo-800 space-y-0.5">{card.nextAction && <p><b>다음 행동</b> · {card.nextAction}</p>}{card.successSignal && <p><b>성공 신호</b> · {card.successSignal}</p>}</div>}
@@ -1660,7 +1655,7 @@ export default function CampaignStrategyOS() {
             <div className="p-5 border-b border-neutral-200"><h3 className="font-bold">전략에서 실행까지</h3><p className="text-xs text-neutral-500 mt-1">활동 카드를 기준으로 연결된 전략, 맡은 역할, 다음 행동, 성공 신호를 한 줄로 확인합니다.</p></div>
             {logicReview.activityChains.length ? <div className="divide-y divide-neutral-100">{logicReview.activityChains.map(({ card }) => <button key={card.id} onClick={() => { setView("board"); setEditingCard(card.id); }} className="w-full text-left p-5 hover:bg-stone-50">
               <div className="grid md:grid-cols-[1.2fr_1fr_1.2fr_1.2fr] gap-3 items-stretch">
-                <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">논리 관계</p>{card.links?.length ? <div className="mt-auto pt-2 space-y-1">{card.links.map((link) => <p key={link.id} className="text-xs text-teal-800">{TRAILING_LINK_TYPES.has(link.type) ? <>{link.note ? `${link.note} ` : ""}<b>{LINK_TYPES[link.type]}</b></> : <><b>{LINK_TYPES[link.type]}</b>{link.note ? ` ${link.note}` : ""}</>}</p>)}</div> : <p className="text-xs text-amber-700 mt-auto pt-2">논리 관계를 남겨 주세요.</p>}</div>
+                <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">논리 관계</p>{card.links?.length ? <div className="mt-auto pt-2 space-y-1">{card.links.map((link) => <p key={link.id} className="text-xs text-teal-800"><b>{LINK_TYPES[link.type]}</b>{link.note ? ` ${link.note}` : ""}</p>)}</div> : <p className="text-xs text-amber-700 mt-auto pt-2">논리 관계를 남겨 주세요.</p>}</div>
                 <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">활동</p><div className="mt-auto pt-2"><p className="text-sm font-semibold">{card.title || "제목 없음"}</p><p className="text-[10px] text-indigo-700 mt-1">{activityPurposeLabel(card.activityPurpose)}{card.activityMethod ? ` · ${activityMethodLabel(card.activityMethod)}` : ""}</p></div></div>
                 <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">다음 행동</p><p className={`text-xs mt-auto pt-2 leading-relaxed ${card.nextAction ? "text-neutral-700" : "text-amber-700"}`}>{card.nextAction || "다음 행동을 적어주세요."}</p></div>
                 <div className="min-h-32 rounded-xl bg-stone-50 border border-neutral-100 p-3 flex flex-col"><p className="text-[9px] font-bold tracking-wider text-neutral-400">성공 신호</p><p className={`text-xs mt-auto pt-2 leading-relaxed ${card.successSignal ? "text-neutral-700" : "text-amber-700"}`}>{card.successSignal || "판단할 신호를 적어주세요."}</p></div>
@@ -1735,7 +1730,7 @@ export default function CampaignStrategyOS() {
                                     <input value={linkDraft.note} onChange={(event) => setLinkDraft((prev) => ({ ...prev, note: event.target.value }))} placeholder="설명" className="min-w-0 flex-1 text-xs rounded border border-neutral-200 p-1" />
                                     <button onClick={() => addRelation(card.id)} className="px-2 rounded bg-neutral-900 text-white text-xs shrink-0">추가</button>
                                   </div>
-                                  {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500">{TRAILING_LINK_TYPES.has(link.type) ? <><span className="truncate">{link.note}</span><b className="shrink-0">{LINK_TYPES[link.type]}</b></> : <><b className="shrink-0">{LINK_TYPES[link.type]}</b><span className="truncate">{link.note}</span></>}<button onClick={() => patchCard(card.id, { links: card.links.filter((item2) => item2.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>)}</div>}
+                                  {!!card.links?.length && <div className="mt-2 space-y-1">{card.links.map((link) => <div key={link.id} className="flex items-center gap-1 text-xs text-neutral-500"><b>{LINK_TYPES[link.type]}</b><span className="truncate">{link.note}</span><button onClick={() => patchCard(card.id, { links: card.links.filter((item2) => item2.id !== link.id) })} className="ml-auto text-neutral-300"><X size={10} /></button></div>)}</div>}
                                 </div>
                                 <div className="flex items-center gap-1.5">
                                   <select aria-label="카드 상태" value={card.status} onChange={(event) => patchCard(card.id, { status: event.target.value, rejectionReason: event.target.value === "rejected" ? card.rejectionReason : "" })} className="text-xs rounded border border-neutral-200 bg-white p-1.5 outline-none">{Object.entries(STATUSES).map(([key, statusItem]) => <option key={key} value={key}>{statusItem.label}</option>)}</select>
@@ -1754,7 +1749,7 @@ export default function CampaignStrategyOS() {
                                 {showEvidence && card.evidence && <p className="text-xs text-teal-800 mt-1.5 rounded bg-teal-50 px-2 py-1.5">근거: {card.evidence}</p>}
                                 {view === "strategy" && card.decisionReason && <p className="text-xs text-amber-700 mt-1.5">선택 이유: {card.decisionReason}</p>}
                                 {view === "strategy" && card.rejectionReason && <p className="text-xs text-rose-700 mt-1.5">제외 이유: {card.rejectionReason}</p>}
-                                {!!card.links?.length && <div className="mt-2 text-sm text-neutral-600 space-y-0.5">{card.links.map((link) => <p key={link.id}>{TRAILING_LINK_TYPES.has(link.type) ? <>{link.note} <b>{LINK_TYPES[link.type]}</b></> : <><b>{LINK_TYPES[link.type]}</b> {link.note}</>}</p>)}</div>}
+                                {!!card.links?.length && <div className="mt-2 text-sm text-neutral-600 space-y-0.5">{card.links.map((link) => <p key={link.id}><b>{LINK_TYPES[link.type]}</b> {link.note}</p>)}</div>}
                               </div>
                             )}
                           </div>
