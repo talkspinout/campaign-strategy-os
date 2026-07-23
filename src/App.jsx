@@ -269,6 +269,7 @@ const EXAMPLES = [
     templateId: "quick",
     title: "B2B 설계 서비스 런칭 브리프 사례",
     target: "도입 비용과 학습 부담을 낮추려는 설계 실무자와 예비 사용자",
+    goal: "제품 인지를 넘어 가입·사용까지 이어지는 초기 수요를 확보한다",
     desc: "제품 이해에서 사이트 탐색, 이벤트 참여, 가입·사용으로 이어지는 런칭 제안의 핵심 구조",
     cards: [
       ["goal", "decision", "인지에서 가입·사용까지 이어지는 초기 수요 신호 확보", "제품 인지만 따로 보지 않고 브랜드명 검색과 사이트 유입을 선행 신호로, 이벤트 참여와 가입·사용을 결과 신호로 구분한다.", "selected"],
@@ -286,6 +287,7 @@ const EXAMPLES = [
     templateId: "authorFlow",
     title: "캐릭터 세계관 강화 전략 사례",
     target: "캐릭터의 설정을 해석하고 현실 경험으로 확장하는 Z·알파세대 팬",
+    goal: "세계관 소비를 현실 경험 참여로 확장해 팬 관계를 강화한다",
     desc: "디지털 세대의 세계관 소비 행동을 세 단계 콘텐츠·경험 구조로 발전시킨 제안",
     cards: [
       ["situation", "observation", "팬은 세계관을 분석하고 몰입하며 현실에 적용한다", "설정과 서사를 해석하는 데서 끝나지 않고 캐릭터의 행동과 공간을 현실 경험으로 옮기며 관계를 강화한다.", "selected"],
@@ -307,6 +309,7 @@ const EXAMPLES = [
     templateId: "serviceGrowth",
     title: "생활 서비스 성장 · 반복 사용 전략 사례",
     target: "하나의 생활 앱보다 여러 서비스를 조합해 쓰는 20~30대 사용자",
+    goal: "가입 이후 반복 사용으로 이어지는 습관을 만든다",
     desc: "제품 기능을 사용자 습관과 리텐션 가설로 연결하는 작성 형식 예시",
     cards: [
       ["opportunity", "observation", "기본 메신저만으로 채워지지 않는 생활 동선", "사용자는 콘텐츠 공유, 자료 보관, 관심사 모임을 위해 여러 서비스를 함께 쓴다는 관찰에서 시작한다.", "selected"],
@@ -325,6 +328,7 @@ const EXAMPLES = [
     templateId: "campaignPlan",
     title: "오피스 가구 브랜드 런칭 실행 사례",
     target: "업무 공간을 새로 구성하며 브랜드와 제품 정보를 함께 탐색하는 구매자",
+    goal: "런칭 초기 인지에서 구매 검토까지 이어지는 전환 경로를 만든다",
     desc: "인지 도달, 리뷰·검색, 비교·구매 역할을 매체와 콘텐츠로 나눈 런칭 제안",
     cards: [
       ["goal", "decision", "브랜드 인지와 제품 장점 이해를 함께 만든다", "노출만 확보하지 않고 브랜드 검색, 제품 정보 탐색과 구매 검토로 이어지는 선행 행동을 확인한다.", "selected", "", { explicitLinks: [{ type: "executes", note: "'인지 도달 → 리뷰·검색 → 비교·구매 검토' 활동으로 구현" }] }],
@@ -343,6 +347,7 @@ const EXAMPLES = [
     templateId: "contentPlan",
     title: "F&B 브랜드 SNS 재정비 사례",
     target: "익숙한 메뉴를 소비하지만 브랜드 채널을 계속 볼 이유는 아직 약한 모바일 사용자",
+    goal: "브랜드다운 채널 인상을 만들어 저장·참여·구매 검토로 이어지게 한다",
     desc: "콘텐츠 물량보다 브랜드다운 시각·이야기·포맷을 먼저 정하고 저장·참여·구매 검토로 연결한 운영안",
     cards: [
       ["objective", "decision", "많이 발행하는 채널에서 기억할 이유가 있는 채널로 전환", "도달량만 늘리지 않고 브랜드를 떠올리게 하는 시각 신호, 반복해서 기대할 시리즈, 메뉴 탐색 행동을 함께 만든다.", "selected", "", { explicitLinks: [{ type: "executes", note: "'대표안 · 한 잔이 완성되는 과정을 따라가는 미니 V-log' 활동으로 구현" }] }],
@@ -362,6 +367,7 @@ const EXAMPLES = [
     templateId: "positioning",
     title: "라이프스타일 슈퍼앱 포지셔닝 전략 사례",
     target: "가족과의 소통과 개인 습관 관리를 하나의 앱으로 원하는 2030 사용자",
+    goal: "메신저가 채우지 못하는 영역에서 생활 슈퍼앱으로 자리잡는다",
     desc: "메신저 시장을 지배하는 앱과 정면으로 겨루는 대신, 그 앱이 채우지 못하는 개인 습관·가족 소통 영역에서 슈퍼앱 포지션을 노린 가상 사례",
     cards: [
       ["market", "observation", "1위 메신저는 커뮤니케이션을 장악했지만 슈퍼앱 확장은 아직 제한적이다", "결제·콘텐츠 등으로 사업을 넓혔지만 이는 메신저 자체의 역량이라기보다 자본을 이용한 확장에 가깝다. 사용자는 여전히 평균 2개 이상의 메신저·소통 앱을 병행해서 쓴다.", "selected"],
@@ -380,6 +386,7 @@ const EXAMPLES = [
     templateId: "crmPlan",
     title: "B2B SaaS 트라이얼 전환 CRM 로드맵 사례",
     target: "무료 체험 이후 결제 여부를 아직 정하지 못한 협업 툴 트라이얼 사용자",
+    goal: "트라이얼 사용자의 유료 전환율을 높인다",
     desc: "가입 후 초기 설정 성공 여부로 고객을 나누고, 트라이얼 종료 시점까지 단계별 메시지와 리워드로 유료 전환을 유도한 CRM 로드맵 예시",
     cards: [
       ["behavior", "decision", "무료 체험 고객이 핵심 기능을 설정하고 첫 결과물을 만드는 것", "가입만으로는 부족하다. 데이터 연동이나 팀원 초대 같은 초기 설정을 마치고 첫 결과물을 만들어보는 행동을 목표 행동으로 정한다.", "selected", "", { explicitLinks: [{ type: "executes", note: "'설정 성공/실패 기준으로 트라이얼 고객을 둘로 나눈다', 'D-7·D-day 2단계 메시지로 트라이얼 종료를 준비시킨다' 활동으로 구현" }] }],
@@ -397,6 +404,7 @@ const EXAMPLES = [
     templateId: "ogilvy",
     title: "스킨케어 브랜드 신뢰 회복 브리프 사례",
     target: "성분 과장 광고에 지쳐 스킨케어 구매를 주저하는 20~30대",
+    goal: "근거 중심 커뮤니케이션으로 브랜드 신뢰를 회복한다",
     desc: "성분 신뢰가 흔들린 카테고리에서, 근거 중심 메시지로 신뢰를 회복하려 한 오길비형 브리프 예시",
     cards: [
       ["background", "observation", "성분 과장 논란이 카테고리 전체의 신뢰를 무너뜨렸다", "경쟁 브랜드들의 과장 광고 논란이 이어지며, 어느 브랜드의 주장도 일단 의심받는 상황에서 출발한다.", "selected"],
@@ -414,6 +422,7 @@ const EXAMPLES = [
     templateId: "saatchi",
     title: "구독형 밀키트 재구매 유도 브리프 사례",
     target: "구독은 했지만 두세 번 받고 해지를 고민하는 사용자",
+    goal: "단일 제안으로 재구매 이유를 다시 세워 해지를 방어한다",
     desc: "편의성 때문에 가입했지만 반복되는 구성에 지친 구독자에게 단일 제안으로 재구매 이유를 다시 세운 사치&사치형 브리프 예시",
     cards: [
       ["requirement", "decision", "해지 방어가 목표, 과제는 '고민 해결' 가치의 재확인", "비즈니스 요구는 해지율을 낮추는 것. 커뮤니케이션 과제는 가입 이유였던 '매주 뭘 먹을지 고민하지 않아도 된다'를 다시 체감시키는 것이다.", "selected"],
@@ -430,6 +439,7 @@ const EXAMPLES = [
     templateId: "jwt",
     title: "중고 거래 플랫폼 신뢰 전환 T-Plan 사례",
     target: "안전 문제가 걱정돼 거래를 망설이는 잠재 사용자",
+    goal: "안전 인식을 개선해 신규 거래 전환을 늘린다",
     desc: "거래량은 늘었지만 안전 인식이 따라오지 못해 신규 전환이 정체된 상황을 T-Plan 구조로 점검한 예시",
     cards: [
       ["where", "observation", "거래량은 늘었지만 안전 불안이 신규 전환을 막는다", "이용자 수와 거래량은 성장 중인데, '사기당할까봐 불안하다'는 인식 때문에 지켜보기만 하는 잠재 사용자가 쌓여 있다.", "selected"],
@@ -446,6 +456,7 @@ const EXAMPLES = [
     templateId: "leo",
     title: "국산 커피 브랜드 이미지 전환 브리프 사례",
     target: "출근길엔 습관적으로 들르지만 약속 장소로는 다른 브랜드를 고르는 2030 직장인",
+    goal: "가격 경쟁력을 넘어 원두 경험으로 재방문 이유를 만든다",
     desc: "가격 경쟁력은 있지만 특별함이 없다는 인식에 머문 브랜드가 원두 경험으로 다시 찾을 이유를 만들려 한 레오버넷형 브리프 예시",
     cards: [
       ["why-ad", "observation", "'가성비뿐'이라는 인식이 성장을 멈춰 세웠다", "기존 가격 중심 커뮤니케이션으로는 해외 프랜차이즈 대비 '싸지만 특별하진 않다'는 인식을 바꾸지 못하고 있다.", "selected"],
@@ -598,6 +609,7 @@ const createProject = (templateId, title = "", author = "", target = "", example
     title: title.trim() || `새 ${templateLabel(template, author)}`,
     author: author.trim(),
     target: (example?.target || target).trim(),
+    goal: (example?.goal || "").trim(),
     typeId: template.typeId,
     templateId: template.id,
     templateName: templateLabel(template, author),
@@ -697,6 +709,7 @@ const normalizeCurrentProject = (data) => {
     title: asText(data.title, "가져온 프로젝트"),
     author: asText(data.author),
     target: asText(data.target),
+    goal: asText(data.goal),
     typeId: asText(data.typeId, template.typeId),
     templateId: asText(data.templateId, template.id),
     templateName: asText(data.templateName, templateLabel(template, asText(data.author))),
@@ -785,12 +798,6 @@ const buildLogicReview = (project) => {
      "이 카드가 스스로 이유를 밝혔는가"만 기계적으로 본다. */
   const hasStatedRelation = (card) => (card.links || []).length > 0;
   const emptySections = (project?.sections || []).filter((item) => item.prompt && !activeCards.some((card) => card.sectionId === item.id && meaningful(card)));
-  const activitiesWithoutStrategy = activityCards.filter((card) => !hasStatedRelation(card));
-  /* "대표안"(selected)까지 뽑은 전략인데 실행 계획을 하나도 남기지 않은
-     경우도 잡는다. 아직 "후보" 단계인 전략까지 요구하면 너무 이른 경고가
-     되므로 selected 상태만 대상으로 한다. */
-  const selectedDecisions = decisions.filter((card) => card.status === "selected");
-  const decisionsWithoutActivity = selectedDecisions.filter((card) => !hasStatedRelation(card));
   const incompleteActivities = activityCards.filter((card) => (
     !asText(card.activityPurpose).trim()
     || !asText(card.nextAction).trim()
@@ -828,13 +835,13 @@ const buildLogicReview = (project) => {
     checks: [
       {
         id: "direction",
-        label: "타깃과 목표 변화",
-        status: checkStatus(true, Boolean(asText(project?.target).trim()) && decisions.length > 0),
+        label: "타깃과 목표",
+        status: checkStatus(true, Boolean(asText(project?.target).trim()) && Boolean(asText(project?.goal).trim())),
         detail: !asText(project?.target).trim()
           ? "타깃이 비어 있습니다. 누구의 변화를 만들지 먼저 적어주세요."
-          : decisions.length === 0
-            ? "타깃은 있으나 선택한 목표·전략 카드가 없습니다."
-            : "타깃과 목표·전략 선택이 작성되어 있습니다.",
+          : !asText(project?.goal).trim()
+            ? "타깃은 있으나 캠페인 목표가 비어 있습니다."
+            : "타깃과 목표가 작성되어 있습니다.",
       },
       {
         id: "coverage",
@@ -856,17 +863,13 @@ const buildLogicReview = (project) => {
       },
       {
         id: "execution",
-        label: `${decisionLabel}와 ${activityLabel}의 연결`,
-        status: checkStatus(activityRelevant, activityCards.length > 0 && activitiesWithoutStrategy.length === 0 && decisionsWithoutActivity.length === 0),
+        label: `${activityLabel} 단계 작성`,
+        status: checkStatus(activityRelevant, activityCards.length > 0),
         detail: !activityRelevant
           ? "이 템플릿은 별도의 실행 활동 단계를 포함하지 않습니다. 활동 카드를 추가하면 이 점검이 활성화됩니다."
           : activityCards.length === 0
             ? "실행 역할을 가진 활동 카드가 아직 없습니다."
-            : activitiesWithoutStrategy.length
-              ? `전략과 연결되지 않은 활동: ${activitiesWithoutStrategy.map((card) => card.title || "제목 없음").join(", ")}`
-              : decisionsWithoutActivity.length
-                ? `실행 활동이 없는 대표안: ${decisionsWithoutActivity.map((card) => card.title || "제목 없음").join(", ")}`
-                : "모든 활동이 전략 선택과 연결되어 있고, 대표안마다 실행 계획이 있습니다.",
+            : "실행 단계가 작성되어 있습니다.",
       },
       {
         id: "journey",
@@ -1251,6 +1254,7 @@ export default function CampaignStrategyOS() {
   const docMarkdown = (briefOnly = false) => {
     let output = `# ${project.title}\n\n${project.templateName}${project.author ? ` · ${project.author}` : ""}\n\n`;
     output += `타깃: ${project.target || "-"}\n\n`;
+    output += `목표: ${project.goal || "-"}\n\n`;
     project.sections.forEach((item) => {
       const cards = cardsForSection(item.id).filter((card) => briefOnly ? isBriefIncluded(card) : true);
       if (!cards.length) return;
@@ -1416,7 +1420,6 @@ export default function CampaignStrategyOS() {
               <span className="shrink-0">·</span>
               <input aria-label="작성자 이름" value={project.author || ""} onChange={(event) => updateProject({ author: event.target.value })} placeholder="작성자 미입력" className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-neutral-300" />
             </div>
-            <input aria-label="핵심 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="block w-full bg-transparent text-[10px] text-neutral-500 placeholder:text-neutral-300 outline-none" />
           </div>
           <div className="lg:ml-auto flex items-center gap-1 bg-white border border-neutral-200 rounded-lg p-1 overflow-x-auto">
             {[["board", LayoutGrid, "작업 보드"], ["logic", Link2, "연결 점검"], ["strategy", FileText, "전략 정리"], ["brief", BookOpen, "최종 브리프"]].map(([key, Icon, label]) => (
@@ -1452,6 +1455,10 @@ export default function CampaignStrategyOS() {
             <div className="flex-1 min-w-[260px]">
               <div className="flex items-center gap-2"><span className="text-xs font-bold text-teal-800">{project.templateName}</span><span className="text-[10px] rounded-full bg-white border border-neutral-200 px-2 py-0.5 text-neutral-500">{visibleCards.length}장 · 브리프 {briefCount}장</span></div>
               <p className="text-xs text-neutral-400 mt-1">{project.templateSource}</p>
+              <div className="mt-3 grid sm:grid-cols-2 gap-2 max-w-2xl">
+                <input aria-label="핵심 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 · 누구를 변화시키려 하나요?" className="text-sm rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:border-teal-700 placeholder:text-neutral-400" />
+                <input aria-label="캠페인 목표" value={project.goal || ""} onChange={(event) => updateProject({ goal: event.target.value })} placeholder="목표 · 최종적으로 무엇을 변화시키려 하나요?" className="text-sm rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:border-teal-700 placeholder:text-neutral-400" />
+              </div>
             </div>
             <button onClick={() => setShowPrompts((value) => !value)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs ${showPrompts ? "bg-teal-50 border-teal-200 text-teal-800" : "bg-white border-neutral-300 text-neutral-500"}`}><HelpCircle size={14} /> 질문 {showPrompts ? "숨기기" : "보기"}</button>
             {exampleForProject && <button onClick={() => setShowExampleHints((value) => !value)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs ${showExampleHints ? "bg-amber-50 border-amber-300 text-amber-800" : "bg-white border-neutral-300 text-neutral-500"}`}><Lightbulb size={14} /> 예시 힌트</button>}
@@ -1681,6 +1688,7 @@ export default function CampaignStrategyOS() {
             <h1 className="text-3xl font-bold mt-2">{project.title}</h1>
             {project.author && <p className="text-sm text-neutral-500 mt-2">{project.author}</p>}
             <p className="text-sm text-neutral-500 mt-1">타깃: {project.target || "-"}</p>
+            <p className="text-sm text-neutral-500 mt-1">목표: {project.goal || "-"}</p>
 
             <div className="mt-10 space-y-8">
               {project.sections.map((item, index) => {

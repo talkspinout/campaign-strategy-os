@@ -160,7 +160,31 @@ try {
   const quickWithRejectedActivity = { ...quickWithActivity, cards: [{ ...activityCard, status: "rejected" }] };
   assert.equal(checkStatus(quickWithRejectedActivity, "execution"), "not-applicable", "활동 카드를 제외하면 활성 카드 기준으로 다시 해당없음이어야 합니다.");
 
-  console.log("데이터 검증 통과: 템플릿, 활동 구조, 템플릿당 예시 1개(제외안 포함·점검 경고 없음), 논리 연결 3상태, v2 마이그레이션, 미상 섹션 카드 복구");
+  // 캠페인 목표 필드 — 타깃과 목표가 프로젝트 레벨 필드로 저장되고, 옛 저장
+  // 파일(goal 필드 없음)을 불러와도 빈 문자열로 안전하게 채워져야 한다.
+  const goalExample = EXAMPLES.find(({ id }) => id === "proposal-software-launch");
+  const projectWithGoal = createProject("quick", "목표 필드 테스트", "", "타깃 텍스트", goalExample);
+  assert.equal(projectWithGoal.goal, goalExample.goal, "예시로 시작한 프로젝트는 예시의 goal 값을 그대로 가져와야 합니다.");
+  const legacyWithoutGoal = normalizeImported({ ...projectWithGoal, goal: undefined });
+  assert.equal(legacyWithoutGoal.goal, "", "goal 필드가 없는 옛 저장 파일도 빈 문자열로 정상 로드되어야 합니다.");
+
+  // "타깃과 목표" 점검 — 판단 카드 존재가 아니라 타깃·목표 필드가 실제로
+  // 채워졌는지만 본다. 카드가 하나도 없어도 두 필드만 채우면 통과해야 한다.
+  const directionCheck = (project) => buildLogicReview(project).checks.find((item) => item.id === "direction");
+  const noTargetNoGoal = createProject("quick", "방향 점검 테스트", "", "");
+  assert.equal(directionCheck(noTargetNoGoal).status, "needs-review", "타깃·목표가 모두 비어 있으면 확인 필요여야 합니다.");
+  const targetOnlyProject = { ...noTargetNoGoal, target: "타깃만 채움" };
+  assert.equal(directionCheck(targetOnlyProject).status, "needs-review", "타깃만 있고 목표가 비어 있으면 여전히 확인 필요여야 합니다.");
+  const targetAndGoalProject = { ...noTargetNoGoal, target: "타깃 채움", goal: "목표 채움" };
+  assert.equal(directionCheck(targetAndGoalProject).status, "connected", "타깃과 목표를 모두 채우면 판단 카드 없이도 연결됨이어야 합니다.");
+
+  // "활동 단계 작성" 점검 — 활동 카드가 판단 카드나 다른 활동 카드와 실제로
+  // 연결됐는지는 더 이상 보지 않는다. 활동 역할 카드가 존재하기만 하면
+  // 논리 관계(links) 유무와 무관하게 통과해야 한다.
+  const activityWithoutRelation = { ...createProject("authorFlow", "활동 점검 테스트", "", ""), cards: [{ ...activityCard, links: [] }] };
+  assert.equal(checkStatus(activityWithoutRelation, "execution"), "connected", "활동 카드에 논리 관계가 없어도 활동 카드가 존재하면 실행 단계 점검은 통과해야 합니다.");
+
+  console.log("데이터 검증 통과: 템플릿, 활동 구조, 템플릿당 예시 1개(제외안 포함·점검 경고 없음), 논리 연결 3상태, v2 마이그레이션, 미상 섹션 카드 복구, 캠페인 목표 필드, 타깃·목표/활동 단계 점검 로직");
 } finally {
   await server.close();
 }
