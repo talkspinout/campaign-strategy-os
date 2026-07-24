@@ -1,35 +1,55 @@
 Copyright (c) 2026 Hongseok Ko (talkspinout). All rights reserved.
 
-이 저장소의 소스 코드와 콘텐츠(기획 구조, 질문 문항, 템플릿 설계, 예시
-포함)는 저작권자 홍석(talkspinout)에게 저작권이 있습니다.
+독점적 저작권 고지
 
-다음 행위는 저작권자의 사전 서면 동의 없이 금지됩니다.
+이 저장소에 포함된 저작권자 소유의 소스 코드, 문서, 디자인, 기획 구조,
+질문 문항, 템플릿, 예시 및 기타 콘텐츠에는 별도의 명시적 허가가 없는 한
+어떠한 사용 권한도 부여되지 않습니다.
 
-- 상업적 목적의 복제, 재배포, 판매
-- 이 저장소의 기획 구조·질문 문항·템플릿을 그대로 또는 변형하여
-  다른 제품·서비스·콘텐츠(유료 판매물 포함)에 사용하는 행위
+공개 저장소는 GitHub에서 평가 및 참고 목적으로 열람할 수 있을 뿐입니다.
+저작권자의 사전 서면 허가 없이 다음 행위를 포함한 어떠한 이용도 할 수
+없습니다.
 
-포트폴리오 열람, 개인적·비상업적 참고 목적의 열람은 허용됩니다.
-상업적 이용이나 재배포, 파생물 제작을 원할 경우 저작권자에게 별도로
-문의해 서면 허가를 받아야 합니다.
+- 소프트웨어 또는 콘텐츠의 실행이나 업무·개인 프로젝트에서의 사용
+- 전부 또는 일부의 복제, 수정, 번역, 배포, 재게시 또는 재판매
+- 다른 제품, 서비스, 데이터셋, 템플릿 또는 파생물에 포함하는 행위
+- 상업적 또는 비상업적 목적으로 제3자에게 제공하는 행위
+
+비공개 저장소에 대한 접근 권한 역시 소스 코드나 콘텐츠의 사용 권한을
+의미하지 않습니다. 이용을 원할 경우 저작권자에게 사전 서면 허가를
+받아야 합니다.
+
+저장소에 포함되거나 참조된 제3자 소프트웨어, 글꼴, 아이콘 및 기타
+자산에는 각각의 권리자가 정한 라이선스가 적용됩니다. 이 고지는 해당
+제3자 라이선스가 허용하는 권리를 제한하지 않습니다.
+
+이용 허가 문의: think2brief@gmail.com
 
 ---
 
-Copyright (c) 2026 Hongseok Ko (talkspinout). All rights reserved.
+PROPRIETARY — PERMISSION REQUIRED
 
-The source code and content of this repository (including its
-planning structure, question sets, template design, and examples)
-are copyrighted by Hongseok Ko (talkspinout).
+Except where separate permission is expressly stated, no license is granted to
+use the copyright holder's source code, documentation, designs, planning
+structures, question sets, templates, examples, or other original content in
+this repository.
 
-Without prior written permission from the copyright holder, you may
-not:
+A publicly accessible repository may be viewed on GitHub solely for evaluation
+and reference. Without prior written permission from the copyright holder, you
+may not:
 
-- Copy, redistribute, or sell this work, in whole or in part, for
-  commercial purposes
-- Use this repository's planning structure, question sets, or
-  templates — as-is or modified — in another product, service, or
-  paid offering
+- Run or use the software or content in personal or professional work
+- Copy, modify, translate, distribute, republish, or sell it, in whole or in part
+- Incorporate it into another product, service, dataset, template, or derivative
+  work
+- Provide it to another party for commercial or non-commercial use
 
-Viewing for portfolio reference or personal, non-commercial purposes
-is permitted. For commercial use, redistribution, or derivative
-works, please contact the copyright holder for written permission.
+Access to a private repository does not itself grant a license to use its source
+code or content. Any use requires prior written permission from the copyright
+holder.
+
+Third-party software, fonts, icons, and other assets included or referenced in
+the repository remain subject to their respective licenses. Nothing in this
+notice restricts rights granted by those third-party licenses.
+
+Permission requests: think2brief@gmail.com
