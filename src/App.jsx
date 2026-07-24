@@ -1456,8 +1456,14 @@ export default function CampaignStrategyOS() {
               <div className="flex items-center gap-2"><span className="text-xs font-bold text-teal-800">{project.templateName}</span><span className="text-[10px] rounded-full bg-white border border-neutral-200 px-2 py-0.5 text-neutral-500">{visibleCards.length}장 · 브리프 {briefCount}장</span></div>
               <p className="text-xs text-neutral-400 mt-1">{project.templateSource}</p>
               <div className="mt-3 grid sm:grid-cols-2 gap-2 max-w-2xl">
-                <input aria-label="핵심 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 · 누구를 변화시키려 하나요?" className="text-sm rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:border-teal-700 placeholder:text-neutral-400" />
-                <input aria-label="캠페인 목표" value={project.goal || ""} onChange={(event) => updateProject({ goal: event.target.value })} placeholder="목표 · 최종적으로 무엇을 변화시키려 하나요?" className="text-sm rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:border-teal-700 placeholder:text-neutral-400" />
+                <div>
+                  <label className="block text-[10px] font-bold text-neutral-500 tracking-wide mb-1">타깃</label>
+                  <input aria-label="핵심 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="w-full text-sm rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:border-teal-700 placeholder:text-neutral-400" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-neutral-500 tracking-wide mb-1">목표</label>
+                  <input aria-label="캠페인 목표" value={project.goal || ""} onChange={(event) => updateProject({ goal: event.target.value })} placeholder="목표 미입력" className="w-full text-sm rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:border-teal-700 placeholder:text-neutral-400" />
+                </div>
               </div>
             </div>
             <button onClick={() => setShowPrompts((value) => !value)} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs ${showPrompts ? "bg-teal-50 border-teal-200 text-teal-800" : "bg-white border-neutral-300 text-neutral-500"}`}><HelpCircle size={14} /> 질문 {showPrompts ? "숨기기" : "보기"}</button>
@@ -1685,10 +1691,18 @@ export default function CampaignStrategyOS() {
 
           <article className="rounded-2xl bg-white border border-neutral-200 p-7 sm:p-10 shadow-sm print:border-0 print:shadow-none">
             <p className="text-[10px] tracking-[0.18em] text-teal-800 font-bold">{view === "strategy" ? "STRATEGY REVIEW" : "FINAL BRIEF"}</p>
-            <h1 className="text-3xl font-bold mt-2">{project.title}</h1>
-            {project.author && <p className="text-sm text-neutral-500 mt-2">{project.author}</p>}
-            <p className="text-sm text-neutral-500 mt-1">타깃: {project.target || "-"}</p>
-            <p className="text-sm text-neutral-500 mt-1">목표: {project.goal || "-"}</p>
+            <input aria-label="프로젝트 제목" value={project.title} onChange={(event) => updateProject({ title: event.target.value })} className="w-full text-3xl font-bold mt-2 bg-transparent outline-none" />
+            <input aria-label="작성자 이름" value={project.author || ""} onChange={(event) => updateProject({ author: event.target.value })} placeholder="작성자 미입력" className="w-full text-sm text-neutral-500 mt-2 bg-transparent outline-none placeholder:text-neutral-300" />
+            <div className="mt-3 grid sm:grid-cols-2 gap-3 max-w-xl">
+              <div>
+                <label className="block text-[10px] font-bold text-neutral-400 tracking-wide mb-0.5">타깃</label>
+                <input aria-label="핵심 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="w-full text-sm text-neutral-600 bg-transparent outline-none placeholder:text-neutral-300" />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-neutral-400 tracking-wide mb-0.5">목표</label>
+                <input aria-label="캠페인 목표" value={project.goal || ""} onChange={(event) => updateProject({ goal: event.target.value })} placeholder="목표 미입력" className="w-full text-sm text-neutral-600 bg-transparent outline-none placeholder:text-neutral-300" />
+              </div>
+            </div>
 
             <div className="mt-10 space-y-8">
               {project.sections.map((item, index) => {
